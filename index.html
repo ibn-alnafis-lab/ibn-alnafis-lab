@@ -2381,14 +2381,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
       <p>ابحث باسم الفحص بالعربية أو بالرمز الإنجليزي، واضغط على (+ إضافة) لإضافة الفحوصات إلى المختارات وحساب التكلفة</p>
     </div>
 
-    <div class="search-box-wrap">
-      <div class="search-input-row">
-        <input type="text" id="testSearch" class="search-input" placeholder="🔍 ابحث عن الفحص بالعربي أو English (مثل: سكر، فيتامين د، CBC، Ferritin، H. pylori)..." />
-      </div>
-      <div class="search-shortcuts" aria-label="بحث سريع">
-        <button type="button" data-search-shortcut="CBC">CBC</button><button type="button" data-search-shortcut="Ferritin">Ferritin</button><button type="button" data-search-shortcut="TSH">TSH</button><button type="button" data-search-shortcut="Vitamin D">Vitamin D</button><button type="button" data-search-shortcut="HbA1c">HbA1c</button><button type="button" class="search-clear-btn" id="searchClearBtn">مسح البحث ✕</button>
-      </div>
-      <div class="filter-bar" id="testCatFilters" style="margin-bottom: 0;">
+    <div class="filter-bar" id="testCatFilters" style="margin-bottom: 14px;">
         <button type="button" class="filter-btn active" data-action="filter-test-cat" data-cat="الكل">الكل (112)</button>
         <button type="button" class="filter-btn" data-action="filter-test-cat" data-cat="الفحوصات العامة والأساسية">الفحوصات العامة والأساسية</button>
         <button type="button" class="filter-btn" data-action="filter-test-cat" data-cat="الفيتامينات والمعادن">الفيتامينات والمعادن</button>
@@ -2399,6 +2392,12 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
         <button type="button" class="filter-btn" data-action="filter-test-cat" data-cat="الهرمونات والغدد">الهرمونات والغدد</button>
         <button type="button" class="filter-btn" data-action="filter-test-cat" data-cat="الروماتزم والمناعة والفيروسات">الروماتزم والمناعة والفيروسات</button>
         <button type="button" class="filter-btn" data-action="filter-test-cat" data-cat="الأورام والبروستات">الأورام والبروستات</button>
+      </div>
+    </div>
+
+    <div class="search-box-wrap">
+      <div class="search-input-row">
+        <input type="text" id="testSearch" class="search-input" placeholder="🔍 ابحث عن الفحص بالعربي أو English (مثل: سكر، فيتامين د، CBC، Ferritin، H. pylori)..." />
       </div>
     </div>
 
@@ -4112,6 +4111,27 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
   function filterTests() {
     var searchInput = document.getElementById("testSearch");
     var q = searchInput ? normalizeSearchText(searchInput.value) : "";
+    var searchWrap = document.querySelector(".search-box-wrap");
+    var inputRow = document.querySelector(".search-input-row");
+    var filterBar = document.getElementById("testCatFilters");
+    var stats = document.querySelector(".tests-stats");
+    var grid = document.getElementById("testsGrid");
+    // أثناء البحث: أظهر النتائج مباشرة تحت مربع البحث وأخفِ التصنيفات والإحصاءات.
+    if (grid && searchWrap && inputRow && filterBar && stats) {
+      if (!grid._originalPlace) {
+        grid._originalPlace = document.createComment("original tests grid position");
+        grid.parentNode.insertBefore(grid._originalPlace, grid);
+      }
+      if (q) {
+        filterBar.style.display = "none";
+        stats.style.display = "none";
+        inputRow.insertAdjacentElement("afterend", grid);
+      } else {
+        filterBar.style.display = "";
+        stats.style.display = "";
+        if (grid._originalPlace.parentNode) grid._originalPlace.parentNode.insertBefore(grid, grid._originalPlace);
+      }
+    }
     var cards = document.querySelectorAll("#testsGrid .test-item");
     var visibleCount = 0;
 
@@ -4607,9 +4627,6 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
   }
 
 
-  // Search shortcuts and clear control
-  document.querySelectorAll('[data-search-shortcut]').forEach(function(btn){btn.addEventListener('click',function(){var input=document.getElementById('testSearch');if(input){input.value=btn.getAttribute('data-search-shortcut');input.dispatchEvent(new Event('input',{bubbles:true}));document.getElementById('tests').scrollIntoView({behavior:'smooth'});input.focus();}});});
-  var clearSearchBtn=document.getElementById('searchClearBtn');if(clearSearchBtn)clearSearchBtn.addEventListener('click',function(){var input=document.getElementById('testSearch');if(input){input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();}});
 
   var searchEl = document.getElementById("testSearch");
   if (searchEl) searchEl.addEventListener("input", filterTests);
@@ -4882,6 +4899,65 @@ document.getElementById('labAdminExport').onclick=()=>{let blob=new Blob([JSON.s
 apply();
 })();
 </script>
+
+
+<style id="package-search-clean-layout">
+/* Compact package cards: name and price only until expanded */
+#packages .pkg-card .pkg-cat, #packages .pkg-card .pkg-count-badge {display:none!important}
+#packages .pkg-card .pkg-list, #packages .pkg-card .pkg-actions {display:none!important}
+#packages .pkg-card.pkg-expanded .pkg-list {display:block!important}
+#packages .pkg-card.pkg-expanded .pkg-actions {display:flex!important}
+#packages .pkg-card {cursor:pointer}
+#packagesGrid.pkg-searching .pkg-card.hidden-pkg {display:block!important}
+#packages .pkg-card .pkg-top {align-items:center; margin-bottom:0!important}
+#packages .pkg-card.pkg-expanded .pkg-top {margin-bottom:12px!important}
+#pkgSearchWrap {margin:0 auto 14px;max-width:900px}
+#pkgSearch {width:100%;box-sizing:border-box;padding:15px 18px;border:2px solid #9bbfd8;border-radius:18px;background:#fff;color:#173b57;font-size:17px;font-weight:700;outline:none}
+#pkgSearch:focus {border-color:#12649a;box-shadow:0 0 0 3px rgba(18,100,154,.13)}
+#pkgSearchHint {font-size:13px;color:#587286;margin:6px 4px}
+</style>
+<script id="package-search-and-expand">
+(function(){
+ function init(){
+  var section=document.getElementById('packages'), grid=document.getElementById('packagesGrid');
+  if(!section||!grid)return;
+  if(!document.getElementById('pkgSearchWrap')){
+   var wrap=document.createElement('div');wrap.id='pkgSearchWrap';
+   wrap.innerHTML='<input id="pkgSearch" type="search" autocomplete="off" placeholder="🔍 ابحث عن باقة بالاسم..." aria-label="البحث عن الباقات"><div id="pkgSearchHint">اضغط على الباقة لعرض التحاليل الموجودة داخلها</div>';
+   var filters=document.getElementById('pkgFilters');filters.parentNode.insertBefore(wrap,filters);
+  }
+  var inp=document.getElementById('pkgSearch');
+  function apply(){var q=(inp.value||'').trim().toLowerCase();grid.classList.toggle('pkg-searching',!!q);var cards=grid.querySelectorAll('.pkg-card');
+   cards.forEach(function(card){var title=card.querySelector('.pkg-title');var text=(title?title.textContent:'')+' '+card.textContent;var match=!q||text.toLowerCase().includes(q);card.style.display=match?'':'none';});
+   var filters=document.getElementById('pkgFilters');if(filters)filters.style.display=q?'none':'';
+  }
+  inp.addEventListener('input',apply);
+  grid.querySelectorAll('.pkg-card').forEach(function(card){
+   card.addEventListener('click',function(e){if(e.target.closest('button'))return;card.classList.toggle('pkg-expanded');});
+   card.setAttribute('aria-expanded','false');
+  });
+  grid.querySelectorAll('.pkg-card').forEach(function(card){var observer=new MutationObserver(function(){card.setAttribute('aria-expanded',card.classList.contains('pkg-expanded')?'true':'false');});observer.observe(card,{attributes:true,attributeFilter:['class']});});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
+
+<style id="package-compact-polish">
+#packages .pkg-card .pkg-count-badge{display:inline-flex!important;align-items:center;justify-content:center;margin:5px 0 8px;padding:5px 10px;border-radius:999px;background:#e8f4fb;color:#225d82;border:1px solid #c6deed;font-size:12px;font-weight:800}
+#packages .pkg-card .pkg-title{margin:4px 0 10px;line-height:1.45}
+#packages .pkg-card .pkg-price{white-space:nowrap;align-self:flex-start;font-size:1.05rem}
+#packages .pkg-card:not(.pkg-expanded) .pkg-top{display:flex;align-items:center;gap:12px}
+#packages .pkg-card:not(.pkg-expanded) .pkg-top>div:first-child{flex:1;min-width:0}
+#packages .pkg-card:not(.pkg-expanded) .pkg-title{font-size:1rem}
+#packages .pkg-card:not(.pkg-expanded){padding:15px 17px;position:relative}
+#packages .pkg-card.pkg-expanded{padding:18px}
+#packages .pkg-card.pkg-expanded .pkg-count-badge{margin-bottom:8px}
+#packages .pkg-card .pkg-list{padding-inline-start:24px;line-height:1.8}
+#packages .pkg-card:not(.pkg-expanded)::after{content:'عرض التحاليل  ▾';display:block;text-align:center;margin-top:10px;padding:8px;border-radius:12px;background:#eef7fb;color:#27617f;font-size:13px;font-weight:800}
+#packages .pkg-card.pkg-expanded::after{content:'إخفاء التحاليل  ▴';display:block;text-align:center;margin-top:10px;padding:8px;border-radius:12px;background:#eef7fb;color:#27617f;font-size:13px;font-weight:800}
+@media(max-width:600px){#packages .pkg-card:not(.pkg-expanded) .pkg-top{align-items:flex-start}#packages .pkg-card .pkg-price{font-size:.95rem;padding:8px 10px}#packages .pkg-card:not(.pkg-expanded) .pkg-title{font-size:.95rem}}
+</style>
 
 </body>
 </html>
