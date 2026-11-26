@@ -4452,28 +4452,34 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
     if (built.count === 0 && !(unlistedEl && unlistedEl.value.trim()) && attachedFiles.length === 0) { alert("يرجى اختيار فحص أو باقة، أو كتابة الفحص المطلوب، أو إرفاق صورة ورقة الفحص."); return; }
     var statusEl = document.getElementById("statusNote");
 
-    // If images are attached and mobile browser supports Web Share with files, offer sharing image + text
-    if (attachedFiles.length > 0 && navigator.canShare && navigator.canShare({ files: attachedFiles })) {
+    // Try native file sharing first. If unavailable or rejected, clearly alert the user
+    // before opening WhatsApp so they know the selected images did not travel with the text.
+    function notifyManualImageAttach() {
+      var notice = "تنبيه: الصور المختارة لم تُرفق تلقائيًا برسالة واتساب. بعد فتح المحادثة، اضغط على 📎 (المرفقات) ثم اختر الصور من جهازك وأرسلها مع نص الطلب.";
+      if (statusEl) statusEl.textContent = notice;
+      alert(notice);
+    }
+
+    if (attachedFiles.length > 0 && navigator.canShare && navigator.canShare({ files: attachedFiles }) && navigator.share) {
       navigator.share({
         files: attachedFiles,
         title: "طلب فحص مختبري - مختبر ابن النفيس",
         text: built.text
       }).then(function() {
-        if (statusEl) statusEl.textContent = "✓ تم فتح قائمة المشاركة. اختر واتساب وأكمل إرسال الصور مع تفاصيل الطلب.";
+        if (statusEl) statusEl.textContent = "✓ تمت مشاركة الملفات. إذا اخترت واتساب من قائمة المشاركة، تأكد من ظهور الصور قبل الإرسال.";
       }).catch(function() {
+        notifyManualImageAttach();
         openWhatsAppWithText(built.text);
-        if (statusEl) statusEl.textContent = "تم فتح واتساب مع نص الطلب. الصور لا تُرفق تلقائيًا في هذه الحالة؛ أرفق الصور المختارة يدويًا داخل المحادثة قبل الإرسال.";
       });
       return;
     }
 
+    if (attachedFiles.length > 0) {
+      notifyManualImageAttach();
+    }
     openWhatsAppWithText(built.text);
-    if (statusEl) {
-      if (attachedFiles.length > 0) {
-        statusEl.textContent = "تم فتح واتساب مع تفاصيل الطلب. يرجى إرفاق الصور المختارة داخل المحادثة قبل إرسال الرسالة.";
-      } else {
-        statusEl.textContent = "✓ تم تجهيز الطلب وفتح رابط واتساب للرقم 07747905954. الموعد غير مؤكد إلا بعد رد المختبر.";
-      }
+    if (statusEl && attachedFiles.length === 0) {
+      statusEl.textContent = "✓ تم تجهيز الطلب وفتح رابط واتساب للرقم 07747905954. الموعد غير مؤكد إلا بعد رد المختبر.";
     }
   }
 
@@ -4838,32 +4844,38 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
   syncAllUI();
   populateQuickTests();
   refreshPreview();
+  // Expose only the data helpers required by the separate local admin panel.
+  window.__labAdminData = { tests: testsData, packages: packagesData, formatNum: formatNum };
 })();
 </script>
 <style>
 #labAdminTrigger{position:fixed;bottom:120px;left:12px;z-index:998;opacity:.12;border:0;background:#123b63;color:#fff;border-radius:50%;width:38px;height:38px;font-size:18px}#labAdminTrigger:hover{opacity:.8}
 #labAdminOverlay{display:none;position:fixed;inset:0;background:#071426dd;z-index:10020;overflow:auto;padding:16px}#labAdminOverlay.show{display:block}.labAdminBox{max-width:900px;margin:20px auto;background:white;border-radius:18px;padding:18px;color:#18364d}.labAdminBox input,.labAdminBox textarea{width:100%;padding:9px;border:1px solid #ccd8e2;border-radius:9px;margin:5px 0 10px}.labAdminBox button{border:0;border-radius:9px;padding:10px 14px;background:#1269a8;color:white;font-weight:bold;margin:4px;cursor:pointer}.adminRow{border:1px solid #e1e8ee;border-radius:12px;padding:12px;margin:10px 0}.adminRow h4{margin:0 0 6px}.adminCols{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:600px){.adminCols{grid-template-columns:1fr}}
 </style>
-<button id="labAdminTrigger" title="إدارة الموقع">⚙</button><div id="labAdminOverlay"><div class="labAdminBox"><h2>لوحة إدارة مختبر ابن النفيس</h2><p>تعديلات محفوظة على هذا الجهاز/المتصفح فقط، ولا تُحدّث نسخة الموقع المنشورة تلقائياً.</p><div id="labAdminContent"></div><button id="labAdminSave">حفظ التعديلات</button><button id="labAdminExport">تصدير نسخة احتياطية</button><button id="labAdminClose">إغلاق</button></div></div>
+<button id="labAdminTrigger" title="إدارة الموقع">⚙</button><div id="labAdminOverlay"><div class="labAdminBox"><h2>لوحة إدارة مختبر ابن النفيس</h2><p>التعديلات محفوظة على هذا الجهاز/المتصفح فقط ولا تُحدّث الموقع المنشور. رمز الإدارة حماية محلية بسيطة وليس نظام صلاحيات آمن على الخادم.</p><div id="labAdminContent"></div><button id="labAdminSave">حفظ التعديلات</button><button id="labAdminExport">تصدير نسخة احتياطية</button><button id="labAdminClose">إغلاق</button></div></div>
 <script>
 (function(){
-const DEFAULT_PIN='2580'; let clicks=0;
+const adminData=window.__labAdminData||{};
+const testsData=adminData.tests||[],packagesData=adminData.packages||[],formatNum=adminData.formatNum||function(v){return Number(v).toLocaleString('en-US');};
+let clicks=0;
 const overlay=document.getElementById('labAdminOverlay'),content=document.getElementById('labAdminContent');
 const key='ibnAlnafisAdminOverrides_v1';
 let overrides={};try{overrides=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
 function apply(){
  (overrides.tests||{}).forEach?.(()=>{});
  if(overrides.tests)Object.keys(overrides.tests).forEach(id=>{let t=testsData.find(x=>x.id==id),c=document.getElementById('test-card-'+id);if(t){t.price=Number(overrides.tests[id]);if(c){let p=c.querySelector('.test-price');if(p)p.textContent=t.price===0?'مجاني':formatNum(t.price)+' د.ع';}}});
+ // Refresh quick-pick labels after applying price overrides so they never show stale prices.
+ const quickGroup=document.getElementById('quickTestsOptGroup');if(quickGroup){quickGroup.innerHTML=testsData.map(t=>{const label=t.price===0?'مجاني':formatNum(t.price)+' د.ع';return '<option value="test:'+t.id+'">'+esc(t.ar)+' ('+esc(t.en)+') - '+label+'</option>';}).join('');}
  if(overrides.packages)Object.keys(overrides.packages).forEach(id=>{let x=packagesData.find(a=>a.id==id),c=document.getElementById('pkg-card-'+id);if(x){x.price=overrides.packages[id].price;x.title=overrides.packages[id].title;if(c){let title=c.querySelector('.pkg-title'),price=c.querySelector('.pkg-price');if(title)title.textContent=x.title;if(price)price.textContent=x.price;}}});
  if(overrides.offers)overrides.offers.forEach((o,i)=>{let c=document.querySelectorAll('#offers .offer-card')[i];if(c){let tag=c.querySelector('.offer-tag'),h=c.querySelector('h3'),p=c.querySelector('p');if(tag)tag.textContent=o.tag;if(h)h.textContent=o.title;if(p)p.textContent=o.desc;let expired=o.expiry&&new Date(o.expiry+'T23:59:59')<new Date();c.style.display=(o.active===false||expired)?'none':'';}});
  if(overrides.welcome){let b=document.getElementById('welcomeBanner');if(b){let h=b.querySelector('.welcome-title'),p=b.querySelector('.welcome-text');if(h)h.textContent=overrides.welcome.title||h.textContent;if(p)p.textContent=overrides.welcome.desc||p.textContent;}}
 }
 function build(){let html='<h3>رسالة الترحيب</h3><div class="adminRow"><label>عنوان الترحيب</label><input id="welcomeTitle" value="'+esc((overrides.welcome||{}).title||document.querySelector('.welcome-title')?.textContent||'')+'"><label>النص</label><textarea id="welcomeDesc">'+esc((overrides.welcome||{}).desc||document.querySelector('.welcome-text')?.textContent||'')+'</textarea></div><h3>تغيير رمز الإدارة</h3><div class="adminRow"><label>رمز جديد (4 أرقام أو أكثر)</label><input type="password" id="newAdminPIN" placeholder="اتركه فارغاً دون تغيير"></div><h3>أسعار الفحوصات الفردية</h3>'; testsData.forEach(t=>html+=`<div class="adminRow"><strong>${t.ar} — ${t.en}</strong><label>السعر (د.ع)</label><input type="number" min="0" data-test="${t.id}" value="${(overrides.tests||{})[t.id]??t.price}"></div>`);
- html+='<h3>الباقات</h3>';packagesData.forEach(p=>html+=`<div class="adminRow"><strong>${p.title}</strong><label>اسم الباقة</label><input data-pkgtitle="${p.id}" value="${(overrides.packages||{})[p.id]?.title??p.title}"><label>السعر المعروض</label><input data-pkgprice="${p.id}" value="${(overrides.packages||{})[p.id]?.price??p.price}"></div>`);
+ html+='<h3>الباقات</h3>';packagesData.forEach(p=>html+=`<div class="adminRow"><strong>${esc(p.title)}</strong><label>اسم الباقة</label><input data-pkgtitle="${p.id}" value="${esc((overrides.packages||{})[p.id]?.title??p.title)}"><label>السعر المعروض</label><input data-pkgprice="${p.id}" value="${(overrides.packages||{})[p.id]?.price??p.price}"></div>`);
  html+='<h3>العروض والمبادرات</h3>';document.querySelectorAll('#offers .offer-card').forEach((c,i)=>{let o=(overrides.offers||[])[i]||{tag:c.querySelector('.offer-tag')?.textContent||'',title:c.querySelector('h3')?.textContent||'',desc:c.querySelector('p')?.textContent||''};html+=`<div class="adminRow"><h4>بطاقة ${i+1}</h4><label>الشارة</label><input data-offtag="${i}" value="${esc(o.tag)}"><label>العنوان</label><input data-offtitle="${i}" value="${esc(o.title)}"><label>الوصف</label><textarea data-offdesc="${i}">${esc(o.desc)}</textarea><label><input type="checkbox" data-offactive="${i}" ${(o.active===false?'':'checked')}> عرض المبادرة</label><label>تاريخ انتهاء (اختياري)</label><input type="date" data-offexpiry="${i}" value="${esc(o.expiry||'')}"></div>`});content.innerHTML=html;
 }
 function esc(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function open(){let pin=prompt('أدخل رمز لوحة الإدارة:');if(pin!==(localStorage.getItem('ibnAlnafisAdminPIN')||DEFAULT_PIN)){if(pin!==null)alert('رمز غير صحيح');return}build();overlay.classList.add('show')}
+function open(){let storedPIN=localStorage.getItem('ibnAlnafisAdminPIN');if(!storedPIN){let firstPIN=prompt('هذه أول مرة تفتح لوحة الإدارة. أنشئ رمزاً خاصاً (4 أرقام/أحرف على الأقل):');if(firstPIN===null)return;if(firstPIN.length<4){alert('الرمز يجب أن يكون 4 أحرف/أرقام على الأقل');return;}localStorage.setItem('ibnAlnafisAdminPIN',firstPIN);storedPIN=firstPIN;}let pin=prompt('أدخل رمز لوحة الإدارة:');if(pin!==storedPIN){if(pin!==null)alert('رمز غير صحيح');return}build();overlay.classList.add('show')}
 document.getElementById('labAdminTrigger').onclick=open;document.getElementById('labAdminClose').onclick=()=>overlay.classList.remove('show');
 document.getElementById('labAdminSave').onclick=()=>{overrides.tests={};document.querySelectorAll('[data-test]').forEach(e=>overrides.tests[e.dataset.test]=Number(e.value));overrides.packages={};packagesData.forEach(p=>{overrides.packages[p.id]={title:document.querySelector('[data-pkgtitle="'+p.id+'"]').value,price:document.querySelector('[data-pkgprice="'+p.id+'"]').value}});overrides.offers=[];document.querySelectorAll('[data-offtag]').forEach(e=>{let i=e.dataset.offtag;overrides.offers[i]={tag:e.value,title:document.querySelector('[data-offtitle="'+i+'"]').value,desc:document.querySelector('[data-offdesc="'+i+'"]').value,active:document.querySelector('[data-offactive="'+i+'"]').checked,expiry:document.querySelector('[data-offexpiry="'+i+'"]').value}});overrides.welcome={title:document.getElementById('welcomeTitle').value,desc:document.getElementById('welcomeDesc').value};let newpin=document.getElementById('newAdminPIN').value;if(newpin){if(newpin.length<4){alert('رمز الإدارة يجب أن يكون 4 أحرف/أرقام على الأقل');return;}localStorage.setItem('ibnAlnafisAdminPIN',newpin);}localStorage.setItem(key,JSON.stringify(overrides));apply();alert('تم حفظ التعديلات بهذا المتصفح.');};
 document.getElementById('labAdminExport').onclick=()=>{let blob=new Blob([JSON.stringify(overrides,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ibn-alnafis-admin-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
