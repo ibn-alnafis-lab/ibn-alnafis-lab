@@ -1595,6 +1595,25 @@ header { background: linear-gradient(135deg,#063b72 0%,#075985 48%,#0e7490 100%)
       font-family: inherit;
     }
     .test-info-btn:hover { background: #e0f2fe; }
+    /* ترتيب أزرار التحليل: السعر ثم الإضافة ثم التفاصيل */
+    .test-info-btn {
+      width: 100%;
+      min-width: 128px;
+      height: 34px;
+      padding: 0 12px;
+      margin-top: 2px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: .84rem;
+      line-height: 1;
+      background: #f8fcff;
+      color: #27678d;
+      box-shadow: 0 3px 8px rgba(27, 102, 142, .08);
+    }
+    .test-info-btn:focus-visible { outline: 3px solid rgba(3, 105, 161, .28); outline-offset: 2px; }
     .test-info-overlay {
       display: none;
       position: fixed;
@@ -1629,8 +1648,127 @@ header { background: linear-gradient(135deg,#063b72 0%,#075985 48%,#0e7490 100%)
       cursor: pointer;
       font-family: inherit;
     }
+    #testInfoOverlay .test-info-dialog { max-width: 550px; padding: 28px 24px 20px; }
+    #testInfoOverlay .test-info-dialog h3 { text-align: center; font-size: 1.5rem; color: #2264bd; margin-bottom: 7px; }
+    .test-info-meta { text-align: center; color: #475569; font-weight: 800; line-height: 1.75; padding-bottom: 16px; border-bottom: 1px solid #dbe5ec; }
+    .test-detail-card { border: 1px solid #dbe5ec; border-right: 5px solid #1d2b3a; border-radius: 16px; padding: 14px 15px; background: #fbfdff; }
+    .test-detail-card strong { display: block; margin-bottom: 7px; font-size: 1.02rem; }
+    .test-detail-card span { color: #334155; font-size: .98rem; line-height: 1.9; }
+    .test-detail-card.what { border-right-color: #172133; background: #f8fafc; }
+    .test-detail-card.what strong { color: #172133; }
+    .test-detail-card.when { border-right-color: #2675bc; background: #f0f9ff; }
+    .test-detail-card.when strong { color: #1968ae; }
+    .test-detail-card.symptoms { border-right-color: #c77720; background: #fffbeb; }
+    .test-detail-card.symptoms strong { color: #a55414; }
+    .test-detail-card.fasting { border-right-color: #37a15a; background: #f0fdf4; }
+    .test-detail-card.fasting strong { color: #257a42; }
+    @media(max-width:600px) {
+      .test-action { min-width: 130px; gap: 7px; }
+      .test-action .test-price { width: 100%; text-align: center; }
+      .test-action .add-test-btn { width: 100%; min-height: 34px; }
+      #testInfoOverlay { padding: 10px; }
+      #testInfoOverlay .test-info-dialog { padding: 24px 16px 16px; max-height: 92vh; overflow-y: auto; }
+      #testInfoOverlay .test-info-dialog h3 { font-size: 1.3rem; }
+      .test-detail-card { padding: 12px; }
+      .test-detail-card span { font-size: .91rem; }
+    }
 
-  </style>
+  
+  /* Compact modern layout adjustments */
+  .offers-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .offer-card{padding:12px!important;border-radius:14px!important;min-height:unset!important}
+  .offer-card h3{font-size:1rem!important;margin:7px 0!important}
+  .offer-card p{font-size:.84rem!important;line-height:1.65!important;margin:5px 0!important}
+  .offer-tag{font-size:.72rem!important;padding:4px 8px!important}
+  .pkg-card{padding:12px!important;border-radius:14px!important;gap:8px!important}
+  .pkg-top{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
+  .pkg-title{font-size:.95rem!important;line-height:1.5!important;margin:4px 0!important}
+  .pkg-cat{display:none!important}
+  .pkg-count-badge{font-size:.68rem!important;padding:3px 7px!important}
+  .pkg-price{font-size:.85rem!important;white-space:nowrap!important;padding:7px 9px!important;border-radius:10px!important}
+  .pkg-tests-dropdown{margin-top:8px;border-top:1px solid #e3edf3;padding-top:8px}
+  .pkg-tests-dropdown summary{cursor:pointer;font-size:.82rem;font-weight:800;color:#286d91;padding:7px 10px;background:#f0f7fa;border-radius:10px;list-style:none}
+  .pkg-tests-dropdown summary::-webkit-details-marker{display:none}
+  .pkg-tests-dropdown summary:after{content:' ▾';float:left}
+  .pkg-list{margin:8px 0!important;padding:8px 22px!important;font-size:.82rem!important}
+  .pkg-actions{gap:7px!important}
+  .pkg-actions button{font-size:.78rem!important;padding:9px!important}
+  @media(max-width:700px){.offers-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.offer-card{padding:10px!important}.pkg-top{gap:5px!important}.pkg-title{font-size:.85rem!important}.pkg-price{font-size:.78rem!important;padding:6px!important}}
+
+
+/* Package title/price and count-in-dropdown adjustment */
+.pkg-top{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:12px!important}
+.pkg-top>div:first-child{flex:1!important;min-width:0!important}
+.pkg-title{margin:0!important;font-size:.96rem!important;line-height:1.5!important}
+.pkg-price{flex-shrink:0!important;white-space:nowrap!important}
+.pkg-count-badge{display:none!important}
+.pkg-tests-dropdown summary{display:block!important;text-align:center!important;font-size:.86rem!important;font-weight:800!important;padding:11px 12px!important}
+.pkg-tests-dropdown summary:after{content:' ▾'!important;float:none!important}
+@media(max-width:700px){.pkg-top{flex-direction:row!important;align-items:center!important}.pkg-title{font-size:.85rem!important}.pkg-price{font-size:.8rem!important;padding:7px 9px!important}.pkg-tests-dropdown summary{font-size:.8rem!important;padding:10px!important}}
+
+
+/* Compact service selection and feedback actions; remove oversized spacing */
+.service-choice-box{padding:14px!important;border-radius:16px!important;margin:12px 0!important}
+.service-choice-box .form-section-title{font-size:1rem!important;margin-bottom:7px!important}
+.service-choice-note{font-size:.82rem!important;margin:4px 0 10px!important}
+.service-choice-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+.service-choice-btn{min-height:unset!important;padding:13px 10px!important;border-radius:14px!important;gap:5px!important}
+.service-choice-btn .service-choice-icon{font-size:1.45rem!important;margin:0!important}
+.service-choice-btn strong{font-size:.9rem!important;line-height:1.45!important}
+.service-choice-btn small{font-size:.72rem!important;line-height:1.45!important}
+#feedback-section .form-actions-row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;align-items:stretch!important}
+#sendFbWhatsAppBtn,#sendComplaintQuickBtn{flex:unset!important;min-width:0!important;padding:12px 9px!important;font-size:.85rem!important;line-height:1.5!important;border-radius:14px!important;min-height:unset!important}
+@media(max-width:480px){.service-choice-grid{gap:8px!important}.service-choice-btn{padding:10px 8px!important} .service-choice-btn strong{font-size:.82rem!important} .service-choice-btn small{font-size:.68rem!important} #feedback-section .form-actions-row{gap:8px!important} #sendFbWhatsAppBtn,#sendComplaintQuickBtn{font-size:.78rem!important;padding:10px 7px!important}}
+
+
+/* V22: compact first-screen hero, stacked weekly offers, streamlined feedback, branch typography */
+@media (max-width:600px){
+  header{padding:9px 8px 12px!important;border-radius:0 0 16px 16px!important}
+  header .container{padding:0 6px!important}
+  .hero{margin-bottom:8px!important;padding:3px 0 7px!important;max-width:100%!important}
+  .hero-badge{font-size:.88rem!important;padding:7px 10px!important;line-height:1.45!important;border-radius:12px!important;margin-bottom:5px!important}
+  .hero .supervisor{font-size:.82rem!important;padding:5px 9px!important;margin:3px auto!important;line-height:1.4!important}
+  .hero p{font-size:.79rem!important;line-height:1.48!important;margin:5px auto!important}
+  .hero>div[style*="inline-block"]{font-size:.72rem!important;padding:5px 8px!important;line-height:1.4!important;margin:3px auto!important}
+  .hero p:last-child{display:none!important}
+  .top-bar{gap:6px!important;padding:6px!important}
+  .top-bar>div:first-child{font-size:.78rem!important;padding:2px!important}
+  .nav-links{gap:5px!important}
+  .nav-links a{font-size:.68rem!important;padding:6px 8px!important;border-radius:9px!important}
+  header{min-height:unset!important}
+  #offers .section-header{margin:8px auto 10px!important}
+  #offers .section-header h2{font-size:1.08rem!important;margin:4px 0!important}
+  #offers .section-header p{font-size:.76rem!important;line-height:1.4!important;margin:4px!important}
+  #offers .offers-grid{display:flex!important;flex-direction:column!important;gap:7px!important}
+  #offers .offer-card{width:100%!important;box-sizing:border-box!important;padding:10px 12px!important;margin:0!important;border-radius:13px!important;min-height:unset!important}
+  #offers .offer-card .offer-tag{font-size:.67rem!important;padding:3px 7px!important;margin-bottom:4px!important}
+  #offers .offer-card h3{font-size:.88rem!important;line-height:1.45!important;margin:3px 0!important}
+  #offers .offer-card p,#offers .offer-card li{font-size:.72rem!important;line-height:1.45!important;margin:3px 0!important}
+  #offers .humanitarian-list{margin:3px 0!important;padding-right:18px!important}
+  #feedback-section .section-header h2{font-size:1.13rem!important;line-height:1.5!important}
+  #feedback-section .section-header p{font-size:.76rem!important;line-height:1.5!important}
+  #feedback-section .feedback-card{padding:12px!important;margin:0!important}
+  #fbTypeGrid{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
+  #fbTypeGrid .fb-type-btn{padding:9px 10px!important;font-size:.8rem!important;line-height:1.4!important;border-radius:12px!important;min-height:unset!important}
+  #opinionRatingWrap label{font-size:.78rem!important;line-height:1.45!important}
+  #ratingPills{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important}
+  #ratingPills .star-pill{font-size:.72rem!important;padding:7px 5px!important;line-height:1.4!important;border-radius:11px!important;margin:0!important}
+  #feedback-section .form-grid{gap:8px!important}
+  #feedback-section .form-group{margin-bottom:9px!important}
+  #feedback-section label{font-size:.78rem!important;line-height:1.45!important}
+  #fbDetailsInput,#fbSuggestionInput{font-size:.82rem!important;padding:9px!important}
+  #feedback-section .form-actions-row{grid-template-columns:1fr 1fr!important;gap:7px!important}
+  #sendFbWhatsAppBtn,#sendComplaintQuickBtn{font-size:.73rem!important;padding:9px 6px!important;min-height:unset!important;line-height:1.4!important}
+  #branches .section-header h2{font-size:1.12rem!important}
+  #branches .branches-grid{gap:10px!important}
+  #branches .branch-card{padding:12px!important;border-radius:15px!important}
+  #branches .branch-card h3{font-size:.94rem!important;line-height:1.5!important;margin:4px 0 8px!important}
+  #branches .branch-detail{font-size:.79rem!important;line-height:1.55!important;margin:5px 0!important}
+  #branches .branch-links{gap:6px!important;flex-wrap:wrap!important}
+  #branches .branch-links a{font-size:.73rem!important;padding:7px 9px!important}
+}
+
+</style>
 <style id="v17-corrected-head-css">
     /* V17: category-color accents inspired by the mobile reference */
     .test-item, .pkg-card { border-radius: 22px !important; box-shadow: 0 3px 12px rgba(31,65,91,.055) !important; }
@@ -1811,6 +1949,516 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
 .faq-list{display:grid;gap:10px;max-width:900px;margin:0 auto}.faq-item{background:#fff;border:1px solid #d7e8f0;border-radius:14px;padding:14px 16px;box-shadow:0 3px 12px rgba(18,83,118,.05)}.faq-item summary{font-weight:800;color:#145a78;cursor:pointer;line-height:1.7}.faq-item p{margin:10px 0 2px;color:#334e60;line-height:1.85}.search-shortcuts{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}.search-shortcuts button,.search-clear-btn{border:1px solid #b9d9e8;background:#f1faff;color:#145a78;border-radius:999px;padding:7px 12px;font-weight:700;cursor:pointer}.search-clear-btn{background:#fff}.search-shortcuts button:hover,.search-clear-btn:hover{background:#dff3fc}.search-input-row{flex-wrap:wrap}
 </style>
 
+<style id="ibn-nafis-modern-redesign">
+:root{--primary:#126c82;--primary-dark:#123f55;--primary-light:#e8f5f7;--secondary:#20a391;--secondary-dark:#117567;--secondary-light:#dcf6ef;--bg:#f4f8fa;--text:#183449;--muted:#61798a;--border:#dce8ed;--shadow-md:0 10px 28px rgba(21,61,83,.09);--shadow-lg:0 18px 40px rgba(21,61,83,.13)}
+body{background:linear-gradient(180deg,#eef5f7 0,#f7fafb 480px,#f4f8fa 100%);color:#183449;line-height:1.75}
+header{background:radial-gradient(ellipse at 82% 4%,rgba(62,190,174,.22),transparent 36%),linear-gradient(140deg,#10384d 0%,#155c76 58%,#15857d 100%);padding:26px 14px 34px;border-radius:0 0 36px 36px;box-shadow:0 16px 35px rgba(16,56,77,.18)}
+header::after{opacity:.35;background-size:30px 30px}.container{max-width:1200px;padding:0 12px}
+.top-bar{border-radius:22px!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.23)!important;box-shadow:0 8px 22px rgba(0,0,0,.08);padding:14px!important}
+.nav-links{gap:9px}.nav-links a{border-radius:14px;padding:9px 14px;background:rgba(255,255,255,.13);font-size:.88rem;transition:.22s}.nav-links a:hover{background:#fff;color:#124d67;transform:translateY(-2px)}
+.hero{max-width:930px;padding:14px 0 24px}.hero-badge{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.28);border-radius:16px;padding:9px 18px}.hero h1{font-size:clamp(1.9rem,4vw,3rem);letter-spacing:0;line-height:1.4}.hero p{line-height:1.9}.hero-trust-points span{border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:10px 14px}
+#welcomeBanner{margin:26px auto 34px;border:1px solid #d5e8ee!important;border-radius:25px!important;background:linear-gradient(145deg,#fff,#f0f8fa)!important;box-shadow:0 12px 28px rgba(21,61,83,.07)!important;padding:24px!important}
+section{margin:36px 0 44px!important}.section-header{margin-bottom:22px!important}.section-header h2{color:#123f55!important;font-size:clamp(1.35rem,3vw,1.9rem)!important;line-height:1.55}.section-header p{color:#5d7585!important}.section-pill{border-radius:100px!important;background:#e2f2f4!important;color:#12647a!important;padding:7px 15px!important}
+.offers-grid,.packages-grid{gap:16px!important}.offer-card,.pkg-card,.test-item,.branch-card,.contact-card,.info-card,.form-card{border-radius:22px!important;box-shadow:0 8px 24px rgba(18,62,83,.075)!important;transition:transform .2s,box-shadow .2s!important}.offer-card:hover,.pkg-card:hover,.test-item:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(18,62,83,.11)!important}
+.offer-card{border:1px solid #dce9ee!important;border-right:4px solid #169483!important;background:#fff!important;padding:20px!important}.offer-card:nth-child(odd){border-right-color:#16758d!important}.offer-tag{border-radius:11px!important;background:#e9f5f7!important;color:#155a70!important;padding:7px 11px!important}.pkg-card{border:1px solid #dce8ed!important;border-top:4px solid #168b84!important;background:#fff!important;padding:19px!important}.pkg-card:nth-child(3n+2),.pkg-card:nth-child(3n){border-top-color:#16758d!important}.pkg-title{font-weight:900!important;line-height:1.6!important}.pkg-price{border-radius:15px!important;background:linear-gradient(135deg,#147d8c,#13566d)!important;box-shadow:0 5px 14px rgba(15,86,109,.18)!important}.pkg-actions{gap:10px!important}.add-pkg-btn,.pkg-btn,.add-test-btn,.btn{border-radius:14px!important;transition:.2s!important}.add-pkg-btn{background:#147b8c!important;border-color:#147b8c!important}.pkg-btn{background:#e7f5f3!important;color:#176a60!important;border-color:#c9e9e2!important}
+.search-box-wrap{border-radius:22px!important;border:1px solid #c9e2e8!important;background:#fff!important;box-shadow:0 10px 26px rgba(18,62,83,.07)!important;padding:18px!important}.search-input{border-radius:15px!important;border:1.5px solid #c5dce5!important;padding:13px!important}.filter-btn{border-radius:14px!important}.filter-btn.active{background:#147b8c!important;border-color:#147b8c!important}
+.test-item{background:#fff!important;border:1px solid #dce8ed!important;border-right:4px solid #147b8c!important;padding:15px!important}.test-item.selected{background:#eef8f8!important}.test-item .test-price{border-radius:12px!important;background:#e6f6f1!important}.test-item .test-code{border-radius:10px!important;background:#eef5f7!important}
+.form-card,.form-section-box,.branch-card,.contact-card,.info-card{background:#fff!important;border:1px solid #dce8ed!important;border-radius:22px!important}.calc-bar{background:linear-gradient(135deg,#123f55,#126c82)!important;box-shadow:0 -8px 28px rgba(18,63,85,.16)!important}
+button,a,input,select,textarea{transition:all .2s ease}.btn:hover,.add-pkg-btn:hover,.add-test-btn:hover{filter:brightness(1.04);transform:translateY(-1px)}
+@media(max-width:700px){header{padding:18px 10px 28px;border-radius:0 0 25px 25px}.hero{padding:6px 0 15px}.hero h1{font-size:1.75rem!important}.hero-trust-points{gap:7px!important}.hero-trust-points span{font-size:.78rem!important;padding:8px 10px!important}.top-bar{padding:10px!important}.nav-links a{font-size:.78rem;padding:8px 10px}.container{padding:0 10px}#welcomeBanner{padding:17px!important;border-radius:20px!important;margin:20px auto!important}.section-header h2{font-size:1.35rem!important}.offer-card,.pkg-card,.test-item{padding:15px!important;border-radius:18px!important}.pkg-price{padding:9px 13px!important}.search-box-wrap{padding:13px!important}}
+@media(prefers-reduced-motion:reduce){.offer-card:hover,.pkg-card:hover,.test-item:hover{transform:none}}
+</style>
+
+
+<style id="v23-hero-restored-branch-title-frame">
+/* Slightly restore hero size and frame branch headings */
+@media(max-width:600px){
+ .hero{padding:10px 0 14px!important;margin-bottom:12px!important}
+ .hero-badge{font-size:1rem!important;padding:10px 13px!important;margin-bottom:8px!important;line-height:1.55!important}
+ .hero .supervisor{font-size:.9rem!important;padding:7px 11px!important;margin:5px auto!important}
+ .hero p{font-size:.86rem!important;line-height:1.65!important;margin:7px auto!important}
+ .hero>div[style*="inline-block"]{font-size:.78rem!important;padding:7px 10px!important;margin:5px auto!important}
+}
+#branches .branch-card h3{display:block!important;padding:11px 13px!important;margin:0 0 13px!important;border:1px solid #c8dce8!important;border-radius:14px!important;background:linear-gradient(135deg,#f5fbfd,#edf6fa)!important;text-align:center!important;line-height:1.55!important;box-shadow:0 3px 10px rgba(20,71,109,.05)!important}
+#branches .branch-card{border:1.5px solid #d7e5ec!important;box-shadow:0 6px 18px rgba(20,71,109,.07)!important}
+</style>
+
+
+<style id="screen-6-3-inch-scale">
+  /* ضبط مقاسات العرض لشاشات الهواتف بحدود 6.3 إنش (380px - 460px) */
+  @media (max-width: 600px) {
+    html {
+      font-size: 16.5px !important;
+    }
+
+    body {
+      padding-bottom: 130px !important;
+    }
+
+    .container {
+      padding: 0 14px !important;
+    }
+
+    /* تكبير الهيدر والواجهة الأولى (Hero) */
+    header {
+      padding: 20px 12px 26px !important;
+      border-radius: 0 0 26px 26px !important;
+    }
+
+    .hero {
+      padding: 12px 4px 16px !important;
+      margin-bottom: 14px !important;
+    }
+
+    .hero-badge {
+      font-size: 1.08rem !important;
+      padding: 11px 16px !important;
+      line-height: 1.55 !important;
+      margin-bottom: 10px !important;
+    }
+
+    .hero .supervisor {
+      font-size: 0.96rem !important;
+      padding: 7px 14px !important;
+      margin: 6px auto !important;
+    }
+
+    .hero p {
+      font-size: 0.94rem !important;
+      line-height: 1.7 !important;
+      margin: 8px auto !important;
+    }
+
+    .hero > div[style*="inline-block"] {
+      font-size: 0.85rem !important;
+      padding: 8px 12px !important;
+      line-height: 1.55 !important;
+    }
+
+    /* تكبير أزرار شريط الخدمات السريعة */
+    .top-bar {
+      padding: 12px 10px !important;
+      gap: 10px !important;
+    }
+
+    .top-bar > div:first-child {
+      font-size: 0.9rem !important;
+    }
+
+    .nav-links {
+      gap: 7px !important;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem !important;
+      padding: 9px 12px !important;
+      border-radius: 11px !important;
+    }
+
+    /* تكبير العناوين، البطاقات، والأسعار */
+    .section-header h2 {
+      font-size: 1.32rem !important;
+    }
+
+    .section-header p {
+      font-size: 0.88rem !important;
+    }
+
+    #offers .offer-card {
+      padding: 14px 15px !important;
+    }
+
+    #offers .offer-card h3 {
+      font-size: 1rem !important;
+    }
+
+    #offers .offer-card p,
+    #offers .offer-card li {
+      font-size: 0.85rem !important;
+      line-height: 1.65 !important;
+    }
+
+    #packages .pkg-title,
+    .test-info h4 {
+      font-size: 1rem !important;
+    }
+
+    #packages .pkg-price,
+    .test-item .test-price {
+      font-size: 0.95rem !important;
+      padding: 8px 12px !important;
+    }
+
+    .add-test-btn,
+    .pkg-actions button {
+      font-size: 0.85rem !important;
+      padding: 10px 12px !important;
+    }
+
+    /* تكبير حقول الإدخال والبحث لسهولة اللمس */
+    .search-input,
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-size: 16px !important;
+      padding: 13px 14px !important;
+    }
+
+    /* تكبير شريط الحاسبة السفلي */
+    .calc-summary {
+      font-size: 0.96rem !important;
+    }
+
+    .calc-actions button,
+    .calc-actions a {
+      min-height: 46px !important;
+      font-size: 0.84rem !important;
+    }
+  }
+</style>
+
+
+<style id="test-card-structured-layout">
+  /* ترتيب بطاقة الفحص: الاسم والتفاصيل على اليمين، وأمامها السعر وتحته زر الإضافة وتحته زر التحضير الصغير */
+  #testsGrid .test-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    padding: 13px 15px !important;
+  }
+
+  #testsGrid .test-item .test-info {
+    flex: 1 !important;
+    min-width: 0 !important;
+    text-align: right !important;
+  }
+
+  #testsGrid .test-item .test-info h4 {
+    margin: 0 0 5px !important;
+    line-height: 1.45 !important;
+  }
+
+  #testsGrid .test-item .test-cat-tag {
+    margin-top: 4px !important;
+  }
+
+  #testsGrid .test-item .test-action {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    flex-shrink: 0 !important;
+    min-width: 140px !important;
+    text-align: center !important;
+  }
+
+  #testsGrid .test-item .test-price {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    padding: 5px 10px !important;
+    border-radius: 10px !important;
+    font-size: 0.92rem !important;
+    line-height: 1.35 !important;
+    margin: 0 !important;
+  }
+
+  #testsGrid .test-item .add-test-btn {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    padding: 5px 10px !important;
+    border-radius: 10px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+    margin: 0 !important;
+  }
+
+  #testsGrid .test-item .test-info-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    min-height: 36px !important;
+    padding: 6px 10px !important;
+    font-size: 0.84rem !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+    border-radius: 11px !important;
+    background: #f8fcff !important;
+    color: #27678d !important;
+    border: 1px solid #bae6fd !important;
+    cursor: pointer !important;
+    transition: background 0.15s ease, border-color 0.15s ease !important;
+  }
+
+  #testsGrid .test-item .test-info-btn:hover {
+    background: #e0f2fe !important;
+    border-color: #7dd3fc !important;
+  }
+
+  @media (max-width: 600px) {
+    #testsGrid .test-item {
+      padding: 12px 13px !important;
+      gap: 10px !important;
+    }
+
+    #testsGrid .test-item .test-action {
+      min-width: 132px !important;
+      gap: 7px !important;
+    }
+
+    #testsGrid .test-item .test-price {
+      font-size: 0.88rem !important;
+      padding: 5px 8px !important;
+    }
+
+    #testsGrid .test-item .add-test-btn {
+      font-size: 0.8rem !important;
+      padding: 5px 8px !important;
+    }
+
+    #testsGrid .test-item .test-info-btn {
+      font-size: 0.8rem !important;
+      padding: 6px 8px !important;
+    }
+  }
+</style>
+
+
+<style id="pkg-info-button-and-modal">
+  /* ترتيب عمود السعر وزر الشرح للباقة أسفله */
+  #packages .pkg-top {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+  }
+  #packages .pkg-top > div:first-child {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+  #packages .pkg-price-col {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+    min-width: 112px !important;
+  }
+  #packages .pkg-price-col .pkg-price {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    border-radius: 13px !important;
+    font-size: 0.96rem !important;
+    line-height: 1.35 !important;
+  }
+  #packages .pkg-info-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    width: 100% !important;
+    padding: 5px 10px !important;
+    border-radius: 10px !important;
+    background: #f0f9ff !important;
+    color: #0369a1 !important;
+    border: 1.5px solid #bae6fd !important;
+    font-size: 0.77rem !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+    box-shadow: 0 2px 6px rgba(3, 105, 161, 0.08) !important;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease !important;
+  }
+  #packages .pkg-info-btn:hover {
+    background: #e0f2fe !important;
+    border-color: #38bdf8 !important;
+    transform: translateY(-1px) !important;
+  }
+  @media (max-width: 600px) {
+    #packages .pkg-price-col {
+      min-width: 102px !important;
+      gap: 5px !important;
+    }
+    #packages .pkg-price-col .pkg-price {
+      font-size: 0.88rem !important;
+      padding: 7px 9px !important;
+    }
+    #packages .pkg-info-btn {
+      font-size: 0.73rem !important;
+      padding: 4px 8px !important;
+    }
+  }
+
+  /* نافذة شرح الباقة للمراجع */
+  .pkg-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.68);
+    z-index: 100000;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    backdrop-filter: blur(4px);
+  }
+  .pkg-modal-overlay.show {
+    display: flex;
+  }
+  .pkg-modal-dialog {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 20px 20px 18px;
+    max-width: 540px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(7, 36, 66, 0.32);
+    border: 1.5px solid #cbd5e1;
+    direction: rtl;
+    text-align: right;
+  }
+  .pkg-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1.5px solid #e2e8f0;
+  }
+  .pkg-modal-title-wrap h3 {
+    color: #0f3d68;
+    font-size: 1.12rem;
+    font-weight: 900;
+    line-height: 1.45;
+    margin: 0 0 6px;
+  }
+  .pkg-modal-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .pkg-modal-badge-price {
+    background: #0a58ca;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+  .pkg-modal-badge-count {
+    background: #dcfce7;
+    color: #166534;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+  .pkg-modal-x {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .pkg-modal-sections {
+    display: grid;
+    gap: 11px;
+  }
+  .pkg-info-block {
+    border-radius: 14px;
+    padding: 12px 14px;
+    line-height: 1.75;
+  }
+  .pkg-info-block.why {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-right: 4px solid #0284c7;
+  }
+  .pkg-info-block.symptoms {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-right: 4px solid #d97706;
+  }
+  .pkg-info-block.prep {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-right: 4px solid #16a34a;
+  }
+  .pkg-info-block h4 {
+    font-size: 0.92rem;
+    font-weight: 900;
+    margin: 0 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pkg-info-block.why h4 { color: #0369a1; }
+  .pkg-info-block.symptoms h4 { color: #b45309; }
+  .pkg-info-block.prep h4 { color: #15803d; }
+  .pkg-info-block p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #1e293b;
+  }
+  .pkg-symptoms-list {
+    margin: 4px 0 0;
+    padding-right: 18px;
+    color: #1e293b;
+    font-size: 0.89rem;
+  }
+  .pkg-symptoms-list li {
+    margin-bottom: 3px;
+  }
+  .pkg-modal-footer {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .pkg-modal-add {
+    background: #1269a8;
+    color: #ffffff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .pkg-modal-close-btn {
+    background: #e2e8f0;
+    color: #1e293b;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: inherit;
+  }
+</style>
+
 </head>
 <body>
 
@@ -1820,9 +2468,6 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
       <div class="hero-badge">💙 أهلاً وسهلاً بكم في مختبر ابن النفيس للتحليلات المرضية</div>
       <div class="supervisor" style="margin-top: 4px;">بإشراف: الدكتور نزار شياع محمد</div>
       <p style="margin-bottom: 10px;">الدليل الشامل للباقات الصحية، العروض الأسبوعية، وأسعار الفحوصات المختبرية الفردية في فرعي بعقوبة الجديدة وبهرز.</p>
-      <div class="hero-trust-points" aria-label="ميزات المختبر">
-        <span>🔬 فحوصات مختبرية متنوعة</span><span>🏠 سحب منزلي مجاني</span><span>💙 مبادرات دعم إنساني</span><span>📍 فرعا بعقوبة الجديدة وبهرز</span>
-      </div>
       <div style="display: inline-block; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3); padding: 7px 18px; border-radius: 12px; font-size: 0.92rem; font-weight: 800; color: #e0f2fe; margin-bottom: 6px;">
         🔬 نعمل بأحدث الأجهزة المختبرية المعتمدة ومن أرقى المناشئ العالمية لضمان أدق النتائج
       </div>
@@ -1850,22 +2495,6 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
 </header>
 
 <div class="container">
-  <div class="welcome-banner" id="welcomeBanner" role="region" aria-label="رسالة ترحيب">
-    <div class="welcome-top">
-      <span class="welcome-tag">💙 أهلاً وسهلاً بكم في مختبر ابن النفيس</span>
-      <button type="button" class="welcome-dismiss" id="dismissWelcomeBtn" title="إخفاء الرسالة">إخفاء ✕</button>
-    </div>
-    <h2 class="welcome-title">صحتكم أمانة نعتز بها 💙</h2>
-    <p class="welcome-text">
-      نحرص على تقديم تحاليل دقيقة، وخدمة طبية موثوقة، واهتمام يليق بكم، لتكونوا دائماً مطمئنين على صحتكم.
-    </p>
-    <div class="welcome-perks">
-      <span class="welcome-perk">🏠 سحب منزلي مجاني يومياً بالموعد الذي يناسبك</span>
-      <span class="welcome-perk">🩸 فحص السكر (R.B.S) مجاناً</span>
-      <span class="welcome-perk">🕒 السبت–الخميس: 2:30 ظ – 11 ل (الفرعان) • الجمعة: 9 ص – 10 ل (الفرعان)</span>
-      <span class="welcome-perk">📍 بعقوبة الجديدة • بهرز</span>
-    </div>
-  </div>
 
   <!-- Offers Section -->
   <section id="offers">
@@ -1942,12 +2571,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات الشاملة والوقائية</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 19</span>
+              
               <h3 class="pkg-title">1. الباقة البرونزية (الأساسية الشاملة)</h3>
             </div>
-            <div class="pkg-price">22,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">22,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="1" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (19) — اضغط للعرض</summary><ul class="pkg-list">
           <li>صورة الدم الكاملة (CBC)</li>
           <li>فحص السكري (Glucose)</li>
           <li>وظائف الكلى (Urea & Creatinine) — (2 فحص)</li>
@@ -1957,7 +2589,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>فحص ترسب الدم (ESR)</li>
           <li>فحص جرثومة المعدة (H. pylori)</li>
           <li>فحص الإدرار العام (GUE)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-1" data-action="toggle-pkg" data-id="1">+ إضافة للمختارات</button>
@@ -1969,12 +2601,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات الشاملة والوقائية</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 25</span>
+              
               <h3 class="pkg-title">2. الباقة الفضية (لصحة الجسم والطاقة)</h3>
             </div>
-            <div class="pkg-price">37,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">37,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="2" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (25) — اضغط للعرض</summary><ul class="pkg-list">
           <li>صورة الدم الكاملة (CBC)</li>
           <li>فحص السكري (Glucose)</li>
           <li>فحص السكر التراكمي (HbA1c)</li>
@@ -1990,7 +2625,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>فحص التايفوئيد (Typhoid / Widal)</li>
           <li>فحص جرثومة المعدة (H. pylori)</li>
           <li>فحص الإدرار العام (GUE)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-2" data-action="toggle-pkg" data-id="2">+ إضافة للمختارات</button>
@@ -2002,12 +2637,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات الشاملة والوقائية • الأكثر شمولاً</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 29</span>
+              
               <h3 class="pkg-title">3. الباقة الذهبية الشاملة (VIP - الفحص الأعمق لكافة وظائف الجسم والهرمونات)</h3>
             </div>
-            <div class="pkg-price">53,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">53,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="3" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (29) — اضغط للعرض</summary><ul class="pkg-list">
           <li>صورة الدم الكاملة (CBC)</li>
           <li>فحص السكري (Glucose)</li>
           <li>فحص السكر التراكمي (HbA1c)</li>
@@ -2027,7 +2665,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>مخزون الحديد (Ferritin)</li>
           <li>المغنيسيوم (Magnesium)</li>
           <li>الزنك (Zinc)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-3" data-action="toggle-pkg" data-id="3">+ إضافة للمختارات</button>
@@ -2039,12 +2677,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات التخصصية واللياقة</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 15</span>
+              
               <h3 class="pkg-title">4. باقة متابعة السكري وضغط الدم</h3>
             </div>
-            <div class="pkg-price">33,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">33,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="4" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (15) — اضغط للعرض</summary><ul class="pkg-list">
           <li>صورة الدم الكاملة (CBC)</li>
           <li>فحص السكر التراكمي (HbA1c)</li>
           <li>فحص السكري الصائم (Glucose)</li>
@@ -2052,7 +2693,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>أملاح الدم / الشوارد (Uric acid, Na, K, Cl) — (4 فحوصات)</li>
           <li>نسبة الألبومين إلى الكرياتينين في الإدرار (ACR)</li>
           <li>الدهون الكامل (5 تحاليل): (Cholesterol, Triglycerides, LDL, HDL, VLDL)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-4" data-action="toggle-pkg" data-id="4">+ إضافة للمختارات</button>
@@ -2064,12 +2705,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">صحة المرأة والرجل والطفل</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 8</span>
+              
               <h3 class="pkg-title">5. باقة صحة الرجل والهرمونات</h3>
             </div>
-            <div class="pkg-price">43,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">43,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="5" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (8) — اضغط للعرض</summary><ul class="pkg-list">
           <li>تحليل السائل المنوي (Seminal Fluid Analysis)</li>
           <li>هرمون الذكورة الكلي (Total Testosterone)</li>
           <li>فيتامين دال (Vitamin D3)</li>
@@ -2078,7 +2722,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>هرمون الحليب (Prolactin)</li>
           <li>هرمون الغدة الدرقية (TSH)</li>
           <li>صورة الدم الكاملة (CBC)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-5" data-action="toggle-pkg" data-id="5">+ إضافة للمختارات</button>
@@ -2090,19 +2734,22 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات التخصصية واللياقة</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 6</span>
+              
               <h3 class="pkg-title">6. باقة تساقط الشعر</h3>
             </div>
-            <div class="pkg-price">33,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">33,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="6" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (6) — اضغط للعرض</summary><ul class="pkg-list">
           <li>صورة الدم الكاملة (CBC)</li>
           <li>مخزون الحديد (Ferritin)</li>
           <li>فيتامين D3 (Vitamin D3)</li>
           <li>فيتامين B12 (Vitamin B12)</li>
           <li>عنصر الزنك (Zinc)</li>
           <li>هرمون الغدة الدرقية (TSH)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-6" data-action="toggle-pkg" data-id="6">+ إضافة للمختارات</button>
@@ -2114,18 +2761,21 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">صحة المرأة والرجل والطفل</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 5</span>
+              
               <h3 class="pkg-title">7. برنامج الفحوصات الهرمونات النسائية</h3>
             </div>
-            <div class="pkg-price">25,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">25,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="7" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (5) — اضغط للعرض</summary><ul class="pkg-list">
           <li>هرمون التبويض (LH)</li>
           <li>تقييم مخزون وتحفيز المبيض (FSH)</li>
           <li>هرمون الذكورة (Testosterone)</li>
           <li>هرمون الحليب (Prolactin)</li>
           <li>فحص نشاط الغدة الدرقية (TSH)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-7" data-action="toggle-pkg" data-id="7">+ إضافة للمختارات</button>
@@ -2137,19 +2787,22 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات التخصصية واللياقة</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 7</span>
+              
               <h3 class="pkg-title">8. باقة فحص المفاصل والروماتزم وآلام العظام</h3>
             </div>
-            <div class="pkg-price">24,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">24,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="8" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (7) — اضغط للعرض</summary><ul class="pkg-list">
           <li>صورة الدم الكاملة (CBC)</li>
           <li>فحص البكتيريا العقدية (ASOT)</li>
           <li>حامض اليورك / النقرس (Uric Acid)</li>
           <li>فحص الالتهابات العامة (ESR و CRP Titer) — (2 فحص)</li>
           <li>كالسيوم الدم (Calcium)</li>
           <li>فيتامين د3 (Vitamin D3)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-8" data-action="toggle-pkg" data-id="8">+ إضافة للمختارات</button>
@@ -2161,12 +2814,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات التخصصية واللياقة</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 13</span>
+              
               <h3 class="pkg-title">9. فحص السمنة للرجال والنساء (ابدأ رحلة التغيير لصحة أفضل!)</h3>
             </div>
-            <div class="pkg-price">55,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">55,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="9" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (13) — اضغط للعرض</summary><ul class="pkg-list">
           <li>هرمون الغدة الدرقية (TSH)</li>
           <li>مقاومة الأنسولين (HOMA-IR)</li>
           <li>السكر التراكمي (HbA1c)</li>
@@ -2175,7 +2831,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>فيتامين د3 (Vitamin D3)</li>
           <li>هرمون الكورتيزول (Cortisol)</li>
           <li>هرمون الحليب (Prolactin)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-9" data-action="toggle-pkg" data-id="9">+ إضافة للمختارات</button>
@@ -2187,12 +2843,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات التخصصية واللياقة</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 21</span>
+              
               <h3 class="pkg-title">10. باقة الفحص الشامل للرياضيين وأبطال كمال الأجسام</h3>
             </div>
-            <div class="pkg-price">50,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">50,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="10" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (21) — اضغط للعرض</summary><ul class="pkg-list">
           <li>صورة الدم الكاملة (CBC)</li>
           <li>وظائف الكلى (Urea, Creatinine) — (2 فحص)</li>
           <li>وظائف الكبد والإنزيمات (ALT, AST, ALK) — (3 فحوصات)</li>
@@ -2204,7 +2863,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>المغنيسيوم (Magnesium) والكالسيوم (Calcium) — (2 فحص)</li>
           <li>هرمون الذكورة (Testosterone)</li>
           <li>هرمون الغدة الدرقية (TSH)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-10" data-action="toggle-pkg" data-id="10">+ إضافة للمختارات</button>
@@ -2216,12 +2875,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">صحة المرأة والرجل والطفل</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 8</span>
+              
               <h3 class="pkg-title">11. باقة فحص الأطفال (شحوب، قلة شهية، أو تعب سريع؟ افحص طفلك واطمئن)</h3>
             </div>
-            <div class="pkg-price">25,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">25,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="11" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (8) — اضغط للعرض</summary><ul class="pkg-list">
           <li>صورة الدم الكاملة (CBC)</li>
           <li>مخزون الحديد (Ferritin)</li>
           <li>نسبة الحديد (Iron)</li>
@@ -2229,7 +2891,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>فحص الإدرار العام (Urine)</li>
           <li>وظائف الكلى (Urea, Creatinine) — (2 فحص)</li>
           <li>فحص السكر اليومي (RBS)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-11" data-action="toggle-pkg" data-id="11">+ إضافة للمختارات</button>
@@ -2241,12 +2903,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">صحة المرأة والرجل والطفل</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 7</span>
+              
               <h3 class="pkg-title">12. باقة تأخر الحمل والهرمونات النسائية (خطوة واضحة نحو حلم الأمومة)</h3>
             </div>
-            <div class="pkg-price">60,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">60,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="12" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (7) — اضغط للعرض</summary><ul class="pkg-list">
           <li>الهرمون المنبه للجريبات (FSH)</li>
           <li>الهرمون اللوتيني (LH)</li>
           <li>هرمون الحليب (Prolactin)</li>
@@ -2254,7 +2919,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>هرمون الإستروجين (E2)</li>
           <li>مخزون المبيض (AMH)</li>
           <li>هرمون الذكورة (Testosterone)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-12" data-action="toggle-pkg" data-id="12">+ إضافة للمختارات</button>
@@ -2266,17 +2931,20 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات التخصصية واللياقة</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 4</span>
+              
               <h3 class="pkg-title">13. باقة فحص الغدة الدرقية الشاملة</h3>
             </div>
-            <div class="pkg-price">25,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">25,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="13" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (4) — اضغط للعرض</summary><ul class="pkg-list">
           <li>هرمون الغدة الدرقية (TSH)</li>
           <li>هرمون Free T3 الحر</li>
           <li>هرمون Free T4 الحر</li>
           <li>الأجسام المضادة للغدة الدرقية (Anti-TPO)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-13" data-action="toggle-pkg" data-id="13">+ إضافة للمختارات</button>
@@ -2288,12 +2956,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات التخصصية واللياقة</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 8</span>
+              
               <h3 class="pkg-title">14. باقة فحص الفيتامينات والمعادن</h3>
             </div>
-            <div class="pkg-price">36,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">36,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="14" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (8) — اضغط للعرض</summary><ul class="pkg-list">
           <li>فيتامين دي ثري (VITAMIN D3)</li>
           <li>فحص الفريتين / مخزون الحديد (FERRITIN)</li>
           <li>فيتامين بي 12 (VITAMIN B12)</li>
@@ -2302,7 +2973,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>فحص الزنك (ZINC)</li>
           <li>الكالسيوم (CALCIUM)</li>
           <li>فيتامين فوليك اسيد (FOLIC ACID)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-14" data-action="toggle-pkg" data-id="14">+ إضافة للمختارات</button>
@@ -2314,12 +2985,15 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <div class="pkg-top">
             <div>
               <span class="pkg-cat">الباقات التخصصية واللياقة</span>
-              <span class="pkg-count-badge">عدد الفحوصات: 16</span>
+              
               <h3 class="pkg-title">15. باقة فحوصات قبل إبر التنحيف (صحتك أولاً)</h3>
             </div>
-            <div class="pkg-price">45,000 د.ع</div>
+            <div class="pkg-price-col">
+              <div class="pkg-price">45,000 د.ع</div>
+              <button type="button" class="pkg-info-btn" data-pkg-info-id="15" title="تعرف على الأعراض وفائدة هذه الباقة">ⓘ عن الباقة</button>
+            </div>
           </div>
-          <ul class="pkg-list">
+          <details class="pkg-tests-dropdown"><summary>عدد الفحوصات (16) — اضغط للعرض</summary><ul class="pkg-list">
           <li>صورة الدم (CBC)</li>
           <li>وظائف الكلى (Urea + Creatinine) — (2 فحص)</li>
           <li>وظائف الكبد (AST + ALT) — (2 فحص)</li>
@@ -2329,7 +3003,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <li>مخزون الحديد (Ferritin)</li>
           <li>صورة الدهون الشاملة (Lipid Profile) — (5 فحوصات)</li>
           <li>فيتامين د3 (Vitamin D3)</li>
-          </ul>
+          </ul></details>
         </div>
         <div class="pkg-actions">
           <button type="button" class="add-pkg-btn" id="pkg-add-btn-15" data-action="toggle-pkg" data-id="15">+ إضافة للمختارات</button>
@@ -2339,42 +3013,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
     </div>
   </section>
 
-
-  <!-- Educational symptom-guided test explorer -->
-  <section id="symptom-guide">
-    <div class="section-header">
-      <span class="section-pill">دليل تثقيفي</span>
-      <h2>تصفح الفحوصات حسب الأعراض أو الهدف</h2>
-      <p>اختيارات تثقيفية تساعدك على استكشاف الفحوصات ذات الصلة. لا تُستخدم لتشخيص الحالات أو تحديد الفحوصات اللازمة؛ استشر الطبيب.</p>
-    </div>
-    <div class="symptom-guide-grid">
-      <button class="symptom-guide-card" data-symptom="fatigue"><span>😴</span><strong>التعب والإرهاق</strong><small>فحوصات قد تُناقش مع الطبيب</small></button>
-      <button class="symptom-guide-card" data-symptom="hair"><span>💇</span><strong>تساقط الشعر</strong><small>استكشاف الحديد والهرمونات وغيرها</small></button>
-      <button class="symptom-guide-card" data-symptom="sugar"><span>🍬</span><strong>متابعة السكر</strong><small>فحوصات متابعة مستوى السكر</small></button>
-      <button class="symptom-guide-card" data-symptom="thyroid"><span>🦋</span><strong>الغدة الدرقية</strong><small>فحوصات الغدة ذات الصلة</small></button>
-      <button class="symptom-guide-card" data-symptom="women"><span>🌷</span><strong>صحة المرأة والدورة</strong><small>فحوصات تُحدد بحسب الحالة</small></button>
-      <button class="symptom-guide-card" data-symptom="urinary"><span>💧</span><strong>أعراض بولية</strong><small>فحوصات البول والكلى</small></button>
-      <button class="symptom-guide-card" data-symptom="digestive"><span>🍽️</span><strong>أعراض هضمية</strong><small>فحوصات هضمية ممكنة</small></button>
-      <button class="symptom-guide-card" data-symptom="heart"><span>❤️</span><strong>متابعة القلب والدهون</strong><small>فحوصات عوامل الخطورة</small></button>
-    </div>
-  </section>
-
-
-  <!-- Interactive FAQ -->
-  <section id="faq-section">
-    <div class="section-header"><span class="section-pill">مساعدة المراجع</span><h2>أسئلة شائعة</h2><p>إجابات مختصرة عن الطلب والتحضير والخدمات. ولأي تعليمات خاصة، يرجى التواصل مع المختبر.</p></div>
-    <div class="faq-list">
-      <details class="faq-item"><summary>هل كل الفحوصات تحتاج صيام؟</summary><p>لا. يختلف التحضير حسب نوع الفحص؛ راجع معلومات الفحص أو تواصل مع المختبر قبل سحب العينة.</p></details>
-      <details class="faq-item"><summary>شلون أتأكد من التحضير الصحيح؟</summary><p>افتح معلومات الفحص ضمن قائمة الفحوصات، وإذا عندك أدوية أو تعليمات من الطبيب، استفسر من المختبر قبل إجراء الفحص.</p></details>
-      <details class="faq-item"><summary>متى تطلع نتيجة التحليل؟</summary><p>مدة الإنجاز تختلف حسب الفحص. يتم تأكيد المدة عند الطلب عبر واتساب أو من موظفي المختبر.</p></details>
-      <details class="faq-item"><summary>أكدر أطلب سحب عينة بالبيت؟</summary><p>تتوفر خدمة السحب المنزلي حسب المنطقة والمواعيد؛ أرسل طلبك عبر واتساب لتأكيد التفاصيل.</p></details>
-      <details class="faq-item"><summary>شلون أطلب باقة أو أكثر من فحص؟</summary><p>اختَر الفحوصات أو الباقات وأضفها إلى السلة، ثم راجع التفاصيل وأرسل الطلب عبر واتساب.</p></details>
-      <details class="faq-item"><summary>هل الأسعار ومدة الإنجاز ثابتة؟</summary><p>قد تتغير الأسعار أو مدة الإنجاز؛ يرجى تأكيدها عند الطلب قبل إجراء الفحص.</p></details>
-    </div>
-  </section>
-
-  <!-- Individual Tests Section -->
-  <section id="tests">
+<section id="tests">
     <div class="section-header">
       <span class="section-pill">دليل الأسعار المحدث</span>
       <h2>قائمة أسعار الفحوصات الفردية حسب التخصص</h2>
@@ -2401,10 +3040,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
       </div>
     </div>
 
-    <div class="tests-stats">
-      <span id="testsCountText">عرض 112 من أصل 112 فحص</span>
-      <span>💡 اضغط على "+ إضافة" لإضافة الفحص إلى المختارات وحساب التكلفة أو إدراجه ضمن طلب السحب المنزلي</span>
-    </div>
+    <div class="tests-stats"><span id="testsCountText"></span></div>
 
     <div class="tests-grid" id="testsGrid">
       <div class="test-item" id="test-card-1" data-test-id="1" data-test-cat="الفحوصات العامة والأساسية" data-test-search="فحص التهابات الجسم العامة esr الفحوصات العامة والأساسية">
@@ -2583,10 +3219,10 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <button type="button" class="add-test-btn" id="test-btn-16" data-action="toggle-test" data-id="16">+ إضافة</button>
         </div>
       </div>
-      <div class="test-item" id="test-card-17" data-test-id="17" data-test-cat="وظائف الكلى والأملاح" data-test-search="فحص زرع الإدرار urine culture وظائف الكلى والأملاح">
+      <div class="test-item" id="test-card-17" data-test-id="17" data-test-cat="وظائف الكلى والأملاح" data-test-search="فحص زرع الإدرار + فحص الإدرار العام urine culture + gue وظائف الكلى والأملاح">
         <div class="test-info">
-          <h4>فحص زرع الإدرار</h4>
-          <span class="test-code">Urine Culture</span><span class="test-time" id="test-time-17">⏱ 48 - 72 ساعة</span>
+          <h4>فحص زرع الإدرار + فحص الإدرار العام</h4>
+          <span class="test-code">Urine Culture + GUE</span><span class="test-time" id="test-time-17">⏱ 48 - 72 ساعة</span>
           <span class="test-cat-tag">وظائف الكلى والأملاح</span>
         </div>
         <div class="test-action">
@@ -2891,14 +3527,14 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <button type="button" class="add-test-btn" id="test-btn-44" data-action="toggle-test" data-id="44">+ إضافة</button>
         </div>
       </div>
-      <div class="test-item" id="test-card-45" data-test-id="45" data-test-cat="أمراض الدم ومخزون الحديد" data-test-search="داء البقلاء g6pd أمراض الدم ومخزون الحديد">
+      <div class="test-item" id="test-card-45" data-test-id="45" data-test-cat="أمراض الدم ومخزون الحديد" data-test-search="داء البقلاء داء الباقلاء g6pd أمراض الدم ومخزون الحديد">
         <div class="test-info">
-          <h4>داء البقلاء</h4>
+          <h4>داء الباقلاء</h4>
           <span class="test-code">G6PD</span><span class="test-time" id="test-time-45">⏱ 45 دقيقة</span>
           <span class="test-cat-tag">أمراض الدم ومخزون الحديد</span>
         </div>
         <div class="test-action">
-          <span class="test-price">8,000 د.ع</span>
+          <span class="test-price">10,000 د.ع</span>
           <button type="button" class="add-test-btn" id="test-btn-45" data-action="toggle-test" data-id="45">+ إضافة</button>
         </div>
       </div>
@@ -3118,7 +3754,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <span class="test-cat-tag">الهرمونات والغدد</span>
         </div>
         <div class="test-action">
-          <span class="test-price">5,500 د.ع</span>
+          <span class="test-price">6,000 د.ع</span>
           <button type="button" class="add-test-btn" id="test-btn-65" data-action="toggle-test" data-id="65">+ إضافة</button>
         </div>
       </div>
@@ -3162,7 +3798,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <span class="test-cat-tag">الهرمونات والغدد</span>
         </div>
         <div class="test-action">
-          <span class="test-price">25,000 د.ع</span>
+          <span class="test-price">27,000 د.ع</span>
           <button type="button" class="add-test-btn" id="test-btn-69" data-action="toggle-test" data-id="69">+ إضافة</button>
         </div>
       </div>
@@ -3470,7 +4106,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
           <span class="test-cat-tag">الروماتزم والمناعة والفيروسات</span>
         </div>
         <div class="test-action">
-          <span class="test-price">5,000 د.ع</span>
+          <span class="test-price">6,500 د.ع</span>
           <button type="button" class="add-test-btn" id="test-btn-97" data-action="toggle-test" data-id="97">+ إضافة</button>
         </div>
       </div>
@@ -3642,6 +4278,12 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
     </div>
   </section>
 
+<!-- Interactive FAQ -->
+  
+
+  <!-- Individual Tests Section -->
+  
+
   <!-- Home Visit Booking Section -->
   <section id="home-visit">
     <div class="section-header">
@@ -3651,35 +4293,6 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
     </div>
 
     <div class="form-card">
-      <!-- Quick Add Dropdown -->
-      <div class="form-section-box">
-        <div class="form-section-title">➕ إضافة سريعة للباقات أو التحاليل من القائمة:</div>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <select id="quickSelectDropdown" style="flex: 2; min-width: 220px; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 11px; font-size: 0.92rem;">
-            <option value="">-- اختر باقة أو فحص لإضافته لطلبك --</option>
-            <optgroup label="الباقات الصحية الشاملة (15 باقة)">
-              <option value="pkg:1">1. الباقة البرونزية (19 فحص) - 22,000 د.ع</option>
-              <option value="pkg:2">2. الباقة الفضية (25 فحص) - 37,000 د.ع</option>
-              <option value="pkg:3">3. الباقة الذهبية VIP (29 فحص) - 53,000 د.ع</option>
-              <option value="pkg:4">4. باقة متابعة السكري وضغط الدم (15 فحص) - 33,000 د.ع</option>
-              <option value="pkg:5">5. باقة صحة الرجل والهرمونات (8 فحوصات) - 43,000 د.ع</option>
-              <option value="pkg:6">6. باقة تساقط الشعر (6 فحوصات) - 33,000 د.ع</option>
-              <option value="pkg:7">7. برنامج الهرمونات النسائية (5 فحوصات) - 25,000 د.ع</option>
-              <option value="pkg:8">8. باقة المفاصل والروماتزم (7 فحوصات) - 24,000 د.ع</option>
-              <option value="pkg:9">9. فحص السمنة للرجال والنساء (13 فحص) - 55,000 د.ع</option>
-              <option value="pkg:10">10. باقة الرياضيين وكمال الأجسام (21 فحص) - 50,000 د.ع</option>
-              <option value="pkg:11">11. باقة فحص الأطفال (8 فحوصات) - 25,000 د.ع</option>
-              <option value="pkg:12">12. باقة تأخر الحمل (7 فحوصات) - 60,000 د.ع</option>
-              <option value="pkg:13">13. باقة الغدة الدرقية الشاملة (4 فحوصات) - 25,000 د.ع</option>
-              <option value="pkg:14">14. باقة الفيتامينات والمعادن (8 فحوصات) - 36,000 د.ع</option>
-              <option value="pkg:15">15. باقة فحوصات قبل إبر التنحيف (16 فحص) - 45,000 د.ع</option>
-            </optgroup>
-            <optgroup label="الفحوصات الفردية (112 فحص)" id="quickTestsOptGroup"></optgroup>
-          </select>
-          <button type="button" id="quickAddBtn" class="btn" style="background: var(--primary); color: white; padding: 10px 18px; flex: 1; min-width: 120px;">+ أضف للطلب</button>
-        </div>
-      </div>
-
       <!-- Selected Items Box -->
       <div class="selected-box">
         <div class="selected-box-title">
@@ -3693,17 +4306,16 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
 
       <!-- Custom / Unlisted Test & Image Attachment -->
       <div class="custom-test-box">
-        <div class="form-section-title">📎 هل لديك فحص غير موجود بالقائمة أو ورقة راجيتة؟</div>
+        <div class="form-section-title">📎 هل لديك فحص غير موجود بالقائمة؟</div>
         <div class="form-group" style="margin-bottom: 10px;">
-          <label for="unlistedTestsInput">اكتب اسم الفحص غير المدرج هنا (اختياري):</label>
-          <input type="text" id="unlistedTestsInput" placeholder="مثال: اسم التحليل المطلوب كما هو مكتوب في الراجيتة..." />
+          <input type="text" id="unlistedTestsInput" aria-label="اسم الفحص غير المدرج" placeholder="اكتب اسم الفحص غير المدرج (اختياري)" />
         </div>
         <div class="form-group" style="margin-bottom: 0;">
-          <label>أو أرفق صورة ورقة الفحص / الراجيتة، وسنشاركها مع تفاصيل طلبك عبر واتساب:</label>
+          <label>أرفق صورة الفحص إذا رغبت، لإرسالها مع الطلب عبر واتساب:</label>
           <label for="prescriptionFileInput" class="upload-dropzone">
             <span style="font-size: 1.5rem;">📷</span>
-            <span class="up-main">اضغط هنا لاختيار صورة التحليل أو الراجيتة من جهازك</span>
-            <span class="up-sub">اختر صورة أو أكثر، راجعها قبل إرسال طلبك، ثم شاركها عبر واتساب</span>
+            <span class="up-main">📷 اختيار صورة الفحص</span>
+            <span class="up-sub">يمكن اختيار أكثر من صورة</span>
           </label>
           <input type="file" id="prescriptionFileInput" accept="image/*" multiple style="display: none;" />
           <div class="image-previews" id="imagePreviews"></div>
@@ -3953,7 +4565,7 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
 (function() {
   var PHONE_WA = "9647747905954";
   var packagesData = [{"id": 1, "cat": "شاملة", "catLabel": "الباقات الشاملة والوقائية", "title": "الباقة البرونزية (الأساسية الشاملة)", "price": "22,000 د.ع", "vip": false, "actualCount": 19, "items": ["صورة الدم الكاملة (CBC)", "فحص السكري (Glucose)", "وظائف الكلى (Urea & Creatinine) — (2 فحص)", "وظائف الكبد الكاملة: (ALT, AST, T. Bilirubin, D. Bilirubin, Indirect Bilirubin, Alk. Phosphatase) — (6 فحوصات)", "5 فحوصات للدهون: (Cholesterol, Triglycerides, LDL, HDL, VLDL)", "أملاح النقرس (Uric Acid)", "فحص ترسب الدم (ESR)", "فحص جرثومة المعدة (H. pylori)", "فحص الإدرار العام (GUE)"]}, {"id": 2, "cat": "شاملة", "catLabel": "الباقات الشاملة والوقائية", "title": "الباقة الفضية (لصحة الجسم والطاقة)", "price": "37,000 د.ع", "vip": false, "actualCount": 25, "items": ["صورة الدم الكاملة (CBC)", "فحص السكري (Glucose)", "فحص السكر التراكمي (HbA1c)", "هرمون الغدة الدرقية (TSH)", "فيتامين D3 (Vitamin D3)", "كالسيوم الدم (Calcium)", "وظائف الكلى (Urea & Creatinine) — (2 فحص)", "وظائف الكبد الكاملة: (ALT, AST, T. Bilirubin, D. Bilirubin, Indirect Bilirubin, Alk. Phosphatase) — (6 فحوصات)", "5 فحوصات للدهون: (Triglycerides, LDL, HDL, VLDL, Cholesterol)", "أملاح (Uric Acid)", "فحص ترسب الدم (ESR)", "فحص الالتهابات العامة (CRP)", "فحص التايفوئيد (Typhoid / Widal)", "فحص جرثومة المعدة (H. pylori)", "فحص الإدرار العام (GUE)"]}, {"id": 3, "cat": "شاملة", "catLabel": "الباقات الشاملة والوقائية • الأكثر شمولاً", "title": "الباقة الذهبية الشاملة (VIP - الفحص الأعمق لكافة وظائف الجسم والهرمونات)", "price": "53,000 د.ع", "vip": true, "actualCount": 29, "items": ["صورة الدم الكاملة (CBC)", "فحص السكري (Glucose)", "فحص السكر التراكمي (HbA1c)", "هرمون الغدة الدرقية (TSH)", "فيتامين D3 (Vitamin D3)", "كالسيوم الدم (Calcium)", "وظائف الكلى (Urea & Creatinine) — (2 فحص)", "وظائف الكبد الكاملة: (ALT, AST, T. Bilirubin, D. Bilirubin, Indirect Bilirubin, Alk. Phosphatase) — (6 فحوصات)", "فيتامين B12 (Vitamin B12)", "5 فحوصات للدهون: (Triglycerides, LDL, HDL, VLDL, Cholesterol)", "أملاح (Uric Acid)", "فحص ترسب الدم (ESR)", "فحص الالتهابات العامة (CRP)", "فحص التايفوئيد (Typhoid / Widal)", "فحص جرثومة المعدة (H. pylori)", "فحص الإدرار العام (GUE)", "مخزون الحديد (Ferritin)", "المغنيسيوم (Magnesium)", "الزنك (Zinc)"]}, {"id": 4, "cat": "تخصصية", "catLabel": "الباقات التخصصية واللياقة", "title": "باقة متابعة السكري وضغط الدم", "price": "33,000 د.ع", "vip": false, "actualCount": 15, "items": ["صورة الدم الكاملة (CBC)", "فحص السكر التراكمي (HbA1c)", "فحص السكري الصائم (Glucose)", "وظائف الكلى (Urea & Creatinine) — (2 فحص)", "أملاح الدم / الشوارد (Uric acid, Na, K, Cl) — (4 فحوصات)", "نسبة الألبومين إلى الكرياتينين في الإدرار (ACR)", "الدهون الكامل (5 تحاليل): (Cholesterol, Triglycerides, LDL, HDL, VLDL)"]}, {"id": 5, "cat": "الأسرة", "catLabel": "صحة المرأة والرجل والطفل", "title": "باقة صحة الرجل والهرمونات", "price": "43,000 د.ع", "vip": false, "actualCount": 8, "items": ["تحليل السائل المنوي (Seminal Fluid Analysis)", "هرمون الذكورة الكلي (Total Testosterone)", "فيتامين دال (Vitamin D3)", "الهرمون المحفز للجريب (FSH)", "الهرمون اللوتيني (LH)", "هرمون الحليب (Prolactin)", "هرمون الغدة الدرقية (TSH)", "صورة الدم الكاملة (CBC)"]}, {"id": 6, "cat": "تخصصية", "catLabel": "الباقات التخصصية واللياقة", "title": "باقة تساقط الشعر", "price": "33,000 د.ع", "vip": false, "actualCount": 6, "items": ["صورة الدم الكاملة (CBC)", "مخزون الحديد (Ferritin)", "فيتامين D3 (Vitamin D3)", "فيتامين B12 (Vitamin B12)", "عنصر الزنك (Zinc)", "هرمون الغدة الدرقية (TSH)"]}, {"id": 7, "cat": "الأسرة", "catLabel": "صحة المرأة والرجل والطفل", "title": "برنامج الفحوصات الهرمونات النسائية", "price": "25,000 د.ع", "vip": false, "actualCount": 5, "items": ["هرمون التبويض (LH)", "تقييم مخزون وتحفيز المبيض (FSH)", "هرمون الذكورة (Testosterone)", "هرمون الحليب (Prolactin)", "فحص نشاط الغدة الدرقية (TSH)"]}, {"id": 8, "cat": "تخصصية", "catLabel": "الباقات التخصصية واللياقة", "title": "باقة فحص المفاصل والروماتزم وآلام العظام", "price": "24,000 د.ع", "vip": false, "actualCount": 7, "items": ["صورة الدم الكاملة (CBC)", "فحص البكتيريا العقدية (ASOT)", "حامض اليورك / النقرس (Uric Acid)", "فحص الالتهابات العامة (ESR و CRP Titer) — (2 فحص)", "كالسيوم الدم (Calcium)", "فيتامين د3 (Vitamin D3)"]}, {"id": 9, "cat": "تخصصية", "catLabel": "الباقات التخصصية واللياقة", "title": "فحص السمنة للرجال والنساء (ابدأ رحلة التغيير لصحة أفضل!)", "price": "55,000 د.ع", "vip": false, "actualCount": 13, "items": ["هرمون الغدة الدرقية (TSH)", "مقاومة الأنسولين (HOMA-IR)", "السكر التراكمي (HbA1c)", "صورة الدهون الشاملة (Lipid Profile) — (5 فحوصات)", "وظائف الكبد (ALT + AST) — (2 فحص)", "فيتامين د3 (Vitamin D3)", "هرمون الكورتيزول (Cortisol)", "هرمون الحليب (Prolactin)"]}, {"id": 10, "cat": "تخصصية", "catLabel": "الباقات التخصصية واللياقة", "title": "باقة الفحص الشامل للرياضيين وأبطال كمال الأجسام", "price": "50,000 د.ع", "vip": false, "actualCount": 21, "items": ["صورة الدم الكاملة (CBC)", "وظائف الكلى (Urea, Creatinine) — (2 فحص)", "وظائف الكبد والإنزيمات (ALT, AST, ALK) — (3 فحوصات)", "البيليروبين الكلي والمباشر (Total & Direct) — (2 فحص)", "صورة الدهون الشاملة (Lipid Profile) — (5 فحوصات)", "حامض اليورك / النقرس (Uric Acid)", "السكر اليومي (RBS) والسكر التراكمي (HbA1c) — (2 فحص)", "فيتامين د3 (Vitamin D3)", "المغنيسيوم (Magnesium) والكالسيوم (Calcium) — (2 فحص)", "هرمون الذكورة (Testosterone)", "هرمون الغدة الدرقية (TSH)"]}, {"id": 11, "cat": "الأسرة", "catLabel": "صحة المرأة والرجل والطفل", "title": "باقة فحص الأطفال (شحوب، قلة شهية، أو تعب سريع؟ افحص طفلك واطمئن)", "price": "25,000 د.ع", "vip": false, "actualCount": 8, "items": ["صورة الدم الكاملة (CBC)", "مخزون الحديد (Ferritin)", "نسبة الحديد (Iron)", "فيتامين د (Vitamin D3)", "فحص الإدرار العام (Urine)", "وظائف الكلى (Urea, Creatinine) — (2 فحص)", "فحص السكر اليومي (RBS)"]}, {"id": 12, "cat": "الأسرة", "catLabel": "صحة المرأة والرجل والطفل", "title": "باقة تأخر الحمل والهرمونات النسائية (خطوة واضحة نحو حلم الأمومة)", "price": "60,000 د.ع", "vip": false, "actualCount": 7, "items": ["الهرمون المنبه للجريبات (FSH)", "الهرمون اللوتيني (LH)", "هرمون الحليب (Prolactin)", "هرمون الغدة الدرقية (TSH)", "هرمون الإستروجين (E2)", "مخزون المبيض (AMH)", "هرمون الذكورة (Testosterone)"]}, {"id": 13, "cat": "تخصصية", "catLabel": "الباقات التخصصية واللياقة", "title": "باقة فحص الغدة الدرقية الشاملة", "price": "25,000 د.ع", "vip": false, "actualCount": 4, "items": ["هرمون الغدة الدرقية (TSH)", "هرمون Free T3 الحر", "هرمون Free T4 الحر", "الأجسام المضادة للغدة الدرقية (Anti-TPO)"]}, {"id": 14, "cat": "تخصصية", "catLabel": "الباقات التخصصية واللياقة", "title": "باقة فحص الفيتامينات والمعادن", "price": "36,000 د.ع", "vip": false, "actualCount": 8, "items": ["فيتامين دي ثري (VITAMIN D3)", "فحص الفريتين / مخزون الحديد (FERRITIN)", "فيتامين بي 12 (VITAMIN B12)", "فحص الفسفور (PHOSPHORUS)", "المغنيسيوم (MAGNESIUM)", "فحص الزنك (ZINC)", "الكالسيوم (CALCIUM)", "فيتامين فوليك اسيد (FOLIC ACID)"]}, {"id": 15, "cat": "تخصصية", "catLabel": "الباقات التخصصية واللياقة", "title": "باقة فحوصات قبل إبر التنحيف (صحتك أولاً)", "price": "45,000 د.ع", "vip": false, "actualCount": 16, "items": ["صورة الدم (CBC)", "وظائف الكلى (Urea + Creatinine) — (2 فحص)", "وظائف الكبد (AST + ALT) — (2 فحص)", "إنزيمات البنكرياس (Lipase + Amylase) — (2 فحص)", "هرمون الدرقية (TSH)", "مقاومة الأنسولين (HOMA-IR)", "مخزون الحديد (Ferritin)", "صورة الدهون الشاملة (Lipid Profile) — (5 فحوصات)", "فيتامين د3 (Vitamin D3)"]}];
-  var testsData = [{"id": 1, "cat": "الفحوصات العامة والأساسية", "ar": "فحص التهابات الجسم العامة", "en": "ESR", "price": 2000, "time": "45 دقيقة"}, {"id": 2, "cat": "الفحوصات العامة والأساسية", "ar": "فحص التهابات الجسم", "en": "CRP Titer", "price": 4500, "time": "45 دقيقة"}, {"id": 3, "cat": "الفحوصات العامة والأساسية", "ar": "فحص التهاب الحاد", "en": "HS CRP Titer", "price": 5000, "time": "45 دقيقة"}, {"id": 4, "cat": "الفحوصات العامة والأساسية", "ar": "فحص فصيلة الدم", "en": "Blood group", "price": 1500, "time": "25 دقيقة"}, {"id": 5, "cat": "الفحوصات العامة والأساسية", "ar": "فحص السكر التراكمي", "en": "HBA1c", "price": 7000, "time": "45 دقيقة"}, {"id": 6, "cat": "الفحوصات العامة والأساسية", "ar": "فحص السكر اليومي", "en": "R.B.S", "price": 0, "time": "25 دقيقة"}, {"id": 7, "cat": "الفيتامينات والمعادن", "ar": "فحص فيتامين د", "en": "Vitamin D3", "price": 8000, "time": "ساعة وربع"}, {"id": 8, "cat": "الفيتامينات والمعادن", "ar": "فحص فيتامين ب12", "en": "Vitamin B12", "price": 7000, "time": "ساعة وربع"}, {"id": 9, "cat": "الفيتامينات والمعادن", "ar": "فحص الفوليك اسد", "en": "Folic acid", "price": 7000, "time": "ساعة وربع"}, {"id": 10, "cat": "الفيتامينات والمعادن", "ar": "فحص الزنك", "en": "Zinc", "price": 4000, "time": "45 دقيقة"}, {"id": 11, "cat": "وظائف الكلى والأملاح", "ar": "اليوريا", "en": "Urea", "price": 1500, "time": "45 دقيقة"}, {"id": 12, "cat": "وظائف الكلى والأملاح", "ar": "الكرياتنين", "en": "Creatinine", "price": 1500, "time": "45 دقيقة"}, {"id": 13, "cat": "وظائف الكلى والأملاح", "ar": "حامض اليورك / النقرس", "en": "Uric Acid", "price": 1500, "time": "45 دقيقة"}, {"id": 14, "cat": "وظائف الكلى والأملاح", "ar": "فحص وظيفة الكلى", "en": "ACR", "price": 10000, "time": "45 دقيقة"}, {"id": 15, "cat": "وظائف الكلى والأملاح", "ar": "مايكروالبومين", "en": "Micro albumin", "price": 8000, "time": "45 دقيقة"}, {"id": 16, "cat": "وظائف الكلى والأملاح", "ar": "فحص الإدرار العام", "en": "Urine", "price": 2000, "time": "25 دقيقة"}, {"id": 17, "cat": "وظائف الكلى والأملاح", "ar": "فحص زرع الإدرار", "en": "Urine Culture", "price": 12000, "time": "48 - 72 ساعة"}, {"id": 18, "cat": "وظائف الكلى والأملاح", "ar": "الكالسيوم", "en": "Calcium", "price": 2000, "time": "45 دقيقة"}, {"id": 19, "cat": "وظائف الكلى والأملاح", "ar": "الفسفور", "en": "Phosphorus", "price": 3000, "time": "45 دقيقة"}, {"id": 20, "cat": "وظائف الكلى والأملاح", "ar": "المغنيسيوم", "en": "Magnesium", "price": 2000, "time": "45 دقيقة"}, {"id": 21, "cat": "وظائف الكلى والأملاح", "ar": "الصوديوم", "en": "Na", "price": 3500, "time": "45 دقيقة"}, {"id": 22, "cat": "وظائف الكلى والأملاح", "ar": "الكلورايد", "en": "CL", "price": 3500, "time": "45 دقيقة"}, {"id": 23, "cat": "وظائف الكلى والأملاح", "ar": "البوتاسيوم", "en": "K", "price": 3500, "time": "45 دقيقة"}, {"id": 24, "cat": "الكبد والإنزيمات والدهون", "ar": "إنزيم الكبد", "en": "ALT", "price": 2000, "time": "45 دقيقة"}, {"id": 25, "cat": "الكبد والإنزيمات والدهون", "ar": "إنزيم الكبد", "en": "AST", "price": 2000, "time": "45 دقيقة"}, {"id": 26, "cat": "الكبد والإنزيمات والدهون", "ar": "الألكلاين فوسفات", "en": "ALK", "price": 2000, "time": "45 دقيقة"}, {"id": 27, "cat": "الكبد والإنزيمات والدهون", "ar": "البيليروبين الكلي / أبو صفار", "en": "Total bilirubin", "price": 2000, "time": "45 دقيقة"}, {"id": 28, "cat": "الكبد والإنزيمات والدهون", "ar": "البيليروبين المباشر", "en": "Direct bilirubin", "price": 2000, "time": "45 دقيقة"}, {"id": 29, "cat": "الكبد والإنزيمات والدهون", "ar": "البيليروبين غير المباشر", "en": "Indirect bilirubin", "price": 2000, "time": "45 دقيقة"}, {"id": 30, "cat": "الكبد والإنزيمات والدهون", "ar": "نسبة البروتين الكلي", "en": "Total Protein", "price": 2000, "time": "45 دقيقة"}, {"id": 31, "cat": "الكبد والإنزيمات والدهون", "ar": "نسبة الألبومين", "en": "Albumin", "price": 2000, "time": "45 دقيقة"}, {"id": 32, "cat": "الكبد والإنزيمات والدهون", "ar": "نسبة الكلوبيولين", "en": "Globulin", "price": 4000, "time": "45 دقيقة"}, {"id": 33, "cat": "الكبد والإنزيمات والدهون", "ar": "إنزيم الكبد", "en": "GGT", "price": 4000, "time": "45 دقيقة"}, {"id": 34, "cat": "الكبد والإنزيمات والدهون", "ar": "أنزيم الأميليز", "en": "Amylase", "price": 3500, "time": "45 دقيقة"}, {"id": 35, "cat": "الكبد والإنزيمات والدهون", "ar": "أنزيم اللايبيز", "en": "Lipase", "price": 4000, "time": "45 دقيقة"}, {"id": 36, "cat": "الكبد والإنزيمات والدهون", "ar": "الكولسترول", "en": "Cholesterol", "price": 1500, "time": "45 دقيقة"}, {"id": 37, "cat": "الكبد والإنزيمات والدهون", "ar": "الدهون الثلاثية", "en": "Triglyceride", "price": 1500, "time": "45 دقيقة"}, {"id": 38, "cat": "الكبد والإنزيمات والدهون", "ar": "الدهون الجيدة", "en": "HDL", "price": 1500, "time": "45 دقيقة"}, {"id": 39, "cat": "الكبد والإنزيمات والدهون", "ar": "الدهون الضارة", "en": "LDL", "price": 1500, "time": "45 دقيقة"}, {"id": 40, "cat": "أمراض الدم ومخزون الحديد", "ar": "صورة الدم الكاملة", "en": "CBC", "price": 4000, "time": "25 دقيقة"}, {"id": 41, "cat": "أمراض الدم ومخزون الحديد", "ar": "مخزون الحديد", "en": "Ferritin", "price": 6500, "time": "ساعة وربع"}, {"id": 42, "cat": "أمراض الدم ومخزون الحديد", "ar": "نسبة الحديد بالدم", "en": "Iron", "price": 2000, "time": "45 دقيقة"}, {"id": 43, "cat": "أمراض الدم ومخزون الحديد", "ar": "السعة غير المشبعة للحديد", "en": "UIBC", "price": 4000, "time": "45 دقيقة"}, {"id": 44, "cat": "أمراض الدم ومخزون الحديد", "ar": "السعة الرابطة الكلية للحديد", "en": "TIBC", "price": 6000, "time": "45 دقيقة"}, {"id": 45, "cat": "أمراض الدم ومخزون الحديد", "ar": "داء البقلاء", "en": "G6PD", "price": 8000, "time": "45 دقيقة"}, {"id": 46, "cat": "أمراض الدم ومخزون الحديد", "ar": "فحص الهيموغلوبين الكهربائي", "en": "Hb electrophoresis", "price": 15000, "time": "ساعة ونصف"}, {"id": 47, "cat": "أمراض الدم ومخزون الحديد", "ar": "فحص مسحة الدم / فلم الدم", "en": "Blood Film", "price": 15000, "time": "ساعة ونصف"}, {"id": 48, "cat": "تخثر الدم والقلب", "ar": "تخثر الدم", "en": "PT, INR", "price": 3500, "time": "35 دقيقة"}, {"id": 49, "cat": "تخثر الدم والقلب", "ar": "تخثر الدم", "en": "PTT", "price": 3500, "time": "35 دقيقة"}, {"id": 50, "cat": "تخثر الدم والقلب", "ar": "الفيبرينوجين", "en": "Fibrinogen", "price": 7000, "time": "35 دقيقة"}, {"id": 51, "cat": "تخثر الدم والقلب", "ar": "تخثر الدم", "en": "Lupus", "price": 9000, "time": "35 دقيقة"}, {"id": 52, "cat": "تخثر الدم والقلب", "ar": "دي دايمر", "en": "D.dimer", "price": 8500, "time": "ساعة وربع"}, {"id": 53, "cat": "تخثر الدم والقلب", "ar": "التروبونين", "en": "Troponin I", "price": 9000, "time": "ساعة وربع"}, {"id": 54, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية", "en": "TSH", "price": 5500, "time": "ساعة وربع"}, {"id": 55, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية", "en": "T3", "price": 5500, "time": "ساعة وربع"}, {"id": 56, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية", "en": "T4", "price": 5500, "time": "ساعة وربع"}, {"id": 57, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية الحر", "en": "Free T3", "price": 5500, "time": "ساعة وربع"}, {"id": 58, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية الحر", "en": "Free T4", "price": 5500, "time": "ساعة وربع"}, {"id": 59, "cat": "الهرمونات والغدد", "ar": "الأجسام المضادة للغدة الدرقية", "en": "Anti-TPO", "price": 9000, "time": "ساعة وربع"}, {"id": 60, "cat": "الهرمونات والغدد", "ar": "الأجسام المضادة للغدة الدرقية", "en": "Anti-TG", "price": 10000, "time": "ساعة وربع"}, {"id": 61, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الجار درقية", "en": "PTH", "price": 9000, "time": "ساعة وربع"}, {"id": 62, "cat": "الهرمونات والغدد", "ar": "هرمون الملوتن", "en": "LH", "price": 5500, "time": "ساعة وربع"}, {"id": 63, "cat": "الهرمونات والغدد", "ar": "هرمون المنبه للحويصلة", "en": "FSH", "price": 5500, "time": "ساعة وربع"}, {"id": 64, "cat": "الهرمونات والغدد", "ar": "هرمون الحليب", "en": "Prolactin", "price": 5500, "time": "ساعة وربع"}, {"id": 65, "cat": "الهرمونات والغدد", "ar": "هرمون الاستروجين", "en": "E2", "price": 5500, "time": "ساعة وربع"}, {"id": 66, "cat": "الهرمونات والغدد", "ar": "هرمون تيستوستيرون", "en": "Testosterone", "price": 5500, "time": "ساعة وربع"}, {"id": 67, "cat": "الهرمونات والغدد", "ar": "هرمون البروجستيرون", "en": "Progesterone", "price": 5500, "time": "ساعة وربع"}, {"id": 68, "cat": "الهرمونات والغدد", "ar": "التستوستيرون الحر", "en": "Free Testosterone", "price": 10000, "time": "ساعة وربع"}, {"id": 69, "cat": "الهرمونات والغدد", "ar": "مخزون البيوض", "en": "AMH", "price": 25000, "time": "ساعة وربع"}, {"id": 70, "cat": "الهرمونات والغدد", "ar": "الحمل الرقمي", "en": "BHCG", "price": 6000, "time": "ساعة وربع"}, {"id": 71, "cat": "الهرمونات والغدد", "ar": "فحص الحمل", "en": "Pregnancy test", "price": 1500, "time": "25 دقيقة"}, {"id": 72, "cat": "الهرمونات والغدد", "ar": "هرمون النمو", "en": "Growth Hormone", "price": 9000, "time": "ساعة وربع"}, {"id": 73, "cat": "الهرمونات والغدد", "ar": "الكورتزول", "en": "Cortisol", "price": 8000, "time": "ساعة وربع"}, {"id": 74, "cat": "الهرمونات والغدد", "ar": "مقاومة الأنسولين", "en": "Homa IR", "price": 9000, "time": "ساعة وربع"}, {"id": 75, "cat": "الهرمونات والغدد", "ar": "مستوى الأنسولين", "en": "Insulin level", "price": 8000, "time": "ساعة وربع"}, {"id": 76, "cat": "الهرمونات والغدد", "ar": "سي بيبتايد", "en": "C peptide", "price": 9000, "time": "ساعة وربع"}, {"id": 77, "cat": "الهرمونات والغدد", "ar": "هرمون موجه قشر الكظر", "en": "ACTH", "price": 11000, "time": "ساعة وربع"}, {"id": 78, "cat": "الهرمونات والغدد", "ar": "تحليل السائل المنوي", "en": "Seminal Fluid Analysis", "price": 5000, "time": "ساعة ونصف"}, {"id": 79, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الروماتزم", "en": "RF Titer", "price": 3000, "time": "ساعة ونصف"}, {"id": 80, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الروماتزم", "en": "Anti ccp", "price": 9000, "time": "ساعة ونصف"}, {"id": 81, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الأجسام المضادة للنواة", "en": "ANA", "price": 10000, "time": "ساعة ونصف"}, {"id": 82, "cat": "الروماتزم والمناعة والفيروسات", "ar": "التايفوئيد", "en": "Widal", "price": 3000, "time": "ساعة ونصف"}, {"id": 83, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فحص البكتيريا العقدية", "en": "ASOT", "price": 2000, "time": "ساعة ونصف"}, {"id": 84, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الأجسام المضادة", "en": "IgA", "price": 10000, "time": "ساعة ونصف"}, {"id": 85, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فحص الحساسية المناعي", "en": "IgE", "price": 9000, "time": "ساعة ونصف"}, {"id": 86, "cat": "الروماتزم والمناعة والفيروسات", "ar": "جرثومة المعدة بالخروج", "en": "H.pylori Ag", "price": 4000, "time": "30 دقيقة"}, {"id": 87, "cat": "الروماتزم والمناعة والفيروسات", "ar": "جرثومة المعدة الرقمي", "en": "H.pylori SA", "price": 15000, "time": "30 دقيقة"}, {"id": 88, "cat": "الروماتزم والمناعة والفيروسات", "ar": "جرثومة المعدة بالدم", "en": "H.pylori Ab", "price": 3000, "time": "30 دقيقة"}, {"id": 89, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء الحنطة (حساسية القمح)", "en": "Anti-tTG IgA", "price": 11000, "time": "ساعة ونصف"}, {"id": 90, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء الحنطة (حساسية القمح)", "en": "Anti-tTG IgG", "price": 11000, "time": "ساعة ونصف"}, {"id": 91, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء الحنطة (حساسية القمح)", "en": "Anti-DGP IgA", "price": 11000, "time": "ساعة ونصف"}, {"id": 92, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء الحنطة (حساسية القمح)", "en": "Anti-DGP IgG", "price": 11000, "time": "ساعة ونصف"}, {"id": 93, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الخروج العام", "en": "Stool", "price": 2000, "time": "25 دقيقة"}, {"id": 94, "cat": "الروماتزم والمناعة والفيروسات", "ar": "زرع الخروج", "en": "Stool Culture", "price": 10000, "time": "48 - 72 ساعة"}, {"id": 95, "cat": "الروماتزم والمناعة والفيروسات", "ar": "التهاب الكبد الفايروسي", "en": "HCV Titer", "price": 5000, "time": "ساعة ونصف"}, {"id": 96, "cat": "الروماتزم والمناعة والفيروسات", "ar": "التهاب الكبد الفايروسي", "en": "HBS Ag Titer", "price": 5000, "time": "ساعة ونصف"}, {"id": 97, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فحص نقص المناعة", "en": "HIV Titer", "price": 5000, "time": "ساعة ونصف"}, {"id": 98, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء القطط", "en": "Toxo IgG", "price": 6000, "time": "ساعة ونصف"}, {"id": 99, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء القطط", "en": "Toxo IgM", "price": 6000, "time": "ساعة ونصف"}, {"id": 100, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فايروس CMV", "en": "Cmv IgG", "price": 6000, "time": "ساعة ونصف"}, {"id": 101, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فايروس CMV", "en": "Cmv IgM", "price": 6000, "time": "ساعة ونصف"}, {"id": 102, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الحصبة الألمانية", "en": "Rubella IgG", "price": 6000, "time": "ساعة ونصف"}, {"id": 103, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الحصبة الألمانية", "en": "Rubella IgM", "price": 6000, "time": "ساعة ونصف"}, {"id": 104, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فايروس الهربس", "en": "HSV IgG", "price": 8000, "time": "ساعة ونصف"}, {"id": 105, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فايروس الهربس", "en": "HSV IgM", "price": 8000, "time": "ساعة ونصف"}, {"id": 106, "cat": "الأورام والبروستات", "ar": "هرمون البروستات", "en": "PSA", "price": 7000, "time": "ساعة وربع"}, {"id": 107, "cat": "الأورام والبروستات", "ar": "هرمون البروستات الحر", "en": "Free PSA", "price": 10000, "time": "ساعة وربع"}, {"id": 108, "cat": "الأورام والبروستات", "ar": "دلالات أورام المبيض", "en": "CA125", "price": 9000, "time": "ساعة وربع"}, {"id": 109, "cat": "الأورام والبروستات", "ar": "دلالات أورام الجهاز الهضمي", "en": "CA19-9", "price": 9000, "time": "ساعة وربع"}, {"id": 110, "cat": "الأورام والبروستات", "ar": "دلالات أورام الثدي", "en": "CA15-3", "price": 9000, "time": "ساعة وربع"}, {"id": 111, "cat": "الأورام والبروستات", "ar": "دلالات الأورام العامة", "en": "CEA", "price": 9000, "time": "ساعة وربع"}, {"id": 112, "cat": "الأورام والبروستات", "ar": "فحص البكتيريا المسببة للسل", "en": "AFB", "price": 9000, "time": "ساعة ونصف"}];
+  var testsData = [{"id": 1, "cat": "الفحوصات العامة والأساسية", "ar": "فحص التهابات الجسم العامة", "en": "ESR", "price": 2000, "time": "45 دقيقة"}, {"id": 2, "cat": "الفحوصات العامة والأساسية", "ar": "فحص التهابات الجسم", "en": "CRP Titer", "price": 4500, "time": "45 دقيقة"}, {"id": 3, "cat": "الفحوصات العامة والأساسية", "ar": "فحص التهاب الحاد", "en": "HS CRP Titer", "price": 5000, "time": "45 دقيقة"}, {"id": 4, "cat": "الفحوصات العامة والأساسية", "ar": "فحص فصيلة الدم", "en": "Blood group", "price": 1500, "time": "25 دقيقة"}, {"id": 5, "cat": "الفحوصات العامة والأساسية", "ar": "فحص السكر التراكمي", "en": "HBA1c", "price": 7000, "time": "45 دقيقة"}, {"id": 6, "cat": "الفحوصات العامة والأساسية", "ar": "فحص السكر اليومي", "en": "R.B.S", "price": 0, "time": "25 دقيقة"}, {"id": 7, "cat": "الفيتامينات والمعادن", "ar": "فحص فيتامين د", "en": "Vitamin D3", "price": 8000, "time": "ساعة وربع"}, {"id": 8, "cat": "الفيتامينات والمعادن", "ar": "فحص فيتامين ب12", "en": "Vitamin B12", "price": 7000, "time": "ساعة وربع"}, {"id": 9, "cat": "الفيتامينات والمعادن", "ar": "فحص الفوليك اسد", "en": "Folic acid", "price": 7000, "time": "ساعة وربع"}, {"id": 10, "cat": "الفيتامينات والمعادن", "ar": "فحص الزنك", "en": "Zinc", "price": 4000, "time": "45 دقيقة"}, {"id": 11, "cat": "وظائف الكلى والأملاح", "ar": "اليوريا", "en": "Urea", "price": 1500, "time": "45 دقيقة"}, {"id": 12, "cat": "وظائف الكلى والأملاح", "ar": "الكرياتنين", "en": "Creatinine", "price": 1500, "time": "45 دقيقة"}, {"id": 13, "cat": "وظائف الكلى والأملاح", "ar": "حامض اليورك / النقرس", "en": "Uric Acid", "price": 1500, "time": "45 دقيقة"}, {"id": 14, "cat": "وظائف الكلى والأملاح", "ar": "فحص وظيفة الكلى", "en": "ACR", "price": 10000, "time": "45 دقيقة"}, {"id": 15, "cat": "وظائف الكلى والأملاح", "ar": "مايكروالبومين", "en": "Micro albumin", "price": 8000, "time": "45 دقيقة"}, {"id": 16, "cat": "وظائف الكلى والأملاح", "ar": "فحص الإدرار العام", "en": "Urine", "price": 2000, "time": "25 دقيقة"}, {"id": 17, "cat": "وظائف الكلى والأملاح", "ar": "فحص زرع الإدرار + فحص الإدرار العام", "en": "Urine Culture + GUE", "price": 12000, "time": "48 - 72 ساعة"}, {"id": 18, "cat": "وظائف الكلى والأملاح", "ar": "الكالسيوم", "en": "Calcium", "price": 2000, "time": "45 دقيقة"}, {"id": 19, "cat": "وظائف الكلى والأملاح", "ar": "الفسفور", "en": "Phosphorus", "price": 3000, "time": "45 دقيقة"}, {"id": 20, "cat": "وظائف الكلى والأملاح", "ar": "المغنيسيوم", "en": "Magnesium", "price": 2000, "time": "45 دقيقة"}, {"id": 21, "cat": "وظائف الكلى والأملاح", "ar": "الصوديوم", "en": "Na", "price": 3500, "time": "45 دقيقة"}, {"id": 22, "cat": "وظائف الكلى والأملاح", "ar": "الكلورايد", "en": "CL", "price": 3500, "time": "45 دقيقة"}, {"id": 23, "cat": "وظائف الكلى والأملاح", "ar": "البوتاسيوم", "en": "K", "price": 3500, "time": "45 دقيقة"}, {"id": 24, "cat": "الكبد والإنزيمات والدهون", "ar": "إنزيم الكبد", "en": "ALT", "price": 2000, "time": "45 دقيقة"}, {"id": 25, "cat": "الكبد والإنزيمات والدهون", "ar": "إنزيم الكبد", "en": "AST", "price": 2000, "time": "45 دقيقة"}, {"id": 26, "cat": "الكبد والإنزيمات والدهون", "ar": "الألكلاين فوسفات", "en": "ALK", "price": 2000, "time": "45 دقيقة"}, {"id": 27, "cat": "الكبد والإنزيمات والدهون", "ar": "البيليروبين الكلي / أبو صفار", "en": "Total bilirubin", "price": 2000, "time": "45 دقيقة"}, {"id": 28, "cat": "الكبد والإنزيمات والدهون", "ar": "البيليروبين المباشر", "en": "Direct bilirubin", "price": 2000, "time": "45 دقيقة"}, {"id": 29, "cat": "الكبد والإنزيمات والدهون", "ar": "البيليروبين غير المباشر", "en": "Indirect bilirubin", "price": 2000, "time": "45 دقيقة"}, {"id": 30, "cat": "الكبد والإنزيمات والدهون", "ar": "نسبة البروتين الكلي", "en": "Total Protein", "price": 2000, "time": "45 دقيقة"}, {"id": 31, "cat": "الكبد والإنزيمات والدهون", "ar": "نسبة الألبومين", "en": "Albumin", "price": 2000, "time": "45 دقيقة"}, {"id": 32, "cat": "الكبد والإنزيمات والدهون", "ar": "نسبة الكلوبيولين", "en": "Globulin", "price": 4000, "time": "45 دقيقة"}, {"id": 33, "cat": "الكبد والإنزيمات والدهون", "ar": "إنزيم الكبد", "en": "GGT", "price": 4000, "time": "45 دقيقة"}, {"id": 34, "cat": "الكبد والإنزيمات والدهون", "ar": "أنزيم الأميليز", "en": "Amylase", "price": 3500, "time": "45 دقيقة"}, {"id": 35, "cat": "الكبد والإنزيمات والدهون", "ar": "أنزيم اللايبيز", "en": "Lipase", "price": 4000, "time": "45 دقيقة"}, {"id": 36, "cat": "الكبد والإنزيمات والدهون", "ar": "الكولسترول", "en": "Cholesterol", "price": 1500, "time": "45 دقيقة"}, {"id": 37, "cat": "الكبد والإنزيمات والدهون", "ar": "الدهون الثلاثية", "en": "Triglyceride", "price": 1500, "time": "45 دقيقة"}, {"id": 38, "cat": "الكبد والإنزيمات والدهون", "ar": "الدهون الجيدة", "en": "HDL", "price": 1500, "time": "45 دقيقة"}, {"id": 39, "cat": "الكبد والإنزيمات والدهون", "ar": "الدهون الضارة", "en": "LDL", "price": 1500, "time": "45 دقيقة"}, {"id": 40, "cat": "أمراض الدم ومخزون الحديد", "ar": "صورة الدم الكاملة", "en": "CBC", "price": 4000, "time": "25 دقيقة"}, {"id": 41, "cat": "أمراض الدم ومخزون الحديد", "ar": "مخزون الحديد", "en": "Ferritin", "price": 6500, "time": "ساعة وربع"}, {"id": 42, "cat": "أمراض الدم ومخزون الحديد", "ar": "نسبة الحديد بالدم", "en": "Iron", "price": 2000, "time": "45 دقيقة"}, {"id": 43, "cat": "أمراض الدم ومخزون الحديد", "ar": "السعة غير المشبعة للحديد", "en": "UIBC", "price": 4000, "time": "45 دقيقة"}, {"id": 44, "cat": "أمراض الدم ومخزون الحديد", "ar": "السعة الرابطة الكلية للحديد", "en": "TIBC", "price": 6000, "time": "45 دقيقة"}, {"id": 45, "cat": "أمراض الدم ومخزون الحديد", "ar": "داء الباقلاء", "en": "G6PD", "price": 10000, "time": "45 دقيقة"}, {"id": 46, "cat": "أمراض الدم ومخزون الحديد", "ar": "فحص الهيموغلوبين الكهربائي", "en": "Hb electrophoresis", "price": 15000, "time": "ساعة ونصف"}, {"id": 47, "cat": "أمراض الدم ومخزون الحديد", "ar": "فحص مسحة الدم / فلم الدم", "en": "Blood Film", "price": 15000, "time": "ساعة ونصف"}, {"id": 48, "cat": "تخثر الدم والقلب", "ar": "تخثر الدم", "en": "PT, INR", "price": 3500, "time": "35 دقيقة"}, {"id": 49, "cat": "تخثر الدم والقلب", "ar": "تخثر الدم", "en": "PTT", "price": 3500, "time": "35 دقيقة"}, {"id": 50, "cat": "تخثر الدم والقلب", "ar": "الفيبرينوجين", "en": "Fibrinogen", "price": 7000, "time": "35 دقيقة"}, {"id": 51, "cat": "تخثر الدم والقلب", "ar": "تخثر الدم", "en": "Lupus", "price": 9000, "time": "35 دقيقة"}, {"id": 52, "cat": "تخثر الدم والقلب", "ar": "دي دايمر", "en": "D.dimer", "price": 8500, "time": "ساعة وربع"}, {"id": 53, "cat": "تخثر الدم والقلب", "ar": "التروبونين", "en": "Troponin I", "price": 9000, "time": "ساعة وربع"}, {"id": 54, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية", "en": "TSH", "price": 5500, "time": "ساعة وربع"}, {"id": 55, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية", "en": "T3", "price": 5500, "time": "ساعة وربع"}, {"id": 56, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية", "en": "T4", "price": 5500, "time": "ساعة وربع"}, {"id": 57, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية الحر", "en": "Free T3", "price": 5500, "time": "ساعة وربع"}, {"id": 58, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الدرقية الحر", "en": "Free T4", "price": 5500, "time": "ساعة وربع"}, {"id": 59, "cat": "الهرمونات والغدد", "ar": "الأجسام المضادة للغدة الدرقية", "en": "Anti-TPO", "price": 9000, "time": "ساعة وربع"}, {"id": 60, "cat": "الهرمونات والغدد", "ar": "الأجسام المضادة للغدة الدرقية", "en": "Anti-TG", "price": 10000, "time": "ساعة وربع"}, {"id": 61, "cat": "الهرمونات والغدد", "ar": "هرمون الغدة الجار درقية", "en": "PTH", "price": 9000, "time": "ساعة وربع"}, {"id": 62, "cat": "الهرمونات والغدد", "ar": "هرمون الملوتن", "en": "LH", "price": 5500, "time": "ساعة وربع"}, {"id": 63, "cat": "الهرمونات والغدد", "ar": "هرمون المنبه للحويصلة", "en": "FSH", "price": 5500, "time": "ساعة وربع"}, {"id": 64, "cat": "الهرمونات والغدد", "ar": "هرمون الحليب", "en": "Prolactin", "price": 5500, "time": "ساعة وربع"}, {"id": 65, "cat": "الهرمونات والغدد", "ar": "هرمون الاستروجين", "en": "E2", "price": 6000, "time": "ساعة وربع"}, {"id": 66, "cat": "الهرمونات والغدد", "ar": "هرمون تيستوستيرون", "en": "Testosterone", "price": 5500, "time": "ساعة وربع"}, {"id": 67, "cat": "الهرمونات والغدد", "ar": "هرمون البروجستيرون", "en": "Progesterone", "price": 5500, "time": "ساعة وربع"}, {"id": 68, "cat": "الهرمونات والغدد", "ar": "التستوستيرون الحر", "en": "Free Testosterone", "price": 10000, "time": "ساعة وربع"}, {"id": 69, "cat": "الهرمونات والغدد", "ar": "مخزون البيوض", "en": "AMH", "price": 27000, "time": "ساعة وربع"}, {"id": 70, "cat": "الهرمونات والغدد", "ar": "الحمل الرقمي", "en": "BHCG", "price": 6000, "time": "ساعة وربع"}, {"id": 71, "cat": "الهرمونات والغدد", "ar": "فحص الحمل", "en": "Pregnancy test", "price": 1500, "time": "25 دقيقة"}, {"id": 72, "cat": "الهرمونات والغدد", "ar": "هرمون النمو", "en": "Growth Hormone", "price": 9000, "time": "ساعة وربع"}, {"id": 73, "cat": "الهرمونات والغدد", "ar": "الكورتزول", "en": "Cortisol", "price": 8000, "time": "ساعة وربع"}, {"id": 74, "cat": "الهرمونات والغدد", "ar": "مقاومة الأنسولين", "en": "Homa IR", "price": 9000, "time": "ساعة وربع"}, {"id": 75, "cat": "الهرمونات والغدد", "ar": "مستوى الأنسولين", "en": "Insulin level", "price": 8000, "time": "ساعة وربع"}, {"id": 76, "cat": "الهرمونات والغدد", "ar": "سي بيبتايد", "en": "C peptide", "price": 9000, "time": "ساعة وربع"}, {"id": 77, "cat": "الهرمونات والغدد", "ar": "هرمون موجه قشر الكظر", "en": "ACTH", "price": 11000, "time": "ساعة وربع"}, {"id": 78, "cat": "الهرمونات والغدد", "ar": "تحليل السائل المنوي", "en": "Seminal Fluid Analysis", "price": 5000, "time": "ساعة ونصف"}, {"id": 79, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الروماتزم", "en": "RF Titer", "price": 3000, "time": "ساعة ونصف"}, {"id": 80, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الروماتزم", "en": "Anti ccp", "price": 9000, "time": "ساعة ونصف"}, {"id": 81, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الأجسام المضادة للنواة", "en": "ANA", "price": 10000, "time": "ساعة ونصف"}, {"id": 82, "cat": "الروماتزم والمناعة والفيروسات", "ar": "التايفوئيد", "en": "Widal", "price": 3000, "time": "ساعة ونصف"}, {"id": 83, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فحص البكتيريا العقدية", "en": "ASOT", "price": 2000, "time": "ساعة ونصف"}, {"id": 84, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الأجسام المضادة", "en": "IgA", "price": 10000, "time": "ساعة ونصف"}, {"id": 85, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فحص الحساسية المناعي", "en": "IgE", "price": 9000, "time": "ساعة ونصف"}, {"id": 86, "cat": "الروماتزم والمناعة والفيروسات", "ar": "جرثومة المعدة بالخروج", "en": "H.pylori Ag", "price": 4000, "time": "30 دقيقة"}, {"id": 87, "cat": "الروماتزم والمناعة والفيروسات", "ar": "جرثومة المعدة الرقمي", "en": "H.pylori SA", "price": 15000, "time": "30 دقيقة"}, {"id": 88, "cat": "الروماتزم والمناعة والفيروسات", "ar": "جرثومة المعدة بالدم", "en": "H.pylori Ab", "price": 3000, "time": "30 دقيقة"}, {"id": 89, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء الحنطة (حساسية القمح)", "en": "Anti-tTG IgA", "price": 11000, "time": "ساعة ونصف"}, {"id": 90, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء الحنطة (حساسية القمح)", "en": "Anti-tTG IgG", "price": 11000, "time": "ساعة ونصف"}, {"id": 91, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء الحنطة (حساسية القمح)", "en": "Anti-DGP IgA", "price": 11000, "time": "ساعة ونصف"}, {"id": 92, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء الحنطة (حساسية القمح)", "en": "Anti-DGP IgG", "price": 11000, "time": "ساعة ونصف"}, {"id": 93, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الخروج العام", "en": "Stool", "price": 2000, "time": "25 دقيقة"}, {"id": 94, "cat": "الروماتزم والمناعة والفيروسات", "ar": "زرع الخروج", "en": "Stool Culture", "price": 10000, "time": "48 - 72 ساعة"}, {"id": 95, "cat": "الروماتزم والمناعة والفيروسات", "ar": "التهاب الكبد الفايروسي", "en": "HCV Titer", "price": 5000, "time": "ساعة ونصف"}, {"id": 96, "cat": "الروماتزم والمناعة والفيروسات", "ar": "التهاب الكبد الفايروسي", "en": "HBS Ag Titer", "price": 5000, "time": "ساعة ونصف"}, {"id": 97, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فحص نقص المناعة", "en": "HIV Titer", "price": 6500, "time": "ساعة ونصف"}, {"id": 98, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء القطط", "en": "Toxo IgG", "price": 6000, "time": "ساعة ونصف"}, {"id": 99, "cat": "الروماتزم والمناعة والفيروسات", "ar": "داء القطط", "en": "Toxo IgM", "price": 6000, "time": "ساعة ونصف"}, {"id": 100, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فايروس CMV", "en": "Cmv IgG", "price": 6000, "time": "ساعة ونصف"}, {"id": 101, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فايروس CMV", "en": "Cmv IgM", "price": 6000, "time": "ساعة ونصف"}, {"id": 102, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الحصبة الألمانية", "en": "Rubella IgG", "price": 6000, "time": "ساعة ونصف"}, {"id": 103, "cat": "الروماتزم والمناعة والفيروسات", "ar": "الحصبة الألمانية", "en": "Rubella IgM", "price": 6000, "time": "ساعة ونصف"}, {"id": 104, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فايروس الهربس", "en": "HSV IgG", "price": 8000, "time": "ساعة ونصف"}, {"id": 105, "cat": "الروماتزم والمناعة والفيروسات", "ar": "فايروس الهربس", "en": "HSV IgM", "price": 8000, "time": "ساعة ونصف"}, {"id": 106, "cat": "الأورام والبروستات", "ar": "هرمون البروستات", "en": "PSA", "price": 7000, "time": "ساعة وربع"}, {"id": 107, "cat": "الأورام والبروستات", "ar": "هرمون البروستات الحر", "en": "Free PSA", "price": 10000, "time": "ساعة وربع"}, {"id": 108, "cat": "الأورام والبروستات", "ar": "دلالات أورام المبيض", "en": "CA125", "price": 9000, "time": "ساعة وربع"}, {"id": 109, "cat": "الأورام والبروستات", "ar": "دلالات أورام الجهاز الهضمي", "en": "CA19-9", "price": 9000, "time": "ساعة وربع"}, {"id": 110, "cat": "الأورام والبروستات", "ar": "دلالات أورام الثدي", "en": "CA15-3", "price": 9000, "time": "ساعة وربع"}, {"id": 111, "cat": "الأورام والبروستات", "ar": "دلالات الأورام العامة", "en": "CEA", "price": 9000, "time": "ساعة وربع"}, {"id": 112, "cat": "الأورام والبروستات", "ar": "فحص البكتيريا المسببة للسل", "en": "AFB", "price": 9000, "time": "ساعة ونصف"}];
 
   var selectedPkgIds = [];
   var selectedTestIds = [];
@@ -4823,27 +5435,165 @@ input::placeholder,textarea::placeholder { color:#60788a !important; opacity:1 !
     });
   }
 
-  // معلومات تحضير عامة: التفاصيل قد تختلف حسب تعليمات الطبيب والمختبر
-  var prepInfo = {
-    5:{prep:'لا يحتاج عادةً إلى صيام. تجنب تناول وجبة كبيرة مباشرة قبل السحب، واتبع تعليمات الطبيب.',timing:'يمكن إجراؤه بأي وقت غالباً.'},
-    7:{prep:'لا يحتاج عادةً إلى صيام. أخبر المختبر عن المكملات التي تستخدمها، خصوصاً فيتامين D.',timing:'يمكن إجراؤه بأي وقت غالباً.'},
-    8:{prep:'لا يحتاج عادةً إلى صيام. أخبر المختبر عن المكملات والأدوية، خاصةً إذا كنت تستخدم فيتامين B12.',timing:'يمكن إجراؤه بأي وقت غالباً.'},
-    36:{prep:'قد يُطلب صيام 9–12 ساعة إذا كان ضمن تقييم الدهون. الماء مسموح عادةً؛ تأكد من تعليمات المختبر.',timing:'يفضل صباحاً إذا طُلب الصيام.'},
-    37:{prep:'غالباً يُطلب صيام 9–12 ساعة. تجنب الكحول عدة أيام قبل الفحص حسب توجيه المختبر.',timing:'يفضل صباحاً.'},
-    38:{prep:'قد يُطلب صيام إذا ضمن مجموعة فحوصات الدهون. اتبع توجيهات المختبر.',timing:'يفضل صباحاً عند طلب الصيام.'},
-    39:{prep:'قد يُطلب صيام إذا ضمن مجموعة فحوصات الدهون. اتبع توجيهات المختبر.',timing:'يفضل صباحاً عند طلب الصيام.'},
-    54:{prep:'لا يحتاج عادةً إلى صيام. أخبر الطبيب عن أدوية الغدة؛ لا توقفها من تلقاء نفسك.',timing:'قد يفضل الطبيب سحب العينة قبل جرعة دواء الغدة.'},
-    64:{prep:'يفضل الراحة قبل سحب العينة وتجنب التوتر والرياضة الشديدة. قد يحدد الطبيب وقتاً مناسباً.',timing:'غالباً صباحاً، وقد يُطلب الاسترخاء قبل السحب.'},
-    73:{prep:'يعتمد على سبب الفحص؛ قد تكون هناك تعليمات خاصة بشأن النوم أو الأدوية.',timing:'توقيت العينة مهم ويحدده الطبيب.'},
-    70:{prep:'لا يحتاج عادةً إلى صيام.',timing:'يمكن إجراؤه بأي وقت وفق توجيه الطبيب.'},
-    71:{prep:'لا يحتاج عادةً إلى صيام.',timing:'يمكن إجراؤه بأي وقت.'},
-    17:{prep:'تُجمع عينة البول بوعاء معقم بعد تنظيف المنطقة، ويفضل أخذ منتصف جريان البول. اسأل المختبر عن تعليمات المضادات الحيوية.',timing:'قبل بدء المضاد الحيوي إن أمكن وبحسب توجيه الطبيب.'},
-    78:{prep:'امتنع عن القذف حسب المدة التي يحددها المختبر (غالباً 2–5 أيام). اجمع العينة بالطريقة والوعاء المحددين.',timing:'اتبع تعليمات المختبر بشأن النقل والوقت.'}
+  // معلومات الفائدة السريرية وشروط الصيام لكل فحص
+  var clinicalTestInfo = {"1": {"use": "يُستخدم للكشف عن وجود التهابات عامة أو مزمنة في الجسم ومتابعة نشاط الأمراض الالتهابية والروماتيزمية والعدوى.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت من اليوم."}, "2": {"use": "يقيس نسبة البروتين التفاعلي (C) لتحديد شدة الالتهابات الحادة أو العدوى البكتيرية ومتابعة الاستجابة للعلاج.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "3": {"use": "فحص عالي الحساسية للكشف عن الالتهابات الدقيقة جداً في جدران الأوعية الدموية وتقييم خطورة أمراض القلب والشرايين.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "4": {"use": "يحدد نوع فصيلة الدم (A, B, AB, O) والعامل الريسي (Rh) قبل نقل الدم، العمليات الجراحية، وفحوصات الزواج والحمل.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "5": {"use": "يقيس معدل السكر التراكمي في الدم خلال آخر 2 إلى 3 أشهر لتشخيص مرض السكري ومتابعة مدى انتظامه.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت من اليوم."}, "6": {"use": "يقيس مستوى السكر الحالي في الدم لمتابعة حالات ارتفاع أو انخفاض السكر المفاجئ أو الفحص الروتيني.", "fasting": "لا يحتاج إلى صيام (يُجرى عشوائياً في أي وقت)، أما إذا طلب الطبيب فحص السكر الصائم (FBS) فيتطلب صيام 8 ساعات."}, "7": {"use": "يقيس مستوى فيتامين D3 الضروري لصحة العظام والأسنان والمناعة والعضلات وتفسير آلام المفاصل والخمول.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "8": {"use": "يكشف عن نقص فيتامين B12 المسبب لفقر الدم، خدر وتنميل الأطراف، ضعف الذاكرة، والإرهاق المستمر.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت (يفضّل إبلاغ المختبر في حال أخذ إبر أو مكملات B12)."}, "9": {"use": "يقيس مستوى الفوليك أسيد المهم لتكوين خلايا الدم الحمراء والوقاية من فقر الدم، وهو ضروري جداً قبل وأثناء الحمل.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "10": {"use": "يقيّم مستوى عنصر الزنك المسؤول عن تقوية المناعة، التئام الجروح، صحة الشعر والأظافر، والنمو الطبيعي.", "fasting": "لا يحتاج إلى صيام، ويفضّل إجراؤه صباحاً وعدم تناول مكملات الزنك قبل السحب مباشرة."}, "11": {"use": "يقيس مستوى اليوريا لتقييم كفاءة الكلى في التخلص من الفضلات البروتينية ومتابعة الجفاف أو قصور الكلى.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "12": {"use": "يُعد المؤشر الأدق لتقييم وظائف الكلى وكفاءة الترشيح الكلوي ومتابعة مرضى السكري والضغط.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "13": {"use": "يكشف عن ارتفاع حامض اليوريك المسبب لداء النقرس (آلام المفاصل وتورمها) أو تكوّن حصى الكلى.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "14": {"use": "يكشف مبكراً عن تسرب البروتين الدقيق في الإدرار لحماية الكلى لدى مرضى السكري وارتفاع ضغط الدم.", "fasting": "لا يحتاج إلى صيام؛ يتطلب عينة إدرار نظيفة (يفضّل عينة الصباح الأولى)."}, "15": {"use": "يقيس نسبة الزلال (الألبومين) الدقيقة في البول للكشف المبكر عن اعتلال الكلى السكري قبل تطوره.", "fasting": "لا يحتاج إلى صيام؛ يتطلب عينة إدرار في وعاء معقم."}, "16": {"use": "يفحص البول فيزيائياً وكيميائياً ومجهرياً للكشف عن التهابات المجاري البولية، الأملاح، الرمل، الدم، أو السكر في البول.", "fasting": "لا يحتاج إلى صيام؛ تُجمع عينة منتصف البول في وعاء معقم."}, "17": {"use": "يجمع بين الفحص العام للبول وزرعه مخبرياً لتحديد نوع البكتيريا المسببة لالتهاب المجاري البولية والمضاد الحيوي الأنسب لعلاجها.", "fasting": "لا يحتاج إلى صيام؛ يجب تنظيف المنطقة وأخذ منتصف البول بوعاء معقم ويفضّل قبل البدء بالمضاد الحيوي."}, "18": {"use": "يقيس مستوى الكالسيوم في الدم لتقييم صحة العظام، الغدة الجار درقية، العضلات، والأعصاب.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "19": {"use": "يقيس الفسفور المرتبط بصحة العظام ووظائف الكلى والغدة الجار درقية وتوازن المعادن في الجسم.", "fasting": "لا يحتاج إلى صيام غالباً، ويفضّل إجراؤه صباحاً."}, "20": {"use": "يكشف عن نقص أو زيادة المغنيسيوم المسؤول عن وظائف العضلات والأعصاب ونبض القلب وتفسير التشنجات العضلية.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "21": {"use": "يقيس مستوى الصوديوم لتقييم توازن السوائل والأملاح في الجسم وحالات الجفاف أو التقيؤ والإسهال.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "22": {"use": "يقيّم توازن الأملاح والحموضة والقاعدية في الدم بالتزامن مع الصوديوم والبوتاسيوم.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "23": {"use": "يقيس البوتاسيوم الضروري لانتظام ضربات القلب وعمل العضلات والأعصاب، خاصة لمرضى الضغط والكلى.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "24": {"use": "إنزيم خاص بخلايا الكبد يُطلب للكشف عن التهابات الكبد، تشحم الكبد، أو تأثر الكبد بالأدوية.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "25": {"use": "إنزيم يوجد في الكبد والعضلات والقلب، ويُستخدم لتقييم صحة الكبد ومتابعة الالتهابات أو الإجهاد العضلي.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "26": {"use": "يساعد في تشخيص مشاكل القنوات الصفراوية والكبد وكذلك أمراض ونمو العظام.", "fasting": "لا يحتاج إلى صيام غالباً، ويمكن إجراؤه في أي وقت."}, "27": {"use": "يقيس نسبة مادة الصفراء الكلية (أبو صفار) لتشخيص اليرقان، أمراض الكبد، انسداد القنوات الصفراوية، أو تكسر الدم.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "28": {"use": "يحدد نسبة الصفراء المباشرة لمعرفة ما إذا كان ارتفاع أبو صفار ناتجاً عن مشكلة في الكبد أو القنوات الصفراوية.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "29": {"use": "يساعد في التمييز بين أسباب أبو صفار الناتجة عن تكسر كريات الدم الحمراء وبين أمراض الكبد.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "30": {"use": "يقيس مجموع البروتينات في الدم لتقييم الحالة الغذائية ووظائف الكبد والكلى.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "31": {"use": "يقيس بروتين الألبومين الذي يصنعه الكبد، ويفيد في تقييم وظائف الكبد والكلى وأسباب تجمع السوائل في الجسم.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "32": {"use": "يقيس بروتينات المناعة والنقل في الدم للمساعدة في تقييم الالتهابات المزمنة ووظائف الكبد.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "33": {"use": "إنزيم حساس للكشف عن مشاكل القنوات الصفراوية والكبد ومتابعة تأثير الأدوية أو الدهون على الكبد.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "34": {"use": "يقيس إنزيم البنكرياس لتشخيص التهاب البنكرياس الحاد وتفسير آلام البطن الشديدة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "35": {"use": "يُعد الأدق لتشخيص التهابات واضطرابات البنكرياس ومتابعة الحالات الهضمية الحادة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "36": {"use": "يقيس مستوى الكولسترول الكلي لتقييم صحة القلب والشرايين والوقاية من تصلب الشرايين.", "fasting": "لا يحتاج إلى صيام إذا أُجري منفرداً، ويفضّل الصيام 9–12 ساعة إذا طُلب ضمن فحص الدهون الشامل."}, "37": {"use": "يقيس الدهون الثلاثية في الدم لتقييم خطر أمراض القلب والشرايين وتشحم الكبد.", "fasting": "يحتاج إلى صيام من 9 إلى 12 ساعة (مسموح بشرب الماء فقط) للحصول على نتيجة دقيقة."}, "38": {"use": "يقيس الكولسترول الجيد (النافع) الذي يحمي الشرايين من الترسبات الدهنية.", "fasting": "يفضّل الصيام 9–12 ساعة عند فحصه ضمن مجموعة الدهون الشاملة."}, "39": {"use": "يقيس الكولسترول الضار المسؤول عن ترسب الدهون في جدران الأوعية الدموية.", "fasting": "يفضّل الصيام 9–12 ساعة عند فحصه ضمن مجموعة الدهون الشاملة."}, "40": {"use": "فحص شامل لمكونات الدم (كريات الدم الحمراء، الهيموغلوبين، كريات الدم البيضاء، والصفائح) للكشف عن فقر الدم، الالتهابات، ونقص المناعة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "41": {"use": "يقيس مخزون الحديد الفعلي في الجسم؛ وهو الأدق لتشخيص نقص الحديد المبكر وأسباب تساقط الشعر والخمول.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "42": {"use": "يقيس نسبة الحديد الحر في الدم لتقييم فقر الدم أو زيادة الحديد ومتابعة الاستجابة للعلاج.", "fasting": "يفضّل الصيام 8 ساعات وإجراء الفحص صباحاً وعدم تناول حبوب الحديد قبل الفحص بـ 24 ساعة."}, "43": {"use": "يقيس قدرة الدم الإضافية على حمل الحديد للمساعدة في تشخيص أنواع فقر الدم.", "fasting": "يفضّل الصيام 8 ساعات وإجراء الفحص صباحاً."}, "44": {"use": "يقيس السعة الكلية لارتباط الحديد بالبروتينات الناقلة للتفريق بين فقر الدم بعوز الحديد وفقر الدم الناتج عن الأمراض المزمنة.", "fasting": "يفضّل الصيام 8 ساعات وإجراء الفحص صباحاً."}, "45": {"use": "يكشف عن نقص إنزيم G6PD (داء الباقلاء) الذي يسبب تكسر الدم الحاد عند تناول الباقلاء أو بعض الأدوية.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "46": {"use": "يفصل أنواع الهيموغلوبين لتشخيص أمراض الدم الوراثية مثل الثلاسيميا وفقر الدم المنجلي وفحوصات ما قبل الزواج.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "47": {"use": "فحص مجهري لشكل وحجم خلايا الدم لتشخيص أنواع فقر الدم، التكسر، والاضطرابات الدموية بدقة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "48": {"use": "يقيس سرعة تخثر الدم ويُستخدم قبل العمليات الجراحية ولمتابعة المرضى الذين يتناولون مميعات الدم (مثل الوارفارين).", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "49": {"use": "يقيّم كفاءة عوامل التخثر الداخلية في الدم للكشف عن أسباب النزيف أو متابعة العلاج بالهيبارين.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "50": {"use": "يقيس بروتين الفيبرينوجين الأساسي في عملية تجلط الدم ووقف النزيف أو تقييم حالات التخثر.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "51": {"use": "يكشف عن الأجسام المضادة المرتبطة بزيادة قابلية التجلط أو الإجهاض المتكرر.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "52": {"use": "يكشف عن وجود جلطات دموية نشطة (مثل جلطة الساق أو الرئة) أو ارتفاع التخثر في الجسم.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "53": {"use": "فحص طارئ وحساس جداً للكشف عن إصابة عضلة القلب أو الجلطة القلبية الحادة.", "fasting": "لا يحتاج إلى صيام، ويُجرى فوراً في أي وقت."}, "54": {"use": "الفحص الأساسي لتشخيص كسل أو فرط نشاط الغدة الدرقية ومتابعة جرعات علاج الغدة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت (يفضّل سحب العينة قبل أخذ حبة الغدة الصباحية)."}, "55": {"use": "يقيس هرمون الغدة الدرقية T3 لتقييم نشاط الغدة الدرقية وتشخيص حالات فرط النشاط.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "56": {"use": "يقيس هرمون الثيروكسين الكلي لتقييم وظيفة الغدة الدرقية واستجابتها للعلاج.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "57": {"use": "يقيس الجزء النشط والحر من هرمون T3 لتشخيص اضطرابات الغدة الدرقية بدقة أعلى.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "58": {"use": "يقيس الجزء الحر والفعال من هرمون الغدة الدرقية لتأكيد تشخيص كسل أو نشاط الغدة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "59": {"use": "يكشف عن التهاب الغدة الدرقية المناعي (مرض هاشيموتو) ويفسر أسباب خمول الغدة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "60": {"use": "يساعد في تشخيص أمراض الغدة الدرقية المناعية ومتابعة حالات الغدة الدرقية.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "61": {"use": "يقيس هرمون الغدة الجار درقية المسؤول عن تنظيم مستوى الكالسيوم والفسفور في الدم والعظام.", "fasting": "لا يحتاج إلى صيام غالباً، ويفضّل إجراؤه صباحاً."}, "62": {"use": "ينظم عملية التبويض لدى النساء وإنتاج التستوستيرون لدى الرجال، ويُطلب لتقييم الخصوبة وتكيس المبايض.", "fasting": "لا يحتاج إلى صيام (للنساء يفضّل إجراؤه في اليوم الثاني أو الثالث من الدورة الشهرية)."}, "63": {"use": "يقيّم وظيفة المبايض والخصيتين ويُستخدم في فحوصات تأخر الحمل واضطرابات الدورة الشهرية.", "fasting": "لا يحتاج إلى صيام (للنساء يفضّل إجراؤه في اليوم الثاني أو الثالث من الدورة الشهرية)."}, "64": {"use": "يقيس هرمون الحليب للكشف عن أسباب اضطراب الدورة الشهرية، تأخر الحمل، أو إفرازات الثدي.", "fasting": "لا يحتاج إلى صيام؛ يُفضّل إجراؤه صباحاً بعد الاستيقاظ بساعتين مع الراحة والابتعاد عن التوتر."}, "65": {"use": "يقيس هرمون الأنوثة الرئيسي لتقييم التبويض ووظيفة المبيض ومتابعة برامج الإخصاب.", "fasting": "لا يحتاج إلى صيام، ويُحدد يوم الفحص حسب توجيه الطبيب."}, "66": {"use": "يقيس هرمون الذكورة لتقييم الخصوبة والقدرة الجنسية لدى الرجال، أو الكشف عن ارتفاعه في حالات تكيس المبايض لدى النساء.", "fasting": "لا يحتاج إلى صيام، ويفضّل إجراؤه صباحاً."}, "67": {"use": "يؤكد حدوث التبويض ويقيّم جاهزية بطانة الرحم وثبات الحمل المبكر.", "fasting": "لا يحتاج إلى صيام (يُجرى عادةً في اليوم 21 من الدورة الشهرية أو حسب توجيه الطبيب)."}, "68": {"use": "يقيس الجزء النشط من هرمون التستوستيرون لتقييم اضطرابات الهرمونات لدى الرجال والنساء بدقة.", "fasting": "لا يحتاج إلى صيام، ويفضّل إجراؤه صباحاً."}, "69": {"use": "يقيّم مخزون البويضات المتبقي في المبيض ويساعد في تخطيط الحمل وتقييم الخصوبة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي يوم من أيام الدورة الشهرية."}, "70": {"use": "يقيس نسبة هرمون الحمل بدقة رقمية عالية لتأكيد الحمل المبكر ومتابعة سلامته ونموه.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "71": {"use": "فحص سريع للكشف النوعي عن وجود الحمل من خلال الدم أو البول.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "72": {"use": "يقيّم مستوى هرمون النمو لتشخيص قصر القامة أو اضطرابات النمو لدى الأطفال والبالغين.", "fasting": "يفضّل الصيام 8 ساعات والراحة قبل سحب العينة صباحاً."}, "73": {"use": "يقيس هرمون الغدة الكظرية لتشخيص اضطرابات الكورتيزول والإجهاد الهرموني.", "fasting": "لا يحتاج إلى صيام؛ يُفضّل إجراؤه صباحاً (الساعة 8–9 صباحاً) لارتباطه بالساعة البيولوجية."}, "74": {"use": "يحسب درجة مقاومة الجسم للأنسولين لتشخيص مرحلة ما قبل السكري، صعوبة نزول الوزن، وتكيس المبايض.", "fasting": "يحتاج إلى صيام من 8 إلى 10 ساعات (مسموح بشرب الماء فقط)."}, "75": {"use": "يقيس مستوى هرمون الأنسولين في الدم لتقييم إفراز البنكرياس ومقاومة الأنسولين.", "fasting": "يحتاج إلى صيام من 8 إلى 10 ساعات (مسموح بشرب الماء فقط)."}, "76": {"use": "يقيّم قدرة البنكرياس الحقيقية على إنتاج الأنسولين ويساعد في التمييز بين السكري من النوع الأول والثاني.", "fasting": "يحتاج إلى صيام 8 ساعات (مسموح بشرب الماء فقط)."}, "77": {"use": "يقيس الهرمون المحفز للغدة الكظرية لتشخيص أسباب ارتفاع أو انخفاض الكورتيزول.", "fasting": "لا يحتاج إلى صيام؛ يُجرى صباحاً في وقت مبكر."}, "78": {"use": "يقيّم عدد وحركة وشكل الحيوانات المنوية لتشخيص أسباب تأخر الإنجاب لدى الرجال.", "fasting": "لا يحتاج إلى صيام؛ يتطلب الامتناع عن القذف لمدة 3 إلى 5 أيام قبل الفحص."}, "79": {"use": "يكشف عن العامل الروماتويدي للمساعدة في تشخيص التهاب المفاصل الروماتويدي.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "80": {"use": "فحص متخصص وعالي الدقة للكشف المبكر عن التهاب المفاصل الروماتويدي وتفريقه عن آلام المفاصل الأخرى.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "81": {"use": "يكشف عن الأجسام المضادة الذاتية لتشخيص أمراض المناعة الذاتية مثل الذئبة الحمراء وأمراض النسيج الضام.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "82": {"use": "يكشف عن الأجسام المضادة لبكتيريا السالمونيلا المسببة لحمى التايفوئيد.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "83": {"use": "يكشف عن الإصابة السابقة بالبكتيريا العقدية المسببة لالتهاب اللوزتين والحمى الروماتيزمية وآلام المفاصل.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "84": {"use": "يقيس مستوى الأجسام المضادة IgA لتقييم المناعة المخاطية ولضمان دقة فحوصات حساسية القمح.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "85": {"use": "يقيس مستوى الأجسام المضادة للحساسية لتشخيص التحسس الصدري والجلدي والغذائي.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "86": {"use": "يكشف عن وجود جرثومة المعدة النشطة في الخروج بدقة عالية، ويُستخدم للتشخيص والمتابعة بعد العلاج.", "fasting": "لا يحتاج إلى صيام؛ يتطلب عينة خروج نظيفة (يفضّل التوقف عن مضادات الحموضة والمضادات الحيوية قبل الفحص بأسبوعين بعد استشارة الطبيب)."}, "87": {"use": "يقيس كمية مستضد جرثومة المعدة رقمياً لتحديد شدة الإصابة ومتابعة الاستجابة للعلاج بدقة.", "fasting": "لا يحتاج إلى صيام؛ يتطلب عينة خروج نظيفة."}, "88": {"use": "يكشف عن الأجسام المضادة لجرثومة المعدة في الدم لمعرفة التعرض السابق أو الحالي للجرثومة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "89": {"use": "الفحص الأساسي لتشخيص داء الحنطة (حساسية القمح / السيلياك) وتفسير الانتفاخ المزمن ونقص الوزن وفقر الدم.", "fasting": "لا يحتاج إلى صيام (يُشترط الاستمرار بتناول الأطعمة المحتوية على القمح والغلوتين قبل الفحص)."}, "90": {"use": "يُستخدم لتشخيص حساسية القمح (السيلياك) خاصة لدى الأشخاص الذين لديهم نقص في الأجسام المضادة IgA.", "fasting": "لا يحتاج إلى صيام، ويُشترط عدم قطع الغلوتين قبل الفحص."}, "91": {"use": "فحص تكميلي عالي الدقة لتأكيد تشخيص داء الحنطة (حساسية القمح) لدى الأطفال والبالغين.", "fasting": "لا يحتاج إلى صيام."}, "92": {"use": "يساعد في تأكيد تشخيص حساسية القمح (السيلياك) ومتابعة الحالات المشتبه بها.", "fasting": "لا يحتاج إلى صيام."}, "93": {"use": "يفحص عينة الخروج للكشف عن الطفيليات، الأميبا، الجيارديا، الديدان، البكتيريا، أو وجود دم خفي في الجهاز الهضمي.", "fasting": "لا يحتاج إلى صيام؛ تُجمع عينة خروج في وعاء نظيف ومغلق."}, "94": {"use": "يزرع عينة الخروج لتحديد البكتيريا المسببة للإسهال الشديد أو التسمم الغذائي وتحديد المضاد الحيوي الفعال.", "fasting": "لا يحتاج إلى صيام؛ يتطلب عينة خروج طازجة في وعاء معقم."}, "95": {"use": "يكشف عن الأجسام المضادة لفايروس التهاب الكبد الفيروسي نوع (C) للفحص الوقائي وقبل العمليات.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "96": {"use": "يكشف عن فايروس التهاب الكبد الفيروسي نوع (B) للفحص الدوري، ما قبل الزواج، أو قبل العمليات الجراحية.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "97": {"use": "فحص مسحي للكشف عن فايروس نقص المناعة المكتسب (HIV) ضمن الفحوصات الوقائية وما قبل العمليات.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "98": {"use": "يكشف عن المناعة أو الإصابة السابقة بداء القطط (التوكسوبلازما) ضمن فحوصات ما قبل الزواج والحمل.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "99": {"use": "يكشف عن الإصابة الحديثة والنشطة بداء القطط لتفادي أي تأثير على الجنين أثناء الحمل.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "100": {"use": "يكشف عن الإصابة السابقة بفايروس CMV ضمن فحوصات الحمل ومتابعة المناعة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "101": {"use": "يكشف عن الإصابة الحديثة بفايروس CMV أثناء الحمل أو عند ضعف المناعة.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "102": {"use": "يتأكد من وجود مناعة ضد الحصبة الألمانية لدى النساء قبل الحمل.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "103": {"use": "يكشف عن الإصابة الحديثة بالحصبة الألمانية لحماية الجنين خلال الأشهر الأولى من الحمل.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "104": {"use": "يكشف عن الإصابة السابقة بفايروس الهربس البسيط (HSV).", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "105": {"use": "يكشف عن الإصابة الحديثة أو النشطة بفايروس الهربس البسيط.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "106": {"use": "فحص مهم للرجال للكشف المبكر عن تضخم البروستات الحميد أو التهابات وأورام البروستات.", "fasting": "لا يحتاج إلى صيام (يفضّل تجنب القذف أو ركوب الدراجة قبل الفحص بـ 48 ساعة)."}, "107": {"use": "يُطلب مع فحص PSA الكلي لزيادة دقة التمييز بين التضخم الحميد ومشاكل البروستات الأخرى.", "fasting": "لا يحتاج إلى صيام."}, "108": {"use": "دلالة طبية تُستخدم لمتابعة صحة المبيض وتقييم الأكياس أو أورام المبيض تحت إشراف الطبيب.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "109": {"use": "دلالة طبية تُستخدم لمتابعة الجهاز الهضمي والبنكرياس والقنوات الصفراوية حسب تقييم الطبيب.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "110": {"use": "دلالة طبية تُستخدم لمتابعة حالات أورام الثدي وتقييم الاستجابة للعلاج.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "111": {"use": "دلالة طبية تُستخدم لمتابعة القولون والجهاز الهضمي وتقييم الاستجابة العلاجية.", "fasting": "لا يحتاج إلى صيام، ويمكن إجراؤه في أي وقت."}, "112": {"use": "فحص مجهري للكشف عن البكتيريا المسببة لمرض السل (التدرن) في القشع أو العينات السريرية.", "fasting": "لا يحتاج إلى صيام؛ يتطلب عينة قشع صباحية عميقة في وعاء معقم."}};
+  // إرشادات خاصة بكل تحليل: هذه معلومات تثقيفية وليست تشخيصاً.
+  var individualTestDetails={
+    1:{when:'عند وجود حرارة أو التهاب متكرر أو آلام مفاصل، ولمتابعة نشاط الالتهاب.',symptoms:'حرارة، تعب، آلام أو تيبس مفاصل، أو أعراض التهاب مستمر.'},
+    2:{when:'عند الاشتباه بعدوى أو التهاب حاد ولمتابعة الاستجابة للعلاج.',symptoms:'حرارة، قشعريرة، ألم موضعي، أو تدهور عام مفاجئ.'},
+    3:{when:'لتقييم خطر القلب والشرايين مع عوامل الخطورة أو حسب قرار الطبيب.',symptoms:'غالباً لا يطلب بسبب عرض وحده؛ قد يطلب مع عوامل خطورة القلب.'},
+    4:{when:'قبل نقل الدم والعمليات والحمل وفحص ما قبل الزواج.',symptoms:'فحص تعريفي ووقائي؛ لا يرتبط بأعراض مرضية مباشرة.'},
+    5:{when:'للتشخيص أو المتابعة الدورية للسكري وما قبل السكري.',symptoms:'عطش وتبول متكرر، فقدان وزن غير مفسر، تشوش رؤية أو تعب.'},
+    6:{when:'عند ظهور أعراض ارتفاع/انخفاض السكر أو لمتابعة علاج السكري.',symptoms:'عطش وتبول متكرر، رجفة أو تعرق، دوخة، جوع شديد أو تعب.'},
+    7:{when:'عند تقييم صحة العظام أو نقص التعرض للشمس أو قبل/أثناء العلاج.',symptoms:'آلام عظام أو عضلات، ضعف عام، أو تكرار الكسور.'},
+    8:{when:'عند الاشتباه بنقص ب12 أو سوء الامتصاص أو متابعة التعويض.',symptoms:'تعب، شحوب، تنميل الأطراف، ضعف توازن أو مشاكل ذاكرة.'},
+    9:{when:'عند تقييم فقر الدم أو قبل الحمل وخلاله حسب الطبيب.',symptoms:'تعب، شحوب، تقرحات فم أو سوء تغذية.'},
+    10:{when:'عند تقييم نقص الزنك أو سوء التغذية أو مشاكل الامتصاص.',symptoms:'تساقط شعر، بطء التئام جروح، ضعف شهية أو التهابات متكررة.'},
+    11:{when:'لمتابعة وظائف الكلى أو الجفاف أو كجزء من تقييم عام.',symptoms:'تورم، قلة بول، غثيان، جفاف أو تعب غير مفسر.'},
+    12:{when:'لتقييم كفاءة الكلى ولمتابعة مرضى الضغط والسكري أو أدوية معينة.',symptoms:'تورم، تغير كمية البول، إرهاق أو ارتفاع ضغط.'},
+    13:{when:'عند نوبات ألم وتورم مفصل أو الاشتباه بالنقرس أو الحصى.',symptoms:'ألم مفاجئ وتورم واحمرار مفصل، خاصة إصبع القدم، أو مغص كلوي.'},
+    14:{when:'لمتابعة تأثر الكلى المبكر، خصوصاً لدى مرضى السكري والضغط.',symptoms:'غالباً بلا أعراض مبكرة؛ يطلب للمتابعة الوقائية.'},
+    15:{when:'للكشف المبكر عن زلال البول ومتابعة اعتلال الكلى السكري.',symptoms:'غالباً بلا أعراض مبكرة؛ قد يظهر تورم عند تطور الحالة.'},
+    16:{when:'عند أعراض بولية أو ضمن الفحص الدوري والحمل.',symptoms:'حرقة بول، تكرار أو إلحاح التبول، ألم أسفل البطن أو تغير لون البول.'},
+    17:{when:'عند الاشتباه بالتهاب بولي متكرر أو قبل اختيار المضاد الحيوي.',symptoms:'حرقة وتكرار البول، حرارة، ألم خاصرة أو ألم أسفل البطن.'},
+    18:{when:'عند تقييم العظام أو الغدة الجار درقية أو اضطرابات الأعصاب والعضلات.',symptoms:'تشنجات أو وخز، آلام عظام، ضعف أو حصى كلى متكررة.'},
+    19:{when:'لتقييم العظام والكلى والغدة الجار درقية أو سوء التغذية.',symptoms:'ضعف أو آلام عظام، تشنجات، تعب أو مرض كلوي.'},
+    20:{when:'عند تشنجات عضلية أو اضطراب نبض أو تقييم نقص المعادن.',symptoms:'شد أو رجفان عضلي، ضعف، خدر أو خفقان.'},
+    21:{when:'عند اضطراب السوائل أو الجفاف أو القيء والإسهال أو مرض الكلى.',symptoms:'صداع، ارتباك، غثيان، ضعف شديد أو تشنجات.'},
+    22:{when:'لتقييم توازن الأملاح والحموضة خاصة مع الجفاف أو أمراض الكلى.',symptoms:'ضعف، غثيان، جفاف أو اضطراب تنفس حسب شدة الحالة.'},
+    23:{when:'عند اضطراب نبض القلب أو مرض الكلى أو متابعة أدوية الضغط.',symptoms:'خفقان، ضعف عضلات، تنميل أو اضطراب ضربات القلب.'},
+    24:{when:'عند تقييم التهاب أو تشحم الكبد أو متابعة أدوية قد تؤثر فيه.',symptoms:'تعب، غثيان، ألم أعلى البطن أو اصفرار.'},
+    25:{when:'لتقييم الكبد أو الإجهاد العضلي مع فحوص أخرى.',symptoms:'تعب أو ألم أعلى البطن، وقد يرتفع مع آلام أو إصابات عضلية.'},
+    26:{when:'عند تقييم القنوات الصفراوية أو الكبد أو نمو العظام.',symptoms:'اصفرار، حكة، ألم أعلى البطن أو آلام عظام.'},
+    27:{when:'عند وجود يرقان أو متابعة الكبد والقنوات الصفراوية.',symptoms:'اصفرار العين/الجلد، بول غامق، براز فاتح أو حكة.'},
+    28:{when:'عند ارتفاع الصفراء للتمييز بين أسباب كبدية أو انسدادية.',symptoms:'اصفرار، بول غامق، حكة أو ألم أعلى البطن.'},
+    29:{when:'عند ارتفاع الصفراء للمساعدة في تقييم تكسر الدم أو أسباب أخرى.',symptoms:'اصفرار أو شحوب وتعب بحسب السبب.'},
+    30:{when:'لتقييم الحالة الغذائية ووظائف الكبد والكلى أو فقدان البروتين.',symptoms:'تورم، تعب، ضعف شهية أو فقدان وزن.'},
+    31:{when:'عند تورم أو تقييم الكبد والكلى والحالة الغذائية.',symptoms:'تورم القدمين أو البطن، تعب أو فقدان شهية.'},
+    32:{when:'عند تقييم التهابات مزمنة أو أمراض مناعية أو بروتينية.',symptoms:'التهابات متكررة، تعب، فقدان وزن أو تورم حسب السبب.'},
+    33:{when:'عند تقييم القنوات الصفراوية أو تأثير الكحول/الأدوية على الكبد.',symptoms:'اصفرار، حكة، غثيان أو ألم أعلى البطن.'},
+    34:{when:'عند ألم حاد أعلى البطن للاشتباه بالتهاب البنكرياس.',symptoms:'ألم شديد أعلى البطن قد يمتد للظهر، غثيان أو تقيؤ.'},
+    35:{when:'عند الاشتباه بالتهاب البنكرياس أو ألم بطني حاد.',symptoms:'ألم أعلى البطن ممتد للظهر، غثيان، تقيؤ أو حرارة.'},
+    36:{when:'لتقييم خطر أمراض القلب والشرايين والمتابعة الدورية.',symptoms:'غالباً بلا أعراض؛ يطلب للوقاية أو مع عوامل الخطورة.'},
+    37:{when:'لتقييم الدهون وتشحم الكبد أو خطر القلب والشرايين.',symptoms:'غالباً بلا أعراض؛ قد يطلب مع سمنة أو سكري أو تاريخ عائلي.'},
+    38:{when:'ضمن تقييم دهون الدم وخطر القلب والشرايين.',symptoms:'غالباً بلا أعراض؛ يطلب كفحص وقائي.'},
+    39:{when:'ضمن تقييم دهون الدم وخطر ترسب الدهون بالشرايين.',symptoms:'غالباً بلا أعراض؛ يطلب مع ضغط أو سكري أو تاريخ عائلي.'},
+    40:{when:'عند التعب أو الشحوب أو العدوى أو النزف أو ضمن الفحص الدوري.',symptoms:'تعب، دوخة، شحوب، حرارة متكررة، كدمات أو نزف.'},
+    41:{when:'عند الاشتباه بنقص مخزون الحديد أو متابعة العلاج.',symptoms:'تعب، تساقط شعر، دوخة، شحوب أو ضيق نفس مع الجهد.'},
+    42:{when:'مع فحوص الحديد عند الاشتباه بفقر الدم أو زيادة الحديد.',symptoms:'تعب وشحوب أو أعراض مرتبطة بزيادة الحديد حسب الحالة.'},
+    43:{when:'لتمييز أسباب فقر الدم عند تقييم الحديد مع TIBC والفيريتين.',symptoms:'تعب، دوخة، شحوب أو ضعف تركيز.'},
+    44:{when:'عند تقييم فقر الدم ونقص أو زيادة الحديد.',symptoms:'تعب، شحوب، خفقان أو دوخة.'},
+    45:{when:'قبل أدوية معينة أو عند الاشتباه بتكسر دم بعد الفول أو دواء.',symptoms:'اصفرار، بول غامق، شحوب أو تعب مفاجئ بعد محفزات معينة.'},
+    46:{when:'عند فقر دم غير مفسر أو تاريخ عائلي للثلاسيميا/فقر الدم المنجلي.',symptoms:'شحوب، تعب، اصفرار أو تاريخ عائلي لمشاكل الدم.'},
+    47:{when:'عند وجود تغيرات في CBC أو فقر دم أو التهاب غير مفسر.',symptoms:'تعب، شحوب، كدمات، حرارة أو تغيرات غير طبيعية في تعداد الدم.'},
+    48:{when:'قبل العمليات أو مع النزف أو لمتابعة الوارفارين.',symptoms:'نزف مطول، كدمات، نزيف لثة/أنف أو متابعة مميعات الدم.'},
+    49:{when:'عند نزف غير معتاد أو تقييم مسار التخثر أو الهيبارين.',symptoms:'كدمات أو نزف مطول أو تاريخ عائلي لاضطراب نزف.'},
+    50:{when:'عند نزف أو جلطات أو أمراض كبد والتهابات شديدة.',symptoms:'نزف غير معتاد أو علامات جلطة بحسب تقييم الطبيب.'},
+    51:{when:'عند جلطات غير مفسرة أو إجهاضات متكررة حسب قرار اختصاصي.',symptoms:'غالباً يطلب بعد أحداث تخثرية أو تاريخ حمل محدد.'},
+    52:{when:'عند الاشتباه بجلطة وريدية أو صمة رئوية وفق التقييم الطبي.',symptoms:'تورم وألم ساق مفاجئ، ضيق نفس أو ألم صدر مفاجئ.'},
+    53:{when:'عند تقييم ألم صدر أو الاشتباه بإصابة عضلة القلب كحالة طارئة.',symptoms:'ألم أو ضغط صدر، ضيق نفس، تعرق، غثيان أو ألم ينتشر للذراع.'},
+    54:{when:'عند أعراض اضطراب الغدة أو لمتابعة علاجها.',symptoms:'تغير وزن، خفقان، تعب، حساسية للبرد/الحر أو تغيرات شعر.'},
+    55:{when:'ضمن تقييم فرط أو قصور الدرق مع TSH وT4.',symptoms:'خفقان، رعشة، نقص وزن أو خمول وحساسية للبرد.'},
+    56:{when:'ضمن تقييم وظيفة الدرق مع TSH وT3.',symptoms:'تعب، تغير وزن، خفقان أو عدم تحمل البرد/الحر.'},
+    57:{when:'عند تقييم نشاط الدرق خاصة إذا كانت النتائج الأخرى غير واضحة.',symptoms:'خفقان، رعشة، تعرق أو نقص وزن غير مفسر.'},
+    58:{when:'عند تقييم الدرق خصوصاً مع الحمل أو أدوية تؤثر بالهرمون.',symptoms:'تعب، تغير وزن، إمساك أو خفقان حسب الاضطراب.'},
+    59:{when:'عند الاشتباه بالتهاب الدرق المناعي أو اضطراب TSH.',symptoms:'تعب، تضخم رقبة، تغير وزن أو أعراض قصور/فرط الدرق.'},
+    60:{when:'عند تقييم أمراض الدرق المناعية ومتابعتها.',symptoms:'أعراض اضطراب الدرق أو تاريخ عائلي لمرض مناعي.'},
+    61:{when:'عند اضطراب الكالسيوم أو حصى الكلى أو مشاكل العظام.',symptoms:'حصى متكررة، آلام عظام، ضعف أو تنميل وتشنجات.'},
+    62:{when:'عند اضطراب دورة أو تقييم إباضة وخصوبة.',symptoms:'عدم انتظام دورة، صعوبة حمل أو تغيرات بالبلوغ.'},
+    63:{when:'عند تقييم الإباضة والخصوبة أو اضطرابات الدورة.',symptoms:'دورة غير منتظمة، صعوبة حمل أو علامات اضطراب هرموني.'},
+    64:{when:'عند اضطراب دورة أو إفراز حليب غير مرتبط بالرضاعة أو عقم.',symptoms:'اضطراب دورة، إفراز حليب، صداع أو صعوبة حمل.'},
+    65:{when:'لتقييم الدورة والتبويض والخصوبة أو أعراض هرمونية.',symptoms:'اضطراب دورة، هبّات حرارة أو مشاكل خصوبة.'},
+    66:{when:'عند تقييم نقص الهرمون عند الرجال أو علامات زيادة الأندروجين.',symptoms:'ضعف رغبة، تعب، ضعف عضلات أو شعر زائد/حب شباب لدى النساء.'},
+    67:{when:'لتأكيد التبويض أو تقييم المرحلة الثانية من الدورة والحمل المبكر.',symptoms:'تأخر حمل أو اضطراب دورة أو نزف غير منتظم.'},
+    68:{when:'عند الحاجة لتقييم الجزء الحر من التستوستيرون بدقة.',symptoms:'ضعف رغبة أو طاقة، ضعف عضلات أو علامات زيادة أندروجين.'},
+    69:{when:'لتقييم مخزون المبيض ضمن استشارة الخصوبة.',symptoms:'لا يرتبط بعرض محدد؛ يطلب لتخطيط الخصوبة أو قبل علاجات معينة.'},
+    70:{when:'لتأكيد الحمل مبكراً ومتابعة تغير الهرمون حسب الطبيب.',symptoms:'تأخر دورة، غثيان، ألم/نزف مبكر بالحمل أو متابعة علاج خصوبة.'},
+    71:{when:'عند تأخر الدورة أو الاشتباه بالحمل.',symptoms:'تأخر دورة، غثيان صباحي، ألم أو احتقان ثدي.'},
+    72:{when:'عند تقييم اضطراب نمو الأطفال أو حالات هرمونية مختارة.',symptoms:'قصر قامة أو بطء نمو لدى الطفل حسب منحنيات النمو.'},
+    73:{when:'عند تقييم اضطرابات الغدة الكظرية حسب خطة الطبيب.',symptoms:'ضعف شديد، تغير ضغط، تغير جلد أو اضطراب وزن.'},
+    74:{when:'عند تقييم مقاومة الأنسولين أو ما قبل السكري أو تكيس المبايض.',symptoms:'زيادة وزن مركزية، صعوبة نزوله، اسمرار الرقبة أو اضطراب دورة.'},
+    75:{when:'عند تقييم مقاومة الأنسولين أو اضطراب السكر بإشراف الطبيب.',symptoms:'تذبذب سكر، جوع أو تعب بعد الأكل، زيادة وزن أو أعراض سكر.'},
+    76:{when:'لتمييز أنواع السكري أو تقييم قدرة البنكرياس على إفراز الأنسولين.',symptoms:'ارتفاع أو انخفاض سكر متكرر أو حاجة لتحديد نوع السكري.'},
+    77:{when:'عند تقييم اضطراب الكورتيزول والغدة الكظرية.',symptoms:'تعب شديد، تغير ضغط، تغير لون جلد أو اضطراب وزن.'},
+    78:{when:'عند تأخر الإنجاب أو تقييم خصوبة الرجل.',symptoms:'لا يحدد بالعَرض وحده؛ يطلب عادةً عند تأخر الحمل.'},
+    79:{when:'عند ألم وتيبس مفاصل أو الاشتباه بالتهاب روماتويدي.',symptoms:'ألم وتورم وتيبس صباحي بالمفاصل، خاصة الصغيرة.'},
+    80:{when:'عند الاشتباه المبكر بالتهاب المفاصل الروماتويدي.',symptoms:'تيبس صباحي، تورم وألم مستمر بالمفاصل.'},
+    81:{when:'عند الاشتباه بمرض مناعي ذاتي وبقرار طبيب اختصاص.',symptoms:'طفح، آلام مفاصل، حساسية للشمس، تقرحات فم أو تعب.'},
+    82:{when:'عند تقييم حمى مطولة مع اشتباه سريري بالتايفوئيد.',symptoms:'حرارة مستمرة، صداع، ألم بطن أو إسهال/إمساك.'},
+    83:{when:'بعد التهاب حلق متكرر أو عند تقييم الحمى الروماتيزمية.',symptoms:'ألم مفاصل بعد التهاب حلق، حرارة أو أعراض روماتيزمية.'},
+    84:{when:'لتقييم المناعة أو لتفسير بعض فحوص السيلياك.',symptoms:'التهابات متكررة أو اضطراب هضمي مزمن حسب الحالة.'},
+    85:{when:'عند تقييم أعراض حساسية تنفسية أو جلدية أو غذائية.',symptoms:'حكة، طفح، عطاس، صفير صدر أو دموع متكررة.'},
+    86:{when:'عند أعراض معدة مستمرة أو للتأكد من نجاح علاج الجرثومة.',symptoms:'ألم/حرقة معدة، انتفاخ، غثيان أو عسر هضم.'},
+    87:{when:'حسب تقييم الطبيب لجرثومة المعدة ومتابعة العلاج.',symptoms:'حرقة وألم معدة، غثيان، انتفاخ أو فقدان شهية.'},
+    88:{when:'عند تقييم التعرض لجرثومة المعدة مع تفسير الطبيب للنتيجة.',symptoms:'عسر هضم، حرقة أو ألم أعلى البطن.'},
+    89:{when:'عند الاشتباه بالسيلياك أو فقر دم/إسهال غير مفسر.',symptoms:'انتفاخ، إسهال مزمن، نقص وزن، فقر دم أو تعب.'},
+    90:{when:'ضمن تقييم السيلياك خاصة عند نقص IgA أو حسب الطبيب.',symptoms:'انتفاخ أو إسهال مزمن، نقص وزن أو فقر دم.'},
+    91:{when:'كفحص مكمل لتقييم السيلياك حسب خطة الطبيب.',symptoms:'أعراض هضمية مزمنة، نقص وزن أو فقر دم.'},
+    92:{when:'كفحص مكمل للسيلياك أو متابعة الحالة بتوجيه طبي.',symptoms:'اضطراب هضمي مستمر أو علامات سوء امتصاص.'},
+    93:{when:'عند إسهال أو ألم بطن أو الاشتباه بطفيليات.',symptoms:'إسهال، مغص، انتفاخ، مخاط/دم بالبراز أو نقص وزن.'},
+    94:{when:'عند إسهال شديد أو مستمر أو بعد تسمم غذائي.',symptoms:'إسهال مع حرارة، مغص شديد، دم بالبراز أو جفاف.'},
+    95:{when:'كفحص مسحي أو عند وجود عوامل خطورة أو ارتفاع إنزيمات كبد.',symptoms:'غالباً بلا أعراض؛ قد يظهر تعب أو اصفرار في مراحل متقدمة.'},
+    96:{when:'كفحص مسحي أو قبل إجراءات طبية أو عند عوامل خطورة.',symptoms:'غالباً بلا أعراض؛ قد يظهر تعب أو اصفرار.'},
+    97:{when:'كفحص مسحي بعد تعرض محتمل أو ضمن بروتوكولات طبية.',symptoms:'قد لا توجد أعراض؛ الحمى أو الطفح لا يكفيان للتشخيص.'},
+    98:{when:'ضمن تقييم الحمل أو المناعة السابقة ضد داء القطط.',symptoms:'غالباً بلا أعراض؛ قد تظهر أعراض شبيهة بالإنفلونزا.'},
+    99:{when:'عند الاشتباه بإصابة حديثة بداء القطط، خاصة في الحمل.',symptoms:'حرارة خفيفة، تعب، تضخم غدد أو أعراض شبيهة بالإنفلونزا.'},
+    100:{when:'لتقييم التعرض السابق لـCMV ضمن متابعة الحمل أو المناعة.',symptoms:'غالباً بلا أعراض أو أعراض شبيهة بالإنفلونزا.'},
+    101:{when:'عند الاشتباه بإصابة حديثة بـCMV، خصوصاً في الحمل.',symptoms:'حرارة، تعب، التهاب حلق أو تضخم غدد.'},
+    102:{when:'للتأكد من مناعة الحصبة الألمانية قبل الحمل أو أثناء تقييمه.',symptoms:'فحص مناعي؛ لا يطلب غالباً بسبب عرض منفرد.'},
+    103:{when:'عند الاشتباه بإصابة حديثة بالحصبة الألمانية خاصة في الحمل.',symptoms:'طفح، حرارة خفيفة، تضخم غدد أو آلام مفاصل.'},
+    104:{when:'لتقييم التعرض السابق للهربس ضمن سياق طبي مناسب.',symptoms:'قد لا توجد أعراض؛ قد تظهر فقاعات أو تقرحات مؤلمة.'},
+    105:{when:'عند الاشتباه بإصابة حديثة بالهربس، مع مراعاة أن التفسير يحتاج طبيباً.',symptoms:'تقرحات أو فقاعات مؤلمة حول الفم أو المنطقة التناسلية.'},
+    106:{when:'عند تقييم أعراض البروستات أو المتابعة الطبية للرجال.',symptoms:'ضعف تدفق البول، تكراره ليلاً، صعوبة البدء أو ألم بالحوض.'},
+    107:{when:'يطلب مع PSA الكلي لتحسين التقييم الطبي للبروستات.',symptoms:'أعراض بولية مشابهة للبروستات أو متابعة نتيجة PSA.'},
+    108:{when:'للمتابعة الطبية لحالات المبيض، وليس فحص تشخيص مستقل.',symptoms:'انتفاخ مستمر، ألم حوض، شبع مبكر أو تغير عادات التبول يستلزم تقييماً طبياً.'},
+    109:{when:'للمتابعة الطبية لبعض حالات البنكرياس والجهاز الهضمي، وليس للتشخيص وحده.',symptoms:'ألم بطن مستمر، يرقان أو نقص وزن يحتاج تقييماً طبياً شاملاً.'},
+    110:{when:'للمتابعة الطبية لبعض حالات الثدي، وليس للفحص الذاتي أو التشخيص وحده.',symptoms:'كتلة أو تغير جلدي/إفرازات من الثدي تتطلب مراجعة طبية وتصويراً مناسباً.'},
+    111:{when:'للمتابعة الطبية لبعض حالات القولون والجهاز الهضمي، وليس للتشخيص وحده.',symptoms:'تغير مستمر بالتبرز، دم بالبراز، ألم بطن أو نقص وزن يحتاج تقييماً طبياً.'},
+    112:{when:'عند الاشتباه بالسل أو تقييم عينة قشع حسب طبيب مختص.',symptoms:'سعال مستمر، بلغم/دم، حرارة ليلية، تعرق ليلي أو نقص وزن.'}
   };
   var infoOverlay=document.createElement('div'); infoOverlay.className='test-info-overlay'; infoOverlay.id='testInfoOverlay';
-  infoOverlay.innerHTML='<div class="test-info-dialog" role="dialog" aria-modal="true"><h3 id="testInfoTitle"></h3><p id="testInfoPrep"></p><p id="testInfoTiming"></p><p style="font-size:13px;color:#64748b">هذه معلومات إرشادية عامة وليست بديلاً عن تعليمات الطبيب أو المختبر. قد تختلف التحضيرات حسب الحالة والأدوية.</p><button class="test-info-close" id="testInfoClose">إغلاق</button></div>'; document.body.appendChild(infoOverlay);
-  function showTestInfo(id){var t=getTestById(id);if(!t)return;var d=prepInfo[id]||{prep:'لا توجد تحضيرات خاصة معروفة بشكل عام لهذا الفحص، لكن قد تختلف حسب الحالة والأدوية. يرجى تأكيد التعليمات مع المختبر.',timing:'التوقيت يعتمد على نوع الفحص وتوجيه الطبيب.'};document.getElementById('testInfoTitle').textContent=t.ar+' ('+t.en+')';document.getElementById('testInfoPrep').textContent='التحضير: '+d.prep;document.getElementById('testInfoTiming').textContent='وقت الفحص: '+d.timing;infoOverlay.classList.add('show');}
-  document.querySelectorAll('#testsGrid .test-item').forEach(function(card){var id=parseInt(card.id.replace('test-card-',''),10);if(!id)return;var b=document.createElement('button');b.type='button';b.className='test-info-btn';b.textContent='ⓘ التحضير ومعلومات الفحص';b.addEventListener('click',function(){showTestInfo(id)});card.appendChild(b);});
+  infoOverlay.innerHTML='<div class="test-info-dialog" role="dialog" aria-modal="true" aria-labelledby="testInfoTitle"><h3 id="testInfoTitle"></h3><div id="testInfoMeta" class="test-info-meta"></div><div id="testInfoBody" style="display:grid;gap:12px;margin:16px 0;"></div><p style="font-size:12.5px;color:#64748b;border-top:1px solid #e2e8f0;padding-top:12px;text-align:center;">ملاحظة: المعلومات للتثقيف الطبي العام للمراجع، وتفسير النتيجة يكون مع الطبيب.</p><button class="test-info-close" id="testInfoClose">إغلاق</button></div>'; document.body.appendChild(infoOverlay);
+  function showTestInfo(id){
+    var t=getTestById(id);if(!t)return;
+    var d=clinicalTestInfo[id]||{use:'فحص مختبري تخصصي يُطلب لتقييم الحالة الصحية ومتابعة المؤشرات الحيوية.',fasting:'لا يحتاج إلى صيام في معظم الحالات.'};
+    var extra=individualTestDetails[id]||{};
+    var symptomsByCategory={
+      'الفحوصات العامة والأساسية':'حرارة مستمرة، التهاب أو ألم غير مفسر، تعب عام، أو فحص دوري حسب توجيه الطبيب.',
+      'الفيتامينات والمعادن':'تعب وخمول، آلام أو ضعف بالعضلات والعظام، تساقط شعر، تنميل أو نقص تغذية محتمل.',
+      'وظائف الكلى والأملاح':'تورم، تغير في التبول، ألم بالخاصرة، جفاف، أو متابعة السكري وارتفاع الضغط.',
+      'الكبد والإنزيمات والدهون':'اصفرار العين أو الجلد، ألم أعلى البطن، غثيان، تعب، أو متابعة دهون الدم وصحة القلب.',
+      'أمراض الدم ومخزون الحديد':'تعب، دوخة، شحوب، خفقان، تساقط شعر، نزف غير معتاد أو متابعة فقر الدم.',
+      'تخثر الدم والقلب':'كدمات أو نزف غير معتاد، ضيق نفس أو ألم صدر مفاجئ، أو متابعة أدوية مميّعات الدم.',
+      'الهرمونات والغدد':'تغير بالوزن، اضطراب دورة أو خصوبة، تعب، تغيرات مزاج، أعراض سكر أو اضطراب بالغدة.',
+      'الروماتزم والمناعة والفيروسات':'آلام أو تيبس مفاصل، طفح أو حساسية، حرارة متكررة، اضطراب هضمي، أو فحص عدوى حسب الطبيب.',
+      'الأورام والبروستات':'يُطلب عادةً للمتابعة الطبية أو عند وجود أعراض يقيّمها الطبيب؛ لا يُعتمد عليه وحده للتشخيص.'
+    };
+    var symptoms=extra.symptoms||symptomsByCategory[t.cat]||'يُطلب الفحص عند وجود أعراض أو عوامل خطورة يحددها الطبيب أو ضمن الفحص الدوري.';
+    var when=extra.when||'يُطلب عند تقييم الحالة التي يحددها الطبيب، أو للمتابعة الدورية عند وجود عوامل خطورة أو نتائج سابقة تحتاج متابعة.';
+    document.getElementById('testInfoTitle').textContent=t.ar+' ('+t.en+')';
+    document.getElementById('testInfoMeta').textContent='مدة النتيجة: '+t.time+'  •  السعر: '+(t.price===0?'مجاني':formatNum(t.price)+' د.ع');
+    var body=document.getElementById('testInfoBody');
+    body.innerHTML=
+      '<div class="test-detail-card what">'+
+        '<strong>🔬 ما هو التحليل؟</strong>'+
+        '<span>'+d.use+'</span>'+
+      '</div>'+
+      '<div class="test-detail-card when">'+
+        '<strong>🩺 لمن يُطلب الفحص؟</strong>'+
+        '<span>'+when+'</span>'+
+      '</div>'+
+      '<div class="test-detail-card symptoms">'+
+        '<strong>⚠️ أهم الأعراض أو الحالات المرتبطة به</strong>'+
+        '<span>'+symptoms+'</span>'+
+      '</div>'+
+      '<div class="test-detail-card fasting">'+
+        '<strong>🍽️ هل يحتاج صيام؟</strong>'+
+        '<span>'+d.fasting+'</span>'+
+      '</div>';
+    infoOverlay.classList.add('show');
+  }
+  document.querySelectorAll('#testsGrid .test-item').forEach(function(card){var id=parseInt(card.id.replace('test-card-',''),10);if(!id)return;var b=document.createElement('button');b.type='button';b.className='test-info-btn';b.innerHTML='ⓘ <span>عن الفحص</span>';b.setAttribute('aria-label','عرض تفاصيل الفحص');b.title='التفاصيل والأعراض والصيام';b.addEventListener('click',function(e){e.stopPropagation();showTestInfo(id);});var act=card.querySelector('.test-action');if(act)act.appendChild(b);else card.appendChild(b);});
   infoOverlay.addEventListener('click',function(e){if(e.target===infoOverlay||e.target.id==='testInfoClose')infoOverlay.classList.remove('show');});
 
 
@@ -4933,7 +5683,18 @@ apply();
   }
   inp.addEventListener('input',apply);
   grid.querySelectorAll('.pkg-card').forEach(function(card){
-   card.addEventListener('click',function(e){if(e.target.closest('button'))return;card.classList.toggle('pkg-expanded');});
+   var det = card.querySelector('details.pkg-tests-dropdown');
+   if(det){
+    det.addEventListener('toggle',function(){
+     card.classList.toggle('pkg-expanded', det.open);
+    });
+   }
+   card.addEventListener('click',function(e){
+    if(e.target.closest('button') || e.target.closest('summary'))return;
+    var next = !card.classList.contains('pkg-expanded');
+    card.classList.toggle('pkg-expanded', next);
+    if(det) det.open = next;
+   });
    card.setAttribute('aria-expanded','false');
   });
   grid.querySelectorAll('.pkg-card').forEach(function(card){var observer=new MutationObserver(function(){card.setAttribute('aria-expanded',card.classList.contains('pkg-expanded')?'true':'false');});observer.observe(card,{attributes:true,attributeFilter:['class']});});
@@ -4954,10 +5715,281 @@ apply();
 #packages .pkg-card.pkg-expanded{padding:18px}
 #packages .pkg-card.pkg-expanded .pkg-count-badge{margin-bottom:8px}
 #packages .pkg-card .pkg-list{padding-inline-start:24px;line-height:1.8}
-#packages .pkg-card:not(.pkg-expanded)::after{content:'عرض التحاليل  ▾';display:block;text-align:center;margin-top:10px;padding:8px;border-radius:12px;background:#eef7fb;color:#27617f;font-size:13px;font-weight:800}
-#packages .pkg-card.pkg-expanded::after{content:'إخفاء التحاليل  ▴';display:block;text-align:center;margin-top:10px;padding:8px;border-radius:12px;background:#eef7fb;color:#27617f;font-size:13px;font-weight:800}
+#packages .pkg-card:not(.pkg-expanded)::after{content:none!important}
+#packages .pkg-card.pkg-expanded::after{content:none!important}
 @media(max-width:600px){#packages .pkg-card:not(.pkg-expanded) .pkg-top{align-items:flex-start}#packages .pkg-card .pkg-price{font-size:.95rem;padding:8px 10px}#packages .pkg-card:not(.pkg-expanded) .pkg-title{font-size:.95rem}}
 </style>
+
+
+<style id="package-summary-count-polish">
+#packages .pkg-tests-dropdown summary{display:block!important;margin-top:10px;padding:10px 12px;border-radius:12px;background:#eef7fb;color:#27617f;font-weight:800;font-size:.85rem;list-style:none;text-align:center;cursor:pointer}
+#packages .pkg-tests-dropdown summary::-webkit-details-marker{display:none}
+#packages .pkg-tests-dropdown summary:after{content:' ▾';}
+#packages .pkg-card.pkg-expanded .pkg-tests-dropdown summary:after{content:' ▴';}
+#packages .pkg-card .pkg-tests-dropdown{display:block!important}
+
+/* Compact custom-test upload and order action buttons */
+.custom-test-box .form-section-title{font-size:1rem!important;line-height:1.5!important}
+.custom-test-box .upload-dropzone{padding:9px 10px!important;gap:3px!important;margin-top:5px!important;min-height:unset!important}
+.custom-test-box .upload-dropzone>span:first-child{font-size:1.05rem!important}
+.custom-test-box .upload-dropzone span.up-main{font-size:.82rem!important}
+.custom-test-box .upload-dropzone span.up-sub{font-size:.68rem!important;line-height:1.4!important}
+#sendWhatsAppBtn,#copyOrderBtn{font-size:.84rem!important;padding:11px 9px!important;min-height:48px!important;border-radius:12px!important;line-height:1.45!important}
+#orderForm .form-actions-row{display:grid!important;grid-template-columns:1.4fr 1fr!important;gap:8px!important;align-items:stretch!important}
+@media(max-width:480px){#sendWhatsAppBtn,#copyOrderBtn{font-size:.78rem!important;padding:9px 6px!important;min-height:44px!important}#orderForm .form-actions-row{gap:7px!important}}
+</style>
+
+
+<script id="pkg-info-modal-script">
+(function() {
+  var packagesClinicalGuide = {
+    1: {
+      why: "تُعد الفحص الدوري الأساسي للاطمئنان على الوظائف الحيوية الرئيسية في الجسم (الدم، السكر، الكلى، الكبد، الدهون، وجرثومة المعدة) واكتشاف أي خلل في مراحله المبكرة قبل تفاقمه.",
+      symptoms: [
+        "الرغبة بإجراء فحص دوري شامل للاطمئنان العام بتكلفة مناسبة.",
+        "خمول أو إرهاق خفيف غير مفسر أو صداع متكرر.",
+        "حموضة، حرقة في المعدة، انتفاخ، أو عسر هضم.",
+        "وجود تاريخ عائلي للسكري أو ارتفاع الدهون أو أملاح النقرس."
+      ],
+      prep: "يُفضّل الصيام من 9 إلى 12 ساعة (مسموح بشرب الماء فقط) للحصول على أدق قراءة للسكر والدهون."
+    },
+    2: {
+      why: "تجمع بين الفحص الشامل لوظائف الجسم وبين أهم مؤشرات الطاقة والمناعة (فيتامين D3، الغدة الدرقية TSH، السكر التراكمي، والتايفوئيد) لتحديد الأسباب الحقيقية للتعب وضعف النشاط.",
+      symptoms: [
+        "تعب وإرهاق مستمر وقلة النشاط حتى مع الراحة.",
+        "آلام في العظام أو المفاصل أو العضلات.",
+        "تقلبات في الوزن أو المزاج أو اضطراب النوم.",
+        "ارتفاع حرارة متكرر، أعراض معدية، أو متابعة السكري."
+      ],
+      prep: "يُفضّل الصيام من 9 إلى 12 ساعة (مسموح بشرب الماء فقط) بسبب وجود فحوصات الدهون والسكر."
+    },
+    3: {
+      why: "الباقة الأعمق والأكثر تكاملاً (29 فحصاً)؛ تفحص جميع أجهزة الجسم الحيوية مع الفيتامينات الأساسية (D3 و B12) والمعادن (الحديد Ferritin، المغنيسيوم، الزنك، الكالسيوم) والغدة الدرقية لتشخيص أدق أسباب الإجهاد.",
+      symptoms: [
+        "إرهاق مزمن، دوخة، شحوب الوجه، أو خفقان القلب.",
+        "خدر وتنميل في الأطراف أو ضعف التركيز والنسيان.",
+        "تساقط الشعر، ضعف الأظافر، وتشنجات العضلات.",
+        "الفحص السنوي الشامل للرجال والنساء للاطمئنان الكامل على الصحة."
+      ],
+      prep: "يُفضّل الصيام من 9 إلى 12 ساعة (مسموح بشرب الماء فقط) قبل سحب العينة."
+    },
+    4: {
+      why: "مصممة خصيصاً لمتابعة مرضى السكري وارتفاع ضغط الدم، وحماية الكلى والقلب والأوعية الدموية من المضاعفات الصامتة عبر قياس السكر التراكمي، الدهون، أملاح الدم، وزلال الكلى الدقيق (ACR).",
+      symptoms: [
+        "المصابون بمرض السكري أو ارتفاع ضغط الدم للمتابعة الدورية.",
+        "عطش شديد، كثرة التبول، أو تورم في القدمين وحول العينين.",
+        "تذبذب قراءات السكر أو الضغط أو الشعور بدوخة وزغللة النظر."
+      ],
+      prep: "يُفضّل الصيام من 9 إلى 12 ساعة (مسموح بشرب الماء فقط)، وإحضار عينة إدرار صباحية نظيفة لفحص (ACR)."
+    },
+    5: {
+      why: "تُقيّم صحة الرجل الإنجابية والهرمونية ومستوى الطاقة البدنية عبر فحص السائل المنوي وهرمون الذكورة وهرمونات الغدة النخامية والدرقية وفيتامين D3 وصورة الدم.",
+      symptoms: [
+        "تأخر الإنجاب أو الرغبة بالاطمئنان على الخصوبة قبل أو بعد الزواج.",
+        "انخفاض الرغبة أو القدرة الجنسية أو ضعف الكتلة العضلية.",
+        "إرهاق عام، خمول، أو اضطراب في الهرمونات."
+      ],
+      prep: "يتطلب تحليل السائل المنوي الامتناع عن القذف لمدة 3 إلى 5 أيام قبل الفحص؛ ولا يشترط الصيام لبقية التحاليل."
+    },
+    6: {
+      why: "تكشف الأسباب الداخلية الأكثر شيوعاً لتساقط الشعر وضعف البصيلات، مثل نقص مخزون الحديد (Ferritin) وفيتامين D3 و B12 والزنك أو خمول الغدة الدرقية.",
+      symptoms: [
+        "تساقط الشعر بغزارة عند التمشيط أو الاستحمام.",
+        "ترقق الشعر، فراغات في فروة الرأس، أو بطء نموه.",
+        "تكسر الأظافر، شحوب البشرة، أو إرهاق مصاحب للتساقط."
+      ],
+      prep: "لا تحتاج إلى صيام، ويمكن إجراؤها في أي وقت من اليوم."
+    },
+    7: {
+      why: "تُقيّم التوازن الهرموني الأساسي لدى المرأة وصحة المبيض والغدة الدرقية وهرمون الحليب لتشخيص أسباب اضطراب الدورة الشهرية أو الأعراض الهرمونية.",
+      symptoms: [
+        "عدم انتظام الدورة الشهرية، تأخرها، أو غزارتها.",
+        "ظهور حب الشباب الهرموني أو زيادة الشعر في الوجه والجسم.",
+        "إفرازات من الثدي، تقلبات مزاجية، أو صعوبة نزول الوزن."
+      ],
+      prep: "لا تحتاج إلى صيام؛ يُفضّل إجراؤها في اليوم الثاني أو الثالث من الدورة الشهرية وبعد الاستيقاظ بساعتين."
+    },
+    8: {
+      why: "تحدد سبب آلام المفاصل والعظام والعضلات بدقة، وتفرّق بين نقص فيتامين D3 والكالسيوم، أو ارتفاع أملاح النقرس، أو وجود التهابات روماتيزمية وبكتيرية.",
+      symptoms: [
+        "آلام في المفاصل (الركبتين، الكتفين، أو أصابع اليدين والقدمين).",
+        "تيبّس المفاصل صباحاً أو تورم واحمرار في المفاصل.",
+        "آلام أسفل الظهر، تشنج العضلات، أو ألم كعب القدم."
+      ],
+      prep: "لا تحتاج إلى صيام، ويمكن إجراؤها في أي وقت من اليوم."
+    },
+    9: {
+      why: "تكشف الأسباب الهرمونية والاستقلابية التي تمنع نزول الوزن وتسبب السمنة، مثل مقاومة الأنسولين، خمول الغدة الدرقية، ارتفاع الكورتيزول أو هرمون الحليب، وتشحم الكبد.",
+      symptoms: [
+        "صعوبة نزول الوزن رغم الالتزام بالحمية والرياضة.",
+        "زيادة الوزن السريعة أو تركز الدهون في منطقة البطن.",
+        "الجوع المستمر، الرغبة الشديدة بالحلويات، والنعاس بعد الأكل."
+      ],
+      prep: "تحتاج إلى صيام من 8 إلى 12 ساعة (مسموح بشرب الماء فقط) لقياس مقاومة الأنسولين والدهون بدقة."
+    },
+    10: {
+      why: "تُقيّم كفاءة القلب والدم والكبد والكلى والأملاح والهرمونات البنائية لدى الرياضيين، وتضمن سلامة الجسم قبل أو أثناء التمارين الشاقة واستخدام المكملات.",
+      symptoms: [
+        "ممارسو رياضة كمال الأجسام واللياقة البدنية للمتابعة الدورية.",
+        "مستخدمو المكملات البروتينية أو البرامج التدريبية المكثفة.",
+        "الشعور بإجهاد عضلي غير معتاد، تقلصات، أو هبوط في الأداء الرياضي."
+      ],
+      prep: "يُفضّل الصيام من 9 إلى 12 ساعة (مسموح بشرب الماء فقط) وتجنب التمرين الشاق قبل السحب بـ 24 ساعة."
+    },
+    11: {
+      why: "تطمئن الأهل على صحة الطفل ونموه وتكشف مبكراً عن فقر الدم ونقص الحديد وفيتامين D3 أو التهابات المجاري البولية التي تؤثر على شهيته ونشاطه.",
+      symptoms: [
+        "شحوب الوجه، الهالات تحت العين، أو سرعة التعب أثناء اللعب.",
+        "قلة الشهية، ضعف التركيز الدراسي، أو بطء النمو.",
+        "آلام في البطن أو الساقين أو تكرار التهابات البول."
+      ],
+      prep: "لا تحتاج إلى صيام، ويُفضّل إحضار عينة إدرار نظيفة للطفل."
+    },
+    12: {
+      why: "تُقدّم تقييماً هرمونياً شاملاً للخصوبة لدى المرأة بما في ذلك مخزون المبيض (AMH) وهرمونات التبويض والغدة الدرقية وهرمون الحليب لتحديد سبب تأخر الحمل بدقة.",
+      symptoms: [
+        "تأخر حدوث الحمل والرغبة بمعرفة السبب الهرموني بدقة.",
+        "اضطراب التبويض أو عدم انتظام الدورة الشهرية.",
+        "الاستعداد لخطط تنشيط المبايض أو متابعة الخصوبة مع الطبيب."
+      ],
+      prep: "لا تحتاج إلى صيام؛ يُفضّل إجراؤها في اليوم الثاني أو الثالث من الدورة الشهرية (ما لم يحدد الطبيب غير ذلك)."
+    },
+    13: {
+      why: "تفحص الغدة الدرقية بعمق عبر قياس الهرمون المحفز (TSH) والهرمونات النشطة الحرة (Free T3, Free T4) والأجسام المضادة (Anti-TPO) للكشف عن الكسل أو فرط النشاط أو التهاب الغدة المناعي.",
+      symptoms: [
+        "زيادة أو نقصان غير مبرر في الوزن.",
+        "خمول وبرودة الأطراف، أو على العكس خفقان وتعرق وعصبية.",
+        "تساقط الشعر، جفاف الجلد، أو تضخم في مقدمة الرقبة."
+      ],
+      prep: "لا تحتاج إلى صيام (لمن يتناول علاج الغدة يُفضّل سحب العينة صباحاً قبل أخذ الحبة)."
+    },
+    14: {
+      why: "تقيس أهم الفيتامينات والمعادن الأساسية المسؤولة عن المناعة، قوة العظام، صحة الأعصاب، وتكوين الدم لتعويض أي نقص قبل أن يسبب مضاعفات صحية.",
+      symptoms: [
+        "خمول عام، ضعف المناعة، وتكرار نزلات البرد.",
+        "تنميل الأطراف، دوخة، تشنج العضلات، أو آلام العظام.",
+        "تساقط الشعر وتكسر الأظافر أو اتباع نظام غذائي غير متوازن."
+      ],
+      prep: "لا تحتاج إلى صيام، ويُفضّل إجراؤها صباحاً قبل تناول المكملات الغذائية."
+    },
+    15: {
+      why: "فحوصات أمان ضرورية قبل البدء بإبر التنحيف للتأكد من سلامة البنكرياس والكبد والكلى والغدة الدرقية، وتجنب أي مضاعفات صحية أثناء استخدام الإبر.",
+      symptoms: [
+        "التخطيط للبدء بإبر التنحيف (مثل مونجارو، أوزمبك، ساكسيندا وغيرها).",
+        "وجود تاريخ عائلي لمشاكل الغدة الدرقية أو البنكرياس أو المرارة.",
+        "الحاجة لتحديد الجرعة المناسبة بأمان تحت إشراف الطبيب."
+      ],
+      prep: "يُفضّل الصيام من 9 إلى 12 ساعة (مسموح بشرب الماء فقط) للحصول على قراءة دقيقة للدهون ومقاومة الأنسولين."
+    }
+  };
+
+  var modalOverlay = document.createElement("div");
+  modalOverlay.className = "pkg-modal-overlay";
+  modalOverlay.id = "pkgModalOverlay";
+  modalOverlay.innerHTML =
+    '<div class="pkg-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pkgModalTitle">' +
+      '<div class="pkg-modal-header">' +
+        '<div class="pkg-modal-title-wrap">' +
+          '<h3 id="pkgModalTitle"></h3>' +
+          '<div class="pkg-modal-badges">' +
+            '<span class="pkg-modal-badge-price" id="pkgModalPrice"></span>' +
+            '<span class="pkg-modal-badge-count" id="pkgModalCount"></span>' +
+          '</div>' +
+        '</div>' +
+        '<button type="button" class="pkg-modal-x" id="pkgModalCloseX" aria-label="إغلاق">×</button>' +
+      '</div>' +
+      '<div class="pkg-modal-sections" id="pkgModalBody"></div>' +
+      '<div class="pkg-modal-footer">' +
+        '<button type="button" class="pkg-modal-add" id="pkgModalToggleSelectBtn">+ إضافة الباقة للمختارات</button>' +
+        '<button type="button" class="pkg-modal-close-btn" id="pkgModalCloseBtn">إغلاق</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(modalOverlay);
+
+  var activeModalPkgId = null;
+
+  function openPackageGuide(pkgId) {
+    var adminData = window.__labAdminData || {};
+    var pkgs = adminData.packages || [];
+    var pkg = null;
+    for (var i = 0; i < pkgs.length; i++) {
+      if (pkgs[i].id === pkgId) { pkg = pkgs[i]; break; }
+    }
+    var card = document.getElementById("pkg-card-" + pkgId);
+    var titleText = pkg ? (pkg.id + ". " + pkg.title) : (card ? (card.querySelector(".pkg-title") || {}).textContent : "");
+    var priceText = pkg ? pkg.price : (card ? (card.querySelector(".pkg-price") || {}).textContent : "");
+    var countText = pkg ? ("عدد الفحوصات: " + pkg.actualCount + " فحص") : "";
+
+    var guide = packagesClinicalGuide[pkgId] || {
+      why: "باقة فحصية متكاملة صُممت لتقييم الحالة الصحية واكتشاف أي خلل مخبري مبكراً.",
+      symptoms: ["الاطمئنان الصحي العام أو متابعة الأعراض المرتبطة بتخصص الباقة."],
+      prep: "يُرجى الاستفسار من كادر المختبر حول شروط الصيام قبل السحب."
+    };
+
+    activeModalPkgId = pkgId;
+    document.getElementById("pkgModalTitle").textContent = titleText;
+    document.getElementById("pkgModalPrice").textContent = priceText;
+    var countEl = document.getElementById("pkgModalCount");
+    countEl.textContent = countText;
+    countEl.style.display = countText ? "inline-block" : "none";
+
+    var symptomsHtml = "";
+    for (var s = 0; s < guide.symptoms.length; s++) {
+      symptomsHtml += "<li>" + guide.symptoms[s] + "</li>";
+    }
+
+    document.getElementById("pkgModalBody").innerHTML =
+      '<div class="pkg-info-block why">' +
+        '<h4>🩺 لماذا تُجرى هذه الباقة وما فائدتها؟</h4>' +
+        '<p>' + guide.why + '</p>' +
+      '</div>' +
+      '<div class="pkg-info-block symptoms">' +
+        '<h4>⚠️ متى يُنصح بإجرائها؟ (الأعراض والحالات)</h4>' +
+        '<ul class="pkg-symptoms-list">' + symptomsHtml + '</ul>' +
+      '</div>' +
+      '<div class="pkg-info-block prep">' +
+        '<h4>🍽️ شروط الصيام والتحضير</h4>' +
+        '<p>' + guide.prep + '</p>' +
+      '</div>';
+
+    var isSelected = card && card.classList.contains("selected-pkg");
+    var selectBtn = document.getElementById("pkgModalToggleSelectBtn");
+    selectBtn.textContent = isSelected ? "✓ الباقة مضافة (اضغط للإزالة)" : "+ إضافة الباقة للمختارات";
+    selectBtn.style.background = isSelected ? "#0f766e" : "#1269a8";
+
+    modalOverlay.classList.add("show");
+  }
+
+  document.addEventListener("click", function(e) {
+    var btn = e.target.closest ? e.target.closest(".pkg-info-btn") : null;
+    if (btn) {
+      e.preventDefault();
+      e.stopPropagation();
+      var id = parseInt(btn.getAttribute("data-pkg-info-id"), 10);
+      if (!isNaN(id)) openPackageGuide(id);
+    }
+  });
+
+  document.getElementById("pkgModalToggleSelectBtn").addEventListener("click", function() {
+    if (!activeModalPkgId) return;
+    var addBtn = document.getElementById("pkg-add-btn-" + activeModalPkgId);
+    if (addBtn) addBtn.click();
+    modalOverlay.classList.remove("show");
+  });
+
+  modalOverlay.addEventListener("click", function(e) {
+    if (e.target === modalOverlay || e.target.id === "pkgModalCloseX" || e.target.id === "pkgModalCloseBtn") {
+      modalOverlay.classList.remove("show");
+    }
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && modalOverlay.classList.contains("show")) {
+      modalOverlay.classList.remove("show");
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
