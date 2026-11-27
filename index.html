@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="مختبر ابن النفيس للتحليلات المرضية والهرمونات في بعقوبة الجديدة وبهرز. دليل الفحوصات والباقات، الأسعار، خدمة السحب المنزلي المجاني، والعروض والمبادرات الإنسانية." />
   <meta name="robots" content="index, follow" />
+<link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#0a58ca" />
   <meta property="og:title" content="مختبر ابن النفيس للتحليلات المرضية والهرمونات" />
   <meta property="og:description" content="دليل الفحوصات والباقات والأسعار وخدمات مختبر ابن النفيس في بعقوبة الجديدة وبهرز." />
@@ -5989,6 +5990,13 @@ apply();
     }
   });
 })();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+  }
 </script>
 
 </body>
