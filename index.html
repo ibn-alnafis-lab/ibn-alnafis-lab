@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="مختبر ابن النفيس للتحليلات المرضية والهرمونات في بعقوبة الجديدة وبهرز. دليل الفحوصات والباقات، الأسعار، خدمة السحب المنزلي المجاني، والعروض والمبادرات الإنسانية." />
   <meta name="robots" content="index, follow" />
-<link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#0a58ca" />
   <meta property="og:title" content="مختبر ابن النفيس للتحليلات المرضية والهرمونات" />
   <meta property="og:description" content="دليل الفحوصات والباقات والأسعار وخدمات مختبر ابن النفيس في بعقوبة الجديدة وبهرز." />
@@ -761,8 +760,9 @@
       box-shadow: var(--shadow-sm);
     }
 
+    #testsGrid .test-item.hidden-test,
     .test-item.hidden-test {
-      display: none;
+      display: none !important;
     }
 
     .test-item.selected {
@@ -4718,42 +4718,35 @@ button,a,input,select,textarea{transition:all .2s ease}.btn:hover,.add-pkg-btn:h
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
       .replace(/[أإآ]/g, "ا").replace(/ى/g, "ي").replace(/ة/g, "ه")
       .replace(/ؤ/g, "و").replace(/ئ/g, "ي")
-      .replace(/[\s\-_.()]+/g, " ").trim();
+      .replace(/[^a-z0-9\u0600-\u06ff]+/g, " ").trim();
   }
 
   function filterTests() {
     var searchInput = document.getElementById("testSearch");
-    var q = searchInput ? normalizeSearchText(searchInput.value) : "";
-    var searchWrap = document.querySelector(".search-box-wrap");
-    var inputRow = document.querySelector(".search-input-row");
+    var rawQuery = searchInput ? searchInput.value.trim() : "";
+    var q = normalizeSearchText(rawQuery);
+    var words = q ? q.split(/\s+/).filter(Boolean) : [];
+
     var filterBar = document.getElementById("testCatFilters");
-    var stats = document.querySelector(".tests-stats");
-    var grid = document.getElementById("testsGrid");
-    // أثناء البحث: أظهر النتائج مباشرة تحت مربع البحث وأخفِ التصنيفات والإحصاءات.
-    if (grid && searchWrap && inputRow && filterBar && stats) {
-      if (!grid._originalPlace) {
-        grid._originalPlace = document.createComment("original tests grid position");
-        grid.parentNode.insertBefore(grid._originalPlace, grid);
-      }
-      if (q) {
-        filterBar.style.display = "none";
-        stats.style.display = "none";
-        inputRow.insertAdjacentElement("afterend", grid);
-      } else {
-        filterBar.style.display = "";
-        stats.style.display = "";
-        if (grid._originalPlace.parentNode) grid._originalPlace.parentNode.insertBefore(grid, grid._originalPlace);
-      }
+    if (filterBar) {
+      filterBar.style.display = words.length > 0 ? "none" : "";
     }
+
     var cards = document.querySelectorAll("#testsGrid .test-item");
     var visibleCount = 0;
 
     for (var i = 0; i < cards.length; i++) {
       var card = cards[i];
       var cat = card.getAttribute("data-test-cat") || "";
-      var blob = normalizeSearchText((card.getAttribute("data-test-search") || "") + " " + (card.textContent || ""));
-      var matchCat = (currentTestCat === "الكل" || cat === currentTestCat);
-      var matchQuery = (!q || blob.indexOf(q) !== -1 || q.split(" ").filter(Boolean).every(function(word){ return blob.indexOf(word) !== -1; }));
+      var blob = normalizeSearchText(
+        (card.getAttribute("data-test-search") || "") + " " + (card.textContent || "")
+      );
+
+      var matchCat = words.length > 0 ? true : (currentTestCat === "الكل" || cat === currentTestCat);
+      var matchQuery = words.length === 0 || words.every(function(word) {
+        return blob.indexOf(word) !== -1;
+      });
+
       if (matchCat && matchQuery) {
         card.classList.remove("hidden-test");
         visibleCount++;
@@ -4764,7 +4757,11 @@ button,a,input,select,textarea{transition:all .2s ease}.btn:hover,.add-pkg-btn:h
 
     var countText = document.getElementById("testsCountText");
     if (countText) {
-      countText.textContent = "عرض " + visibleCount + " من أصل " + testsData.length + " فحص";
+      if (words.length > 0) {
+        countText.textContent = "نتائج البحث عن \"" + rawQuery + "\": " + visibleCount + " من أصل " + testsData.length + " فحص";
+      } else {
+        countText.textContent = "عرض " + visibleCount + " من أصل " + testsData.length + " فحص";
+      }
     }
   }
 
@@ -5991,12 +5988,91 @@ apply();
   });
 })();
 </script>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-    });
+
+
+<style id="mobile-basket-and-search-fix">
+  /* 1. تصغير وترتيب شريط السلة السفلي على الموبايل */
+  @media (max-width: 600px) {
+    body {
+      padding-bottom: 92px !important;
+    }
+
+    .calc-bar {
+      padding: 8px 10px calc(8px + env(safe-area-inset-bottom)) !important;
+      border-radius: 16px 16px 0 0 !important;
+    }
+
+    .calc-inner {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 6px !important;
+    }
+
+    .calc-summary {
+      font-size: 0.82rem !important;
+      line-height: 1.3 !important;
+      text-align: center !important;
+      margin: 0 !important;
+    }
+
+    .calc-summary span {
+      font-size: 0.96rem !important;
+    }
+
+    /* ترتيب الأزرار الأربعة في صفين متساويين (2 × 2) بحجم مدمج */
+    .calc-actions {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 5px !important;
+      width: 100% !important;
+    }
+
+    .calc-actions button,
+    .calc-actions a {
+      min-height: 34px !important;
+      height: 34px !important;
+      padding: 4px 6px !important;
+      font-size: 0.74rem !important;
+      border-radius: 9px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      margin: 0 !important;
+      width: 100% !important;
+    }
+
+    .smart-basket-panel {
+      max-height: 32vh !important;
+      padding: 10px !important;
+      font-size: 0.8rem !important;
+    }
+
+    /* 2. منع الشاشة البيضاء الفارغة عند البحث في الموبايل */
+    #tests {
+      min-height: 65vh !important;
+    }
   }
+</style>
+
+<script id="mobile-search-scroll-fix">
+  (function () {
+    var searchInput = document.getElementById("testSearch");
+    var testsSection = document.getElementById("tests");
+    if (!searchInput || !testsSection) return;
+
+    searchInput.addEventListener("input", function () {
+      requestAnimationFrame(function () {
+        var rect = searchInput.getBoundingClientRect();
+        if (rect.top < 0 || rect.top > window.innerHeight * 0.6) {
+          searchInput.scrollIntoView({ behavior: "auto", block: "nearest" });
+        }
+      });
+    });
+  })();
 </script>
 
 </body>
