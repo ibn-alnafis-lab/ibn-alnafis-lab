@@ -4303,6 +4303,13 @@ button,a,input,select,textarea{transition:all .2s ease}.btn:hover,.add-pkg-btn:h
         <div class="selected-chips" id="formSelectedChips">
           <span style="font-size:0.83rem; color:#64748b;">لم يتم اختيار باقات أو فحوصات من القائمة بعد (يمكنك الاختيار من الأعلى أو كتابة/إرفاق الفحص بالأسفل).</span>
         </div>
+        <div class="quick-select-row" id="quickSelectRow" style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center;">
+          <select id="quickSelectDropdown" aria-label="اختيار سريع لفحص أو باقة" style="flex:1; min-width:220px; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:10px; background:#fff; color:#0f172a; font-size:0.88rem; font-weight:700;">
+            <option value="">⚡ اختيار سريع لفحص أو باقة...</option>
+            <optgroup id="quickTestsOptGroup" label="الفحوصات الفردية"></optgroup>
+          </select>
+          <button type="button" id="quickAddBtn" class="btn btn-primary" style="padding:9px 14px; font-size:0.86rem; border-radius:10px; white-space:nowrap;">+ إضافة سريعة</button>
+        </div>
       </div>
 
       <!-- Custom / Unlisted Test & Image Attachment -->
@@ -5064,18 +5071,21 @@ button,a,input,select,textarea{transition:all .2s ease}.btn:hover,.add-pkg-btn:h
     if (!nameEl || !nameEl.value.trim()) { alert("يرجى كتابة اسم المراجع لإكمال الطلب."); if (nameEl) nameEl.focus(); return; }
     var serviceEl = document.getElementById("serviceType");
     if (!serviceEl || !serviceEl.value) { alert("يرجى اختيار طريقة الخدمة: سحب منزلي أو زيارة المختبر."); if (serviceEl) serviceEl.focus(); return; }
-    var optionalPhone = document.getElementById("patientPhone");
-    if (optionalPhone && optionalPhone.value.trim() && !/^07\d{9}$/.test(optionalPhone.value.trim())) { alert("يرجى التأكد من رقم الهاتف العراقي (11 رقم ويبدأ بـ 07)، أو تركه فارغاً."); optionalPhone.focus(); return; }
+    var phoneEl = document.getElementById("patientPhone");
+    var phoneVal = phoneEl ? phoneEl.value.trim() : "";
     if (serviceEl.value === "home") {
       var addressEl = document.getElementById("patientAddress");
-      var phoneEl = document.getElementById("patientPhone");
       var dateEl = document.getElementById("visitDate");
       var timeEl = document.getElementById("visitTime");
       if (!addressEl || !addressEl.value.trim()) { alert("يرجى كتابة عنوان السحب المنزلي وأقرب نقطة دالة."); if (addressEl) addressEl.focus(); return; }
-      if (!phoneEl || !phoneEl.value.trim()) { alert("يرجى كتابة رقم هاتف للتواصل."); if (phoneEl) phoneEl.focus(); return; }
-      if (!/^07\d{9}$/.test(phoneEl.value.trim())) { alert("يرجى التأكد من رقم الهاتف العراقي (11 رقم ويبدأ بـ 07). "); phoneEl.focus(); return; }
+      if (!phoneVal) { alert("يرجى كتابة رقم هاتف للتواصل لتأكيد السحب المنزلي."); if (phoneEl) phoneEl.focus(); return; }
+      if (!/^07\d{9}$/.test(phoneVal)) { alert("يرجى التأكد من رقم الهاتف العراقي (11 رقم ويبدأ بـ 07)."); if (phoneEl) phoneEl.focus(); return; }
       if (!dateEl || !dateEl.value) { alert("يرجى تحديد تاريخ السحب المنزلي."); if (dateEl) dateEl.focus(); return; }
       if (!timeEl || !timeEl.value) { alert("يرجى تحديد الوقت المناسب للسحب."); if (timeEl) timeEl.focus(); return; }
+    } else if (phoneVal && !/^07\d{9}$/.test(phoneVal)) {
+      alert("يرجى التأكد من رقم الهاتف العراقي (11 رقم ويبدأ بـ 07)، أو تركه فارغاً.");
+      if (phoneEl) phoneEl.focus();
+      return;
     }
     var built = buildWhatsAppMessage();
     var unlistedEl = document.getElementById("unlistedTestsInput");
@@ -6073,6 +6083,198 @@ apply();
       });
     });
   })();
+</script>
+
+
+<style id="basket-keyboard-and-sent-state">
+  /* إبقاء السلة ثابتة أسفل الشاشة وإخفاؤها أثناء فتح الكيبورد حتى لا تصعد فوق لوحة المفاتيح */
+  .calc-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: translateZ(0);
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+  }
+
+  body.keyboard-open .calc-bar {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /* تنسيق زر "تم الإرسال للمختبر" */
+  .btn-sent-lab {
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0f766e 0%, #115e59 100%) !important;
+    color: #ffffff !important;
+    border: 1.5px solid #5eead4 !important;
+    border-radius: 13px !important;
+    font-weight: 900 !important;
+    cursor: default !important;
+    box-shadow: 0 4px 14px rgba(15, 118, 110, 0.25) !important;
+    opacity: 0.96;
+  }
+
+  .btn-sent-lab.is-sent {
+    display: inline-flex !important;
+  }
+
+  .btn-whatsapp.is-hidden-after-send {
+    display: none !important;
+  }
+
+  #barSentLabBtn {
+    padding: 8px 14px !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
+  }
+
+  @media (max-width: 600px) {
+    #barSentLabBtn {
+      min-height: 34px !important;
+      height: 34px !important;
+      padding: 4px 8px !important;
+      font-size: 0.72rem !important;
+    }
+  }
+</style>
+
+<script id="basket-keyboard-and-sent-script">
+(function () {
+  /* أولاً: منع صعود السلة فوق الكيبورد عند الكتابة */
+  var baseHeight = window.innerHeight;
+
+  function updateKeyboardState() {
+    var active = document.activeElement;
+    var isInputFocused = active && (
+      active.tagName === "INPUT" ||
+      active.tagName === "TEXTAREA" ||
+      active.tagName === "SELECT"
+    ) && active.type !== "file" && active.type !== "checkbox" && active.type !== "radio";
+
+    var viewportShrunk = false;
+    if (window.visualViewport) {
+      viewportShrunk = window.visualViewport.height < baseHeight * 0.78;
+    }
+
+    if (isInputFocused || viewportShrunk) {
+      document.body.classList.add("keyboard-open");
+    } else {
+      document.body.classList.remove("keyboard-open");
+      if (window.visualViewport && window.visualViewport.height > baseHeight) {
+        baseHeight = window.visualViewport.height;
+      }
+    }
+  }
+
+  document.addEventListener("focusin", updateKeyboardState);
+  document.addEventListener("focusout", function () {
+    setTimeout(updateKeyboardState, 120);
+  });
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", updateKeyboardState);
+  }
+
+  /* ثانياً: إدارة حالة أزرار الإرسال (قبل الإرسال / بعد الإرسال / عند التعديل) */
+  var formWaBtn = document.getElementById("sendWhatsAppBtn");
+  var barWaBtn = document.getElementById("barSendWaBtn");
+  var orderSent = false;
+
+  var oldFormSent = document.getElementById("formSentLabBtn");
+  if (oldFormSent) oldFormSent.remove();
+  var oldBarSent = document.getElementById("barSentLabBtn");
+  if (oldBarSent) oldBarSent.remove();
+
+  // 1. إنشاء زر "تم الإرسال للمختبر" في النموذج (مخفي افتراضياً)
+  var formSentBtn = document.createElement("button");
+  formSentBtn.type = "button";
+  formSentBtn.id = "formSentLabBtn";
+  formSentBtn.className = "btn btn-sent-lab";
+  formSentBtn.style.flex = "2";
+  formSentBtn.style.fontSize = "1.02rem";
+  formSentBtn.disabled = true;
+  formSentBtn.textContent = "✅ تم الإرسال للمختبر";
+  if (formWaBtn && formWaBtn.parentNode) {
+    formWaBtn.parentNode.insertBefore(formSentBtn, formWaBtn.nextSibling);
+  }
+
+  // 2. إنشاء زر "تم الإرسال للمختبر" في شريط السلة السفلي (مخفي افتراضياً)
+  var barSentBtn = document.createElement("button");
+  barSentBtn.type = "button";
+  barSentBtn.id = "barSentLabBtn";
+  barSentBtn.className = "btn btn-sent-lab";
+  barSentBtn.disabled = true;
+  barSentBtn.textContent = "✅ تم الإرسال للمختبر";
+  if (barWaBtn && barWaBtn.parentNode) {
+    barWaBtn.parentNode.insertBefore(barSentBtn, barWaBtn.nextSibling);
+  }
+
+  // دالة التحكم بحالة الأزرار (الحالة 1 والحالة 2)
+  function setSentState(sent) {
+    orderSent = sent;
+    if (formWaBtn) formWaBtn.classList.toggle("is-hidden-after-send", sent);
+    if (barWaBtn) barWaBtn.classList.toggle("is-hidden-after-send", sent);
+    formSentBtn.classList.toggle("is-sent", sent);
+    barSentBtn.classList.toggle("is-sent", sent);
+  }
+
+  // التأكد من الحالة الابتدائية عند تحميل الصفحة (زر واتساب ظاهر، تم الإرسال مخفي)
+  setSentState(false);
+
+  // الحالة 2: لحظة الضغط الفعلي على زر "إرسال للواتساب"
+  function onWhatsAppBtnClick() {
+    var nameEl = document.getElementById("patientName");
+    var hasName = nameEl && nameEl.value.trim().length > 0;
+    setTimeout(function () {
+      if (hasName) {
+        setSentState(true);
+      }
+    }, 100);
+  }
+
+  if (formWaBtn) formWaBtn.addEventListener("click", onWhatsAppBtnClick);
+  if (barWaBtn) barWaBtn.addEventListener("click", onWhatsAppBtnClick);
+
+  // الحالة 3: إذا رجع المراجع وعدّل السلة (إضافة/حذف فحص أو باقة، مسح الكل، أو تعديل البيانات)
+  document.addEventListener("click", function (e) {
+    if (!orderSent) return;
+    var actEl = e.target.closest
+      ? e.target.closest(
+          "[data-action='toggle-test'], [data-action='toggle-pkg'], .chip-remove, .remove-smart-item, #clearAllBtn, #quickAddBtn, .service-choice-btn"
+        )
+      : null;
+    if (actEl) {
+      setSentState(false);
+    }
+  });
+
+  [
+    "patientName",
+    "branchSelect",
+    "visitDate",
+    "visitTime",
+    "patientAddress",
+    "patientPhone",
+    "unlistedTestsInput",
+    "patientNotes",
+    "quickTestSelect"
+  ].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", function () {
+        if (orderSent) setSentState(false);
+      });
+      el.addEventListener("change", function () {
+        if (orderSent) setSentState(false);
+      });
+    }
+  });
+})();
 </script>
 
 </body>
